@@ -8,6 +8,6 @@ project(HelloSDL)
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
 
-add_executable(HelloSDL main.cpp Game.h)
+add_executable(HelloSDL main.cpp Game.h Game.cpp)
 target_link_libraries(HelloSDL ${SDL2_LIBRARIES})
 
