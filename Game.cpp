@@ -34,9 +34,37 @@ bool Game::init(const char* title, int x, int y, int w, int h, int flags)
 
 void Game::render()
 {
+    // render texture
+
+    SDL_Surface* tempSurface = IMG_Load("/home/jack/CLionProjects/HelloSDL/res/test.png");
+    if(!tempSurface) {
+        printf("IMG_Load: %s\n", IMG_GetError());
+        running = false;
+        // handle error
+    }
+
+    SDL_Texture* texture;
+    texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
+    SDL_FreeSurface(tempSurface);
+
+    SDL_Rect sourceRec;
+    SDL_Rect destRec;
+
+    SDL_QueryTexture(texture, NULL, NULL, &sourceRec.w, &sourceRec.h);
+
+    destRec.x = sourceRec.x = 0;
+    destRec.y = sourceRec.y = 0;
+    destRec.h = sourceRec.h;
+    destRec.w = sourceRec.w;
+
     SDL_RenderClear(renderer);
+
+    SDL_RenderCopy(renderer, texture, &sourceRec, & destRec);
+
     SDL_RenderPresent(renderer);
+
 }
+
 
 void Game::clean()
 {
