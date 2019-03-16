@@ -15,8 +15,8 @@ public:
     Game() {}
     ~Game() {}
 
-    int animateX = 0;
     int m_currentFrame;
+    int m_animSpeed;
 
     bool init(const char*, int, int, int, int, int);
     void render();

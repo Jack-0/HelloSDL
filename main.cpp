@@ -11,7 +11,7 @@ int main()
 {
     game = new Game();
 
-    game->init("Hello SDL", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 600, 600, 0);
+    game->init("Hello SDL", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1440, 900, 0);
 
     while(game->isRunning())
     {
