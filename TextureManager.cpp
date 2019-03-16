@@ -4,6 +4,8 @@
 
 #include "TextureManager.h"
 
+TextureManager* TextureManager::s_pInstance = 0;
+
 bool TextureManager::load(std::string filename, std::string id, SDL_Renderer* renderer)
 {
     SDL_Surface* pTempSurface = IMG_Load(filename.c_str());

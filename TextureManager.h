@@ -19,7 +19,20 @@ public:
     bool load(std::string, std::string, SDL_Renderer*);
     void draw(std::string, int, int, int, int, SDL_Renderer*, SDL_RendererFlip = SDL_FLIP_NONE);
     void drawFrame(std::string, int, int, int, int, int, int, SDL_Renderer*, SDL_RendererFlip = SDL_FLIP_NONE);
+
+    static  TextureManager* Instance()
+    {
+        if(s_pInstance == 0)
+        {
+            s_pInstance = new TextureManager();
+            return s_pInstance;
+        }
+    }
+
+private:
+    TextureManager() {};
+    static TextureManager* s_pInstance;
 };
 
-
+typedef TextureManager TheTextureManager;
 #endif //HELLOSDL_TEXTUREMANAGER_H

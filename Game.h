@@ -17,7 +17,6 @@ public:
 
     int animateX = 0;
     int m_currentFrame;
-    TextureManager m_textureManger;
 
     bool init(const char*, int, int, int, int, int);
     void render();

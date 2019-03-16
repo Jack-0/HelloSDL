@@ -28,7 +28,11 @@ bool Game::init(const char* title, int x, int y, int w, int h, int flags)
         { return false; }
 
     // load a texture
-    m_textureManger.load("/home/jack/CLionProjects/HelloSDL/res/test.png","tower", renderer);
+    if(!TheTextureManager::Instance()->load("/home/jack/CLionProjects/HelloSDL/res/test.png","tower", renderer))
+    {
+        std::cout << "Error with the texture manager" << std::endl;
+        return false;
+    }
 
     running = true;
     return true;
@@ -38,8 +42,8 @@ void Game::render()
 {
     SDL_RenderClear(renderer);
     // render start
-    m_textureManger.draw("tower",0,0,256,382,renderer);
-    m_textureManger.drawFrame("tower",100,0,256,382,1,m_currentFrame, renderer);
+    TheTextureManager::Instance()->draw("tower",0,0,256,382,renderer);
+    TheTextureManager::Instance()->drawFrame("tower",100,0,256,382,1,m_currentFrame, renderer);
     // render end
     SDL_RenderPresent(renderer);
 }
