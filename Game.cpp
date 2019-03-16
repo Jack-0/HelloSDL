@@ -37,8 +37,8 @@ void Game::render()
     // render texture
     SDL_RenderClear(renderer);
     draw("/home/jack/CLionProjects/HelloSDL/res/test.png", 0, 0, false);
-    draw("/home/jack/CLionProjects/HelloSDL/res/npc.png", 300, 300, true);
-    draw("/home/jack/CLionProjects/HelloSDL/res/dice.png", 0,0, false);
+    //draw("/home/jack/CLionProjects/HelloSDL/res/npc.png", 300, 300, true);
+    //draw("/home/jack/CLionProjects/HelloSDL/res/dice.png", 0,0, false);
     SDL_RenderPresent(renderer);
 }
 
@@ -56,28 +56,24 @@ void Game::draw(const char * location, int x, int y, bool resize)
     texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
     SDL_FreeSurface(tempSurface);
 
-
-
-    SDL_Rect sourceRec;
-    SDL_Rect destRec;
+    SDL_Rect sourceRec; // x = start pos, y = start pos, w and h are already known
+    SDL_Rect destRec;   // x = draw pos, y = draw pos, w and h can be changed to scale image
 
     SDL_QueryTexture(texture, NULL, NULL, &sourceRec.w, &sourceRec.h);
-
 
     destRec.x = sourceRec.x = 0;
     destRec.y = sourceRec.y = 0;
 
+    // for animation only
+    sourceRec.w = 256;
+    sourceRec.h = 382;
 
     destRec.h = sourceRec.h;
     destRec.w = sourceRec.w;
 
-    if(y != 0)
+    if(y != 0 || x != 0)
     {
         destRec.x = x;
-    }
-
-    if( x != 0)
-    {
         destRec.y = y;
     }
 
@@ -87,10 +83,17 @@ void Game::draw(const char * location, int x, int y, bool resize)
         destRec.w = 100;
     }
 
+    //TODO
+    sourceRec.x = animateX;
 
+    /// passing null as source and dest will use the entire render for display
     SDL_RenderCopy(renderer, texture, &sourceRec, & destRec);
 }
 
+void Game::update()
+{
+    animateX = 256 * int (((SDL_GetTicks() / 60 ) % 8));
+}
 
 void Game::clean()
 {

@@ -15,6 +15,8 @@ public:
     Game() {}
     ~Game() {}
 
+    int animateX = 0;
+
     bool init(const char*, int, int, int, int, int);
     void render();
     void update();
