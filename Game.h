@@ -23,6 +23,7 @@ public:
     bool isRunning() { return running; }
 
 private:
+    void draw(const char*, int, int, bool);
     bool running;
     SDL_Window* window;
     SDL_Renderer* renderer;

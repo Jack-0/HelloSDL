@@ -35,34 +35,50 @@ bool Game::init(const char* title, int x, int y, int w, int h, int flags)
 void Game::render()
 {
     // render texture
+    SDL_RenderClear(renderer);
+    draw("/home/jack/CLionProjects/HelloSDL/res/test.png", 0, 0, false);
+    draw("/home/jack/CLionProjects/HelloSDL/res/npc.png", 0, 300, true);
+    draw("/home/jack/CLionProjects/HelloSDL/res/dice.png", 0,0, false);
+    SDL_RenderPresent(renderer);
+}
 
-    SDL_Surface* tempSurface = IMG_Load("/home/jack/CLionProjects/HelloSDL/res/test.png");
+void Game::draw(const char * location, int x, int y, bool resize)
+{
+    SDL_Surface* tempSurface = IMG_Load(location);
     if(!tempSurface) {
         printf("IMG_Load: %s\n", IMG_GetError());
         running = false;
         // handle error
     }
 
+
     SDL_Texture* texture;
     texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
     SDL_FreeSurface(tempSurface);
+
+
 
     SDL_Rect sourceRec;
     SDL_Rect destRec;
 
     SDL_QueryTexture(texture, NULL, NULL, &sourceRec.w, &sourceRec.h);
 
-    destRec.x = sourceRec.x = 0;
-    destRec.y = sourceRec.y = 0;
+
+    destRec.x = sourceRec.x = x;
+    destRec.y = sourceRec.y = y;
+
+
     destRec.h = sourceRec.h;
     destRec.w = sourceRec.w;
 
-    SDL_RenderClear(renderer);
+    if(resize)
+    {
+        destRec.h = 100;
+        destRec.w = 100;
+    }
+
 
     SDL_RenderCopy(renderer, texture, &sourceRec, & destRec);
-
-    SDL_RenderPresent(renderer);
-
 }
 
 
