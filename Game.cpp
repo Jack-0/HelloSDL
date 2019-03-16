@@ -37,7 +37,7 @@ void Game::render()
     // render texture
     SDL_RenderClear(renderer);
     draw("/home/jack/CLionProjects/HelloSDL/res/test.png", 0, 0, false);
-    draw("/home/jack/CLionProjects/HelloSDL/res/npc.png", 0, 300, true);
+    draw("/home/jack/CLionProjects/HelloSDL/res/npc.png", 300, 300, true);
     draw("/home/jack/CLionProjects/HelloSDL/res/dice.png", 0,0, false);
     SDL_RenderPresent(renderer);
 }
@@ -64,12 +64,22 @@ void Game::draw(const char * location, int x, int y, bool resize)
     SDL_QueryTexture(texture, NULL, NULL, &sourceRec.w, &sourceRec.h);
 
 
-    destRec.x = sourceRec.x = x;
-    destRec.y = sourceRec.y = y;
+    destRec.x = sourceRec.x = 0;
+    destRec.y = sourceRec.y = 0;
 
 
     destRec.h = sourceRec.h;
     destRec.w = sourceRec.w;
+
+    if(y != 0)
+    {
+        destRec.x = x;
+    }
+
+    if( x != 0)
+    {
+        destRec.y = y;
+    }
 
     if(resize)
     {
