@@ -27,6 +27,8 @@ bool Game::init(const char* title, int x, int y, int w, int h, int flags)
     } else
         { return false; }
 
+    // load a texture
+    m_textureManger.load("/home/jack/CLionProjects/HelloSDL/res/test.png","tower", renderer);
 
     running = true;
     return true;
@@ -34,65 +36,17 @@ bool Game::init(const char* title, int x, int y, int w, int h, int flags)
 
 void Game::render()
 {
-    // render texture
     SDL_RenderClear(renderer);
-    draw("/home/jack/CLionProjects/HelloSDL/res/test.png", 0, 0, false);
-    //draw("/home/jack/CLionProjects/HelloSDL/res/npc.png", 300, 300, true);
-    //draw("/home/jack/CLionProjects/HelloSDL/res/dice.png", 0,0, false);
+    // render start
+    m_textureManger.draw("tower",0,0,256,382,renderer);
+    m_textureManger.drawFrame("tower",100,0,256,382,1,m_currentFrame, renderer);
+    // render end
     SDL_RenderPresent(renderer);
-}
-
-void Game::draw(const char * location, int x, int y, bool resize)
-{
-    SDL_Surface* tempSurface = IMG_Load(location);
-    if(!tempSurface) {
-        printf("IMG_Load: %s\n", IMG_GetError());
-        running = false;
-        // handle error
-    }
-
-
-    SDL_Texture* texture;
-    texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
-    SDL_FreeSurface(tempSurface);
-
-    SDL_Rect sourceRec; // x = start pos, y = start pos, w and h are already known
-    SDL_Rect destRec;   // x = draw pos, y = draw pos, w and h can be changed to scale image
-
-    SDL_QueryTexture(texture, NULL, NULL, &sourceRec.w, &sourceRec.h);
-
-    destRec.x = sourceRec.x = 0;
-    destRec.y = sourceRec.y = 0;
-
-    // for animation only
-    sourceRec.w = 256;
-    sourceRec.h = 382;
-
-    destRec.h = sourceRec.h;
-    destRec.w = sourceRec.w;
-
-    if(y != 0 || x != 0)
-    {
-        destRec.x = x;
-        destRec.y = y;
-    }
-
-    if(resize)
-    {
-        destRec.h = 100;
-        destRec.w = 100;
-    }
-
-    //TODO
-    sourceRec.x = animateX;
-
-    /// passing null as source and dest will use the entire render for display
-    SDL_RenderCopy(renderer, texture, &sourceRec, & destRec);
 }
 
 void Game::update()
 {
-    animateX = 256 * int (((SDL_GetTicks() / 60 ) % 8));
+    m_currentFrame = int (((SDL_GetTicks() / 60 ) % 8));
 }
 
 void Game::clean()

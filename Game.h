@@ -7,7 +7,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-
+#include "TextureManager.h"
 
 class Game
 {
@@ -16,6 +16,8 @@ public:
     ~Game() {}
 
     int animateX = 0;
+    int m_currentFrame;
+    TextureManager m_textureManger;
 
     bool init(const char*, int, int, int, int, int);
     void render();
