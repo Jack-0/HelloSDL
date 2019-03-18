@@ -8,6 +8,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "TextureManager.h"
+#include "GameObject.h"
+#include "Player.h"
 
 class Game
 {
@@ -26,6 +28,10 @@ public:
     bool isRunning() { return running; }
 
 private:
+
+    GameObject* gameObject = nullptr;
+    Player* player = nullptr;
+
     void draw(const char*, int, int, bool);
     bool running;
     SDL_Window* window;

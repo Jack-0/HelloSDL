@@ -11,6 +11,11 @@ bool Game::init(const char* title, int x, int y, int w, int h, int flags)
 {
     m_animSpeed = 60;
 
+    gameObject = new GameObject();
+    player = new Player();
+    gameObject->load(100,100, 256, 382, "tower1");
+    player->load(720,450, 256, 382, "tower1");
+
     if(SDL_INIT_EVERYTHING >= 0)
     {
         std::cout << "SDL initialisation successful" << std::endl;
@@ -53,18 +58,24 @@ bool Game::init(const char* title, int x, int y, int w, int h, int flags)
 void Game::render()
 {
     SDL_RenderClear(renderer);
-    // render start
-    //TheTextureManager::Instance()->draw("tower",0,0,256,382,renderer);
+    /// render start#
+    /*
     TheTextureManager::Instance()->drawFrame("tower1",0,0,256,382,1, m_currentFrame, renderer);
     TheTextureManager::Instance()->drawFrame("tower2",256,0,256,382,1, m_currentFrame, renderer);
     TheTextureManager::Instance()->drawFrame("tower3",256 * 2,0,256,382,1, m_currentFrame, renderer);
-    // render end
+     */
+    player->draw(renderer);
+    gameObject->draw(renderer);
+
+    /// render end
     SDL_RenderPresent(renderer);
 }
 
 void Game::update()
 {
     m_currentFrame = int (((SDL_GetTicks() / m_animSpeed ) % 8));
+    player->update();
+    gameObject->update();
 }
 
 void Game::clean()
