@@ -11,10 +11,26 @@ bool Game::init(const char* title, int x, int y, int w, int h, int flags)
 {
     m_animSpeed = 60;
 
-    gameObject = new GameObject();
-    player = new Player();
-    gameObject->load(100,100, 256, 382, "tower1");
-    player->load(720,450, 256, 382, "tower1");
+    m_player = new Player();
+    m_gameObject1 = new GameObject();
+    m_gameObject2 = new GameObject();
+    m_gameObject3 = new GameObject();
+
+    m_gameObjects.push_back(m_player);
+    m_gameObjects.push_back(m_gameObject1);
+    m_gameObjects.push_back(m_gameObject2);
+    m_gameObjects.push_back(m_gameObject3);
+
+
+    m_player->load(100,100, 256, 382, "tower1");
+    m_gameObject1->load(720-100,450, 256, 382, "tower2");
+    m_gameObject2->load(720-400,450, 256, 382, "tower2");
+    m_gameObject3->load(720-700,450, 256, 382, "tower2");
+
+    m_enemy = new Enemy();
+    m_gameObjects.push_back(m_enemy);
+    m_enemy->load(0,0,256,882,"tower3");
+
 
     if(SDL_INIT_EVERYTHING >= 0)
     {
@@ -64,18 +80,32 @@ void Game::render()
     TheTextureManager::Instance()->drawFrame("tower2",256,0,256,382,1, m_currentFrame, renderer);
     TheTextureManager::Instance()->drawFrame("tower3",256 * 2,0,256,382,1, m_currentFrame, renderer);
      */
-    player->draw(renderer);
-    gameObject->draw(renderer);
+ //   player->draw(renderer);
+ //   gameObject->draw(renderer);
 
+    draw();
     /// render end
     SDL_RenderPresent(renderer);
 }
 
+void Game::draw()
+{
+    for(std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++)
+    {
+        m_gameObjects[i]->draw(renderer);
+    }
+}
+
+
 void Game::update()
 {
     m_currentFrame = int (((SDL_GetTicks() / m_animSpeed ) % 8));
-    player->update();
-    gameObject->update();
+   // player->update();
+   // gameObject->update();
+    for(std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++)
+    {
+        m_gameObjects[i]->update();
+    }
 }
 
 void Game::clean()

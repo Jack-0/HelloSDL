@@ -7,9 +7,11 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <vector>
 #include "TextureManager.h"
 #include "GameObject.h"
 #include "Player.h"
+#include "Enemy.h"
 
 class Game
 {
@@ -17,8 +19,6 @@ public:
     Game() {}
     ~Game() {}
 
-    int m_currentFrame;
-    int m_animSpeed;
 
     bool init(const char*, int, int, int, int, int);
     void render();
@@ -32,7 +32,18 @@ private:
     GameObject* gameObject = nullptr;
     Player* player = nullptr;
 
-    void draw(const char*, int, int, bool);
+    int m_currentFrame;
+    int m_animSpeed;
+
+    std::vector<GameObject*> m_gameObjects;
+    GameObject* m_player;
+    GameObject* m_gameObject1;
+    GameObject* m_gameObject2;
+    GameObject* m_gameObject3;
+    GameObject* m_enemy;
+
+
+    void draw();
     bool running;
     SDL_Window* window;
     SDL_Renderer* renderer;
