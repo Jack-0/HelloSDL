@@ -6,11 +6,13 @@
 
 #include "Game.h"
 
+Game* Game::s_pInstance = 0;
 
 bool Game::init(const char* title, int x, int y, int w, int h, int flags)
 {
     m_animSpeed = 60;
 
+    /*
     m_player = new Player();
     m_gameObject1 = new GameObject();
     m_gameObject2 = new GameObject();
@@ -29,8 +31,12 @@ bool Game::init(const char* title, int x, int y, int w, int h, int flags)
 
     m_enemy = new Enemy();
     m_gameObjects.push_back(m_enemy);
-    m_enemy->load(0,0,256,882,"tower3");
+    m_enemy->load(0,0,256,382,"tower3");
 
+     */
+
+    m_gameObjects.push_back(new Player(new LoaderParams(100,100, 256, 382, "tower1")));
+    m_gameObjects.push_back(new Enemy(new LoaderParams(900,100,256, 382, "tower3")));
 
     if(SDL_INIT_EVERYTHING >= 0)
     {
@@ -92,7 +98,7 @@ void Game::draw()
 {
     for(std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++)
     {
-        m_gameObjects[i]->draw(renderer);
+        m_gameObjects[i]->draw();
     }
 }
 

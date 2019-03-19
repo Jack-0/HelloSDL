@@ -6,32 +6,21 @@
 #define HELLOSDL_GAMEOBJECT_H
 
 
-#include <iostream>
-#include <SDL2/SDL.h>
-#include "TextureManager.h"
+#include "LoaderParams.h"
 
 class GameObject
 {
 public:
 
-    // virtual: use definition from type of object itself not not the type of it's pointer
-    virtual void load(int x, int y, int  w, int h, std::string id);
-    virtual void draw(SDL_Renderer* prenderer);
-    virtual void update();
-    //virtual void clean();
+    //virtual void load() = 0;
+    virtual void draw() = 0;
+    virtual void update() = 0;
+    //virtual void clean() = 0;
 
 protected:
 
-    std::string m_texture_id;
-
-    int m_currentFrame = 1;
-    int m_currentRow = 1;
-
-    int m_x;
-    int m_y;
-
-    int m_height;
-    int m_width;
+    GameObject(const LoaderParams* pParams) {}
+    virtual ~GameObject() {}
 
 };
 

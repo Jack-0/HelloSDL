@@ -4,9 +4,28 @@
 
 #include "Enemy.h"
 
+Enemy::Enemy(const LoaderParams *pParams)
+: SDLGameObject(pParams)
+{
+
+}
+
 void Enemy::update()
 {
-    m_y += 1;
-    m_x += 1;
-    m_currentFrame = int ((SDL_GetTicks() / 100) % 8);
+    //GameObject::update();
+    //SDLGameObject::m_x -= 1;
+    //m_x -= 1;
+    //moveLeft();
 }
+
+void Enemy::draw()
+{
+    SDLGameObject::draw();
+   // GameObject::draw(pRenderer);
+}
+
+/*
+void Enemy::clean()
+{
+}
+ */

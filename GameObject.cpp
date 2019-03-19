@@ -4,6 +4,7 @@
 
 #include "GameObject.h"
 
+/*
 void GameObject::load(int x, int y, int w, int h, std::string id)
 {
     m_x = x;
@@ -23,5 +24,6 @@ void GameObject::update()
     m_x += 1;
     //m_currentFrame = int (((SDL_GetTicks() / 60 ) % 8));
 }
+ */
 
 

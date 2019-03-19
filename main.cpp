@@ -10,19 +10,25 @@ Game* game = nullptr;
 
 int main()
 {
-    game = new Game();
-
-    game->init("Hello SDL", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1440, 900, 0);
-
-    while(game->isRunning())
+    //game = new Game();
+    if(TheGame::Instance()->init("Hello SDL", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1440, 900, 0))
     {
-        game->handleEvents();
-        game->update();
-        game->render();
-        SDL_Delay(10);
+        while(TheGame::Instance()->isRunning())
+        {
+            TheGame::Instance()->handleEvents();
+            TheGame::Instance()->update();
+            TheGame::Instance()->render();
+
+            SDL_Delay(10);
+        }
+    }
+    else
+    {
+        return -1;
     }
 
-    game->clean();
+
+    TheGame::Instance()->clean();
 
     return 0;
 }

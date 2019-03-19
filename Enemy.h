@@ -5,16 +5,18 @@
 #ifndef HELLOSDL_ENEMY_H
 #define HELLOSDL_ENEMY_H
 
-#import "GameObject.h"
+//#import "GameObject.h"
+#include "SDLGameObject.h"
 
-class Enemy : public GameObject
+class Enemy : public SDLGameObject
 {
 public:
 
-    //void load(int x, int y, int w, int h, std::string id);
-    //void draw(SDL_Renderer* pRenderer);
-    void update();
+    Enemy(const LoaderParams* pParams);
 
+    virtual void draw();
+    virtual void update();
+    //virtual void clean();
 };
 
 

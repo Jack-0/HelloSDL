@@ -4,18 +4,28 @@
 
 #include "Player.h"
 
-void Player::load(int x, int y, int w, int h, std::string id)
+Player::Player(const LoaderParams *pParams)
+: SDLGameObject(pParams)
 {
-    GameObject::load(x,y,w,h,id);
+
 }
 
 void Player::update()
 {
     //GameObject::update();
-    m_x -= 1;
+    //SDLGameObject::m_x -= 1;
+    //m_x -= 1;
+    moveRight();
 }
 
-void Player::draw(SDL_Renderer *pRenderer)
+void Player::draw()
 {
-    GameObject::draw(pRenderer);
+    SDLGameObject::draw();
+   // GameObject::draw(pRenderer);
 }
+
+/*
+void Player::clean()
+{
+}
+ */

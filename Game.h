@@ -16,9 +16,16 @@
 class Game
 {
 public:
-    Game() {}
     ~Game() {}
 
+    static Game* Instance()
+    {
+        if(s_pInstance == 0)
+        {
+            s_pInstance = new Game();
+            return s_pInstance;
+        }
+    }
 
     bool init(const char*, int, int, int, int, int);
     void render();
@@ -27,20 +34,26 @@ public:
     void clean();
     bool isRunning() { return running; }
 
+    SDL_Renderer* getRenderer() const { return renderer; }
+
 private:
 
-    GameObject* gameObject = nullptr;
-    Player* player = nullptr;
+    Game() {}
+
+    static Game* s_pInstance;
+
+    //GameObject* gameObject = nullptr;
+    //Player* player = nullptr;
 
     int m_currentFrame;
     int m_animSpeed;
 
-    std::vector<GameObject*> m_gameObjects;
-    GameObject* m_player;
-    GameObject* m_gameObject1;
-    GameObject* m_gameObject2;
-    GameObject* m_gameObject3;
-    GameObject* m_enemy;
+    std::vector<SDLGameObject*> m_gameObjects;
+    //GameObject* m_player;
+    //GameObject* m_gameObject1;
+    //GameObject* m_gameObject2;
+    //GameObject* m_gameObject3;
+    //GameObject* m_enemy;
 
 
     void draw();
@@ -50,6 +63,8 @@ private:
 
 
 };
+
+typedef Game TheGame;
 
 #endif //HELLOSDL_GAME_H
 
