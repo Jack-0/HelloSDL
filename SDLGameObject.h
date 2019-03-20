@@ -19,6 +19,7 @@ public:
 
     //void moveLeft();
     void moveRight();
+    void changeFrame();
 
 private:
     int m_x;

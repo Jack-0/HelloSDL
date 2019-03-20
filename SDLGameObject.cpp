@@ -31,6 +31,11 @@ void SDLGameObject::moveRight()
     m_x += 1;
 }
 
+void SDLGameObject::changeFrame()
+{
+    m_currentFrame = int ((SDL_GetTicks() / 100) % 8);
+}
+
 void SDLGameObject::update()
 {
     m_currentFrame = int ((SDL_GetTicks() / 100) % 8);

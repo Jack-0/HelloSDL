@@ -16,6 +16,8 @@ void Player::update()
     //SDLGameObject::m_x -= 1;
     //m_x -= 1;
     moveRight();
+    changeFrame();
+
 }
 
 void Player::draw()
