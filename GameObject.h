@@ -8,11 +8,12 @@
 
 #include "LoaderParams.h"
 
+/// GameObject is an abstract class that represent the abstract concept of a game object (interface)
+
 class GameObject
 {
 public:
 
-    //virtual void load() = 0;
     virtual void draw() = 0;
     virtual void update() = 0;
     //virtual void clean() = 0;

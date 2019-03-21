@@ -11,7 +11,7 @@ find_package(SDL2_image REQUIRED)
 
 include_directories(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS})
 
-add_executable(HelloSDL main.cpp Game.h Game.cpp TextureManager.h TextureManager.cpp Player.cpp Player.h GameObject.cpp GameObject.h Enemy.cpp Enemy.h LoaderParams.cpp LoaderParams.h SDLGameObject.cpp SDLGameObject.h)
+add_executable(HelloSDL main.cpp Game.h Game.cpp TextureManager.h TextureManager.cpp Player.cpp Player.h GameObject.h Enemy.cpp Enemy.h LoaderParams.h SDLGameObject.cpp SDLGameObject.h)
 target_link_libraries(HelloSDL ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} )
 
 

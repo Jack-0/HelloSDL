@@ -5,20 +5,21 @@
 #ifndef HELLOSDL_SDLGAMEOBJECT_H
 #define HELLOSDL_SDLGAMEOBJECT_H
 
-//#include "Game.h"
 #include "GameObject.h"
+
+/// SDLGameObject interfaces GameObject and is a specific case that uses SDL
 
 class SDLGameObject : GameObject
 {
 public:
     SDLGameObject(const LoaderParams* pParams);
 
-    virtual void draw();
-    virtual void update();
+    virtual void draw() override;
+    virtual void update() override;
     //virtual void clean();
 
     //void moveLeft();
-    void moveRight();
+    void moveRight ();
     void changeFrame();
 
 private:
@@ -34,6 +35,5 @@ private:
     std::string m_texutreID;
 
 };
-
 
 #endif //HELLOSDL_SDLGAMEOBJECT_H

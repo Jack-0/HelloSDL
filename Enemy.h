@@ -5,7 +5,6 @@
 #ifndef HELLOSDL_ENEMY_H
 #define HELLOSDL_ENEMY_H
 
-//#import "GameObject.h"
 #include "SDLGameObject.h"
 
 class Enemy : public SDLGameObject
@@ -18,6 +17,5 @@ public:
     virtual void update();
     //virtual void clean();
 };
-
 
 #endif //HELLOSDL_ENEMY_H

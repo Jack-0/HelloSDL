@@ -12,9 +12,6 @@ Player::Player(const LoaderParams *pParams)
 
 void Player::update()
 {
-    //GameObject::update();
-    //SDLGameObject::m_x -= 1;
-    //m_x -= 1;
     moveRight();
     changeFrame();
 
@@ -23,11 +20,10 @@ void Player::update()
 void Player::draw()
 {
     SDLGameObject::draw();
-   // GameObject::draw(pRenderer);
 }
 
 /*
 void Player::clean()
 {
 }
- */
+*/

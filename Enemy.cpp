@@ -12,20 +12,15 @@ Enemy::Enemy(const LoaderParams *pParams)
 
 void Enemy::update()
 {
-    //GameObject::update();
-    //SDLGameObject::m_x -= 1;
-    //m_x -= 1;
-    //moveLeft();
 }
 
 void Enemy::draw()
 {
     SDLGameObject::draw();
-   // GameObject::draw(pRenderer);
 }
 
 /*
-void Enemy::clean()
+void Player::clean()
 {
 }
- */
+*/

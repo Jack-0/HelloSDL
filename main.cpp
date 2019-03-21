@@ -27,7 +27,6 @@ int main()
         return -1;
     }
 
-
     TheGame::Instance()->clean();
 
     return 0;

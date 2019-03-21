@@ -18,6 +18,7 @@ class Game
 public:
     ~Game() {}
 
+    /// Ensure game is a singleton
     static Game* Instance()
     {
         if(s_pInstance == 0)
@@ -42,26 +43,14 @@ private:
 
     static Game* s_pInstance;
 
-    //GameObject* gameObject = nullptr;
-    //Player* player = nullptr;
-
-    int m_currentFrame;
-    int m_animSpeed;
-
     std::vector<SDLGameObject*> m_gameObjects;
-    //GameObject* m_player;
-    //GameObject* m_gameObject1;
-    //GameObject* m_gameObject2;
-    //GameObject* m_gameObject3;
-    //GameObject* m_enemy;
-
 
     void draw();
+    void load(std::string name, std::string path);
+
     bool running;
     SDL_Window* window;
     SDL_Renderer* renderer;
-
-
 };
 
 typedef Game TheGame;
