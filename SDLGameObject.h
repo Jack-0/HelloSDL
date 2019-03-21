@@ -6,10 +6,12 @@
 #define HELLOSDL_SDLGAMEOBJECT_H
 
 #include "GameObject.h"
+#include "TextureManager.h"
+#include "Vector2D.h"
 
 /// SDLGameObject interfaces GameObject and is a specific case that uses SDL
 
-class SDLGameObject : GameObject
+class SDLGameObject : public GameObject
 {
 public:
     SDLGameObject(const LoaderParams* pParams);
@@ -23,8 +25,9 @@ public:
     void changeFrame();
 
 private:
-    int m_x;
-    int m_y;
+    //int m_x;
+    //int m_y;
+    Vector2D m_pos;
 
     int m_width;
     int m_height;

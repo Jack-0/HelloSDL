@@ -13,8 +13,8 @@ public:
 
     Player(const LoaderParams* pParams);
 
-    virtual void draw() override;
-    virtual void update() override;
+    virtual void draw();
+    virtual void update();
     //virtual void clean();
 };
 

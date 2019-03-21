@@ -39,8 +39,6 @@ bool Game::init(const char* title, int x, int y, int w, int h, int flags)
         { return false; }
 
     // load textures into the texture manager
-    load("tower1", "../res/tier_2.png");
-    load("tower3", "../res/tier_3.png");
     load("balloon", "../res/balloonPerson.png");
 
     // game is now running

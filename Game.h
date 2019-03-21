@@ -43,7 +43,7 @@ private:
 
     static Game* s_pInstance;
 
-    std::vector<SDLGameObject*> m_gameObjects;
+    std::vector<GameObject*> m_gameObjects;
 
     void draw();
     void load(std::string name, std::string path);
