@@ -4,8 +4,8 @@
 
 #include "Enemy.h"
 
-Enemy::Enemy(const LoaderParams *pParams, int max)
-: SDLGameObject(pParams), max_ttd(max)
+Enemy::Enemy(const LoaderParams *pParams, int max, int type)
+: SDLGameObject(pParams), max_ttd(max), type(type)
 {
 
 }
@@ -38,7 +38,20 @@ void Enemy::draw()
     {
         if(deathTime > 40)
             return;
-        SDLGameObject::drawGiven("balloon_death", deathFrame);
+
+        switch(type)
+        {
+            case RED:
+                SDLGameObject::drawGiven("r_balloon_death", deathFrame);
+                break;
+            case GREEN:
+                SDLGameObject::drawGiven("g_balloon_death", deathFrame);
+                break;
+            case BLUE:
+                SDLGameObject::drawGiven("b_balloon_death", deathFrame);
+                break;
+        }
+
         if(deathTime % 10 == 0)
             deathFrame++;
         deathTime +=1;
