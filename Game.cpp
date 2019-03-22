@@ -33,7 +33,7 @@ bool Game::init(const char* title, int x, int y, int w, int h, int flags)
             if(renderer != 0)
             {
                 std::cout << "Renderer initialisation successful" << std::endl;
-                SDL_SetRenderDrawColor(renderer, 0, 100, 100, 0);
+                SDL_SetRenderDrawColor(renderer, 100, 100, 100, 0);
             }
             else
                 { return false; }
@@ -108,7 +108,7 @@ void Game::update()
             type = 2;
             break;
     }
-    m_gameObjects.push_back(new Enemy(new LoaderParams(-70,getRandom(0,900),68, 128, balloonType),getRandom(0,720),type));
+    m_gameObjects.push_back(new Enemy(new LoaderParams(-70,getRandom(-100,900),68, 128, balloonType),getRandom(0,720),type));
 
     for(std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++)
     {
