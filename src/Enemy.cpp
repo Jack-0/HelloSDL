@@ -36,7 +36,7 @@ void Enemy::draw()
     // if dead render the death frames at a set speed, else render the move animation
     if(dead)
     {
-        if(deathTime > 40)
+        if(deathTime > 20)
             return;
 
         switch(type)
@@ -52,7 +52,7 @@ void Enemy::draw()
                 break;
         }
 
-        if(deathTime % 10 == 0)
+        if(deathTime % 5 == 0)
             deathFrame++;
         deathTime +=1;
     }
