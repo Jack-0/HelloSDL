@@ -20,15 +20,22 @@ public:
     virtual void update() override;
     //virtual void clean();
 
-    //void moveLeft();
+    // animate and draw a certain frame
     void drawGiven(std::string texID, int frame);
-    void moveRight ();
     void changeFrame(int frames, int speed);
 
+    // movement
+    void setXvelocity(float x){m_velocity.setX(x);}
+    void setYvelocity(float y){m_velocity.setY(y);}
+
+    void setXacceleration(float x){m_acceleration.setX(x);}
+    void setYacceleration(float y){m_acceleration.setY(y);}
+
+
 private:
-    //int m_x;
-    //int m_y;
     Vector2D m_pos;
+    Vector2D m_velocity;
+    Vector2D m_acceleration;
 
     int m_width;
     int m_height;

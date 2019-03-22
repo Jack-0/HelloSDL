@@ -6,7 +6,7 @@
 #include "Game.h"
 
 SDLGameObject::SDLGameObject(const LoaderParams *pParams)
-: GameObject(pParams), m_pos(pParams->getX(), pParams->getY())
+: GameObject(pParams), m_pos(pParams->getX(), pParams->getY()), m_velocity(0,0), m_acceleration(0,0)
 {
     //m_x = pParams->getX();
     //m_y = pParams->getY();
@@ -28,10 +28,6 @@ void SDLGameObject::drawGiven(std::string texID, int frame)
     TextureManager::Instance()->drawFrame(texID, m_pos.getX(), m_pos.getY(), m_width, m_height, m_currentRow, frame, TheGame::Instance()->getRenderer());
 }
 
-void SDLGameObject::moveRight()
-{
-    m_pos.setX(m_pos.getX() + 1 );
-}
 
 void SDLGameObject::changeFrame(int frames, int speed)
 {
@@ -40,5 +36,6 @@ void SDLGameObject::changeFrame(int frames, int speed)
 
 void SDLGameObject::update()
 {
-    m_currentFrame = int ((SDL_GetTicks() / 100) % 8);
+    m_velocity += m_acceleration;
+    m_pos += m_velocity;
 }
