@@ -11,11 +11,12 @@ Game* Game::s_pInstance = 0; // singleton
 bool Game::init(const char* title, int x, int y, int w, int h, int flags)
 {
     // create some game objects
-    m_gameObjects.push_back(new Enemy(new LoaderParams(900,100,256, 382, "tower3")));
-    m_gameObjects.push_back(new Player(new LoaderParams(100,100, 68, 128, "balloon")));
-    m_gameObjects.push_back(new Player(new LoaderParams(100*2,100*2, 68, 128, "balloon")));
-    m_gameObjects.push_back(new Player(new LoaderParams(100,100*3, 68, 128, "balloon")));
-    m_gameObjects.push_back(new Player(new LoaderParams(0,100*4, 68, 128, "balloon")));
+    m_gameObjects.push_back(new Enemy(new LoaderParams(-34,0,68, 128, "balloon"),120));
+    m_gameObjects.push_back(new Enemy(new LoaderParams(-34,200,68, 128, "balloon"),220));
+    m_gameObjects.push_back(new Enemy(new LoaderParams(-34,400,68, 128, "balloon"),150));
+    m_gameObjects.push_back(new Enemy(new LoaderParams(-34,600,68, 128, "balloon"),600));
+    m_gameObjects.push_back(new Enemy(new LoaderParams(-34,800,68, 128, "balloon"),420));
+    m_gameObjects.push_back(new Player(new LoaderParams(-34,1000, 68, 128, "balloon")));
 
     // initialise SDL
     if(SDL_INIT_EVERYTHING >= 0)
@@ -39,8 +40,8 @@ bool Game::init(const char* title, int x, int y, int w, int h, int flags)
         { return false; }
 
     // load textures into the texture manager
-    load("balloon", "../res/balloonPerson.png");
-
+    load("balloon", "../res/greenBalloon.png");
+    load("balloon_death", "../res/greenBalloonDeath.png");
     // game is now running
     running = true;
     return true;

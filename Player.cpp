@@ -12,9 +12,7 @@ Player::Player(const LoaderParams *pParams)
 
 void Player::update()
 {
-    moveRight();
-    changeFrame();
-
+    //changeFrame(4,50);
 }
 
 void Player::draw()

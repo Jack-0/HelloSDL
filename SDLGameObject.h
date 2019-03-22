@@ -21,8 +21,9 @@ public:
     //virtual void clean();
 
     //void moveLeft();
+    void drawGiven(std::string texID, int frame);
     void moveRight ();
-    void changeFrame();
+    void changeFrame(int frames, int speed);
 
 private:
     //int m_x;

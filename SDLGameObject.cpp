@@ -23,15 +23,19 @@ void SDLGameObject::draw()
     TextureManager::Instance()->drawFrame(m_texutreID, m_pos.getX(), m_pos.getY(), m_width, m_height, m_currentRow, m_currentFrame, TheGame::Instance()->getRenderer());
 }
 
+void SDLGameObject::drawGiven(std::string texID, int frame)
+{
+    TextureManager::Instance()->drawFrame(texID, m_pos.getX(), m_pos.getY(), m_width, m_height, m_currentRow, frame, TheGame::Instance()->getRenderer());
+}
 
 void SDLGameObject::moveRight()
 {
     m_pos.setX(m_pos.getX() + 1 );
 }
 
-void SDLGameObject::changeFrame()
+void SDLGameObject::changeFrame(int frames, int speed)
 {
-    m_currentFrame = int ((SDL_GetTicks() / 100) % 8);
+    m_currentFrame = int ((SDL_GetTicks() / speed) % frames);
 }
 
 void SDLGameObject::update()
