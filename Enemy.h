@@ -7,11 +7,16 @@
 
 #include "SDLGameObject.h"
 
+static const int RED = 0;
+static const int GREEN = 1;
+static const int BLUE = 2;
+
+
 class Enemy : public SDLGameObject
 {
 public:
 
-    Enemy(const LoaderParams* pParams, int max);
+    Enemy(const LoaderParams* pParams, int max, int type);
 
     virtual void draw();
     virtual void update();
@@ -24,6 +29,7 @@ private:
     int deathTime = 0;
     int ttd = 0;
     int max_ttd;
+    int type;
 
 };
 

@@ -8,15 +8,18 @@
 
 Game* Game::s_pInstance = 0; // singleton
 
+
 bool Game::init(const char* title, int x, int y, int w, int h, int flags)
 {
+
     // create some game objects
-    m_gameObjects.push_back(new Enemy(new LoaderParams(-34,0,68, 128, "balloon"),120));
-    m_gameObjects.push_back(new Enemy(new LoaderParams(-34,200,68, 128, "balloon"),220));
-    m_gameObjects.push_back(new Enemy(new LoaderParams(-34,400,68, 128, "balloon"),150));
-    m_gameObjects.push_back(new Enemy(new LoaderParams(-34,600,68, 128, "balloon"),600));
-    m_gameObjects.push_back(new Enemy(new LoaderParams(-34,800,68, 128, "balloon"),420));
-    m_gameObjects.push_back(new Player(new LoaderParams(-34,1000, 68, 128, "balloon")));
+    //m_gameObjects.push_back(new Enemy(new LoaderParams(-34,0,68, 128, "balloon"),120));
+    //m_gameObjects.push_back(new Enemy(new LoaderParams(-34,200,68, 128, "balloon"),220));
+    //m_gameObjects.push_back(new Enemy(new LoaderParams(-34,400,68, 128, "balloon"),150));
+    //m_gameObjects.push_back(new Enemy(new LoaderParams(-34,600,68, 128, "balloon"),600));
+    //m_gameObjects.push_back(new Player(new LoaderParams(-34,1000, 68, 128, "balloon")));
+
+
 
     // initialise SDL
     if(SDL_INIT_EVERYTHING >= 0)
@@ -40,8 +43,12 @@ bool Game::init(const char* title, int x, int y, int w, int h, int flags)
         { return false; }
 
     // load textures into the texture manager
-    load("balloon", "../res/greenBalloon.png");
-    load("balloon_death", "../res/greenBalloonDeath.png");
+    load("g_balloon", "../res/greenBalloon.png");
+    load("g_balloon_death", "../res/greenBalloonDeath.png");
+    load("r_balloon", "../res/redBalloon.png");
+    load("r_balloon_death", "../res/redBalloonDeath.png");
+    load("b_balloon", "../res/blueBalloon.png");
+    load("b_balloon_death", "../res/blueBalloonDeath.png");
     // game is now running
     running = true;
     return true;
@@ -73,9 +80,36 @@ void Game::draw()
     }
 }
 
+int Game::getRandom(int low, int high)
+{
+
+    std::mt19937 rng(dev());
+    std::uniform_int_distribution<std::mt19937::result_type> rand(low, high);
+    return rand(rng);
+}
+
 
 void Game::update()
 {
+    std::string balloonType = "";
+    int type;
+    switch(getRandom(0,2))
+    {
+        case 0:
+            balloonType = "r_balloon";
+            type = 0;
+            break;
+        case 1:
+            balloonType = "g_balloon";
+            type = 1;
+            break;
+        case 2:
+            balloonType = "b_balloon";
+            type = 2;
+            break;
+    }
+    m_gameObjects.push_back(new Enemy(new LoaderParams(-70,getRandom(0,900),68, 128, balloonType),getRandom(0,720),type));
+
     for(std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++)
     {
         m_gameObjects[i]->update();

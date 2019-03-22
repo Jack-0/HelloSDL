@@ -8,6 +8,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <vector>
+#include <random>
+
 #include "TextureManager.h"
 #include "GameObject.h"
 #include "Player.h"
@@ -35,6 +37,8 @@ public:
     void clean();
     bool isRunning() { return running; }
 
+    int getRandom(int low, int high);
+
     SDL_Renderer* getRenderer() const { return renderer; }
 
 private:
@@ -51,6 +55,8 @@ private:
     bool running;
     SDL_Window* window;
     SDL_Renderer* renderer;
+
+    std::random_device dev;
 
 };
 
