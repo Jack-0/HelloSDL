@@ -11,11 +11,20 @@ class Enemy : public SDLGameObject
 {
 public:
 
-    Enemy(const LoaderParams* pParams);
+    Enemy(const LoaderParams* pParams, int max);
 
     virtual void draw();
     virtual void update();
     //virtual void clean();
+
+
+private:
+    bool dead = false;
+    int deathFrame = 0;
+    int deathTime = 0;
+    int ttd = 0;
+    int max_ttd;
+
 };
 
 #endif //HELLOSDL_ENEMY_H
