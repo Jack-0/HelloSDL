@@ -12,6 +12,9 @@ Player::Player(const LoaderParams *pParams)
 
 void Player::update()
 {
+    if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_SPACE))
+        std::cout << "Space!\n";
+
 
     //if(TheInputHandler::Instance()->getMouseButtonStates(LEFT))
     //    std::cout << "Hello\n";

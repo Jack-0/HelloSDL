@@ -19,9 +19,14 @@ InputHandler::InputHandler()
 
 void InputHandler::update()
 {
+
     SDL_Event event;
     while(SDL_PollEvent(&event))
     {
+        // update keyboard
+        //m_keystates = SDL_GetKeyboardState(0);
+
+
         // handle user clicking red cross (exit button in top bar)
         if(event.type == SDL_QUIT)
             TheGame::Instance()->quit();
@@ -31,9 +36,23 @@ void InputHandler::update()
     }
 }
 
+bool InputHandler::isKeyDown(SDL_Scancode key)
+{
+    if(m_keystates != 0)
+    {
+        if(m_keystates[key] == 1)
+        {
+            return true;
+        }
+        else
+            return false;
+    }
+    return false;
+}
+
 void InputHandler::handleMouse(const SDL_Event& event)
 {
-    // handle mouse events
+    // handle mouse button events
     if(event.type == SDL_MOUSEBUTTONDOWN)
     {
         if(event.button.button == SDL_BUTTON_LEFT) {
@@ -58,5 +77,12 @@ void InputHandler::handleMouse(const SDL_Event& event)
         if(event.button.button == SDL_BUTTON_RIGHT) {
             m_mouseButtonStates[RIGHT] = false;
         }
+    }
+
+    // handle mouse motion
+    if(event.type == SDL_MOUSEMOTION)
+    {
+        //m_mousePosition->setX(event.motion.x); // TODO this
+        //m_mousePosition->setY(event.motion.y);
     }
 }

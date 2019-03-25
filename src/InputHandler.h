@@ -28,8 +28,14 @@ public:
     void update();
     void clean();
 
+    bool isKeyDown(SDL_Scancode key);
+
     bool getMouseButtonStates(int btnNumber){
         return m_mouseButtonStates[btnNumber];
+    }
+
+    Vector2D* getMousePosition(){
+        return m_mousePosition;
     }
 
 private:
@@ -41,6 +47,9 @@ private:
     void handleMouse(const SDL_Event& event);
 
     std::vector<bool> m_mouseButtonStates;
+    Vector2D* m_mousePosition;
+
+    const Uint8* m_keystates;
 
 };
 
