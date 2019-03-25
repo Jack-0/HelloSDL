@@ -6,6 +6,7 @@
 #define HELLOSDL_ENEMY_H
 
 #include "SDLGameObject.h"
+#include "InputHandler.h"
 
 static const int RED = 0;
 static const int GREEN = 1;

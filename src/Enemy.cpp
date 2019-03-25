@@ -10,8 +10,19 @@ Enemy::Enemy(const LoaderParams *pParams, int max, int type)
 
 }
 
+
 void Enemy::update()
 {
+
+    // TODO test code left click kills red, middle click kills green, right click kills blue
+    if(TheInputHandler::Instance()->getMouseButtonStates(LEFT) && type == RED)
+        dead = true;
+    if(TheInputHandler::Instance()->getMouseButtonStates(MIDDLE) && type == GREEN)
+        dead = true;
+    if(TheInputHandler::Instance()->getMouseButtonStates(RIGHT) && type == BLUE)
+        dead = true;
+
+
     // if the Enemy is not dead accelerate right, else accelerate down
     if(!dead)
         setXacceleration(0.005);

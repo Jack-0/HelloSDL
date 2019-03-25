@@ -13,13 +13,8 @@ bool Game::init(const char* title, int x, int y, int w, int h, int flags)
 {
 
     // create some game objects
-    //m_gameObjects.push_back(new Enemy(new LoaderParams(-34,0,68, 128, "balloon"),120));
-    //m_gameObjects.push_back(new Enemy(new LoaderParams(-34,200,68, 128, "balloon"),220));
-    //m_gameObjects.push_back(new Enemy(new LoaderParams(-34,400,68, 128, "balloon"),150));
-    //m_gameObjects.push_back(new Enemy(new LoaderParams(-34,600,68, 128, "balloon"),600));
-    //m_gameObjects.push_back(new Player(new LoaderParams(-34,1000, 68, 128, "balloon")));
-
-
+    //m_gameObjects.push_back(new Enemy(new LoaderParams(-70,getRandom(-100,900),68, 128, "r_balloon"),getRandom(0,720),1));
+    m_gameObjects.push_back(new Player(new LoaderParams(0,0,0,0,"")));
 
     // initialise SDL
     if(SDL_INIT_EVERYTHING >= 0)

@@ -28,6 +28,9 @@ public:
     void update();
     void clean();
 
+    bool getMouseButtonStates(int btnNumber){
+        return m_mouseButtonStates[btnNumber];
+    }
 
 private:
 
@@ -35,6 +38,7 @@ private:
     ~InputHandler() {}
 
     static InputHandler* s_pInstance;
+    void handleMouse(const SDL_Event& event);
 
     std::vector<bool> m_mouseButtonStates;
 

@@ -14,7 +14,6 @@
 #include "GameObject.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "InputHandler.h"
 
 class Game
 {

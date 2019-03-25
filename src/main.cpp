@@ -89,7 +89,7 @@ int main()
 
             // FPS
             fpsCalc();
-            std::cout << "fps = " << framespersecond << std::endl;
+            //std::cout << "fps = " << framespersecond << std::endl;
         }
     }
     else
