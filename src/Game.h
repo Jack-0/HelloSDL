@@ -14,6 +14,7 @@
 #include "GameObject.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "InputHandler.h"
 
 class Game
 {
@@ -36,6 +37,8 @@ public:
     void handleEvents();
     void clean();
     bool isRunning() { return running; }
+
+    void quit();
 
     int getRandom(int low, int high);
 
