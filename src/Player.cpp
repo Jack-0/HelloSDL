@@ -12,13 +12,26 @@ Player::Player(const LoaderParams *pParams)
 
 void Player::update()
 {
-    if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_SPACE))
-        std::cout << "Space!\n";
+    changeFrame(4,200);
 
+    //if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_SPACE))
+    //    std::cout << "Space!\n";
+    setYvelocity(0);
+    setXvelocity(0);
 
-    //if(TheInputHandler::Instance()->getMouseButtonStates(LEFT))
-    //    std::cout << "Hello\n";
-    //changeFrame(4,50);
+    if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_W))
+        setYvelocity(-2);
+
+    if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_S))
+        setYvelocity(2);
+
+    if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_A))
+        setXvelocity(-2);
+
+    if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_D))
+        setXvelocity(2);
+
+    SDLGameObject::update();
 }
 
 void Player::draw()

@@ -22,6 +22,7 @@ public:
     {
         v1.m_x += v2.m_x;
         v1.m_y += v2.m_y;
+        std::cout << "v1.x = " << v1.m_x << " += " << v2.m_x << "\n";
         return v1;
     };
 

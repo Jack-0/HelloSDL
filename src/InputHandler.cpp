@@ -33,11 +33,28 @@ void InputHandler::update()
 
         // handle mouse events
         handleMouse(event);
+
+        if(SDL_KEYUP)
+            onKeyUp();
+
+        if(SDL_KEYDOWN)
+            onKeyDown();
     }
+}
+
+void InputHandler::onKeyUp()
+{
+    //m_keystates = SDL_GetKeyboardState(NULL);
+}
+
+void InputHandler::onKeyDown()
+{
+   //m_keystates = SDL_GetKeyboardState(NULL);
 }
 
 bool InputHandler::isKeyDown(SDL_Scancode key)
 {
+
     if(m_keystates != 0)
     {
         if(m_keystates[key] == 1)
@@ -45,8 +62,11 @@ bool InputHandler::isKeyDown(SDL_Scancode key)
             return true;
         }
         else
+        {
             return false;
+        }
     }
+
     return false;
 }
 

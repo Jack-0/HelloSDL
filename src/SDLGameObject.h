@@ -25,8 +25,12 @@ public:
     void changeFrame(int frames, int speed);
 
     // movement
-    void setXvelocity(float x){m_velocity.setX(x);}
-    void setYvelocity(float y){m_velocity.setY(y);}
+    void setXvelocity(float x){
+        std::cout << "x set call with" << x <<"\n";
+        m_velocity.setX(x);}
+    void setYvelocity(float y){
+        std::cout << "y set call with" << y <<"\n";
+        m_velocity.setY(y);}
 
     void setXacceleration(float x){m_acceleration.setX(x);}
     void setYacceleration(float y){m_acceleration.setY(y);}

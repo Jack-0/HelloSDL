@@ -43,13 +43,16 @@ private:
     InputHandler();
     ~InputHandler() {}
 
+    void onKeyDown();
+    void onKeyUp();
+
     static InputHandler* s_pInstance;
     void handleMouse(const SDL_Event& event);
 
     std::vector<bool> m_mouseButtonStates;
     Vector2D* m_mousePosition;
 
-    const Uint8* m_keystates;
+    const Uint8* m_keystates = SDL_GetKeyboardState(NULL);
 
 };
 
