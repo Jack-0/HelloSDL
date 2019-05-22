@@ -70,6 +70,11 @@ bool InputHandler::isKeyDown(SDL_Scancode key)
     return false;
 }
 
+/**
+ * Handle input
+ * Currently we only detect middle mouse left and right mouse clicks and use these to change balloon enemy states
+ * @param event
+ */
 void InputHandler::handleMouse(const SDL_Event& event)
 {
     // handle mouse button events

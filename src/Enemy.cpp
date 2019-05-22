@@ -7,7 +7,6 @@
 Enemy::Enemy(const LoaderParams *pParams, int max, int type)
 : SDLGameObject(pParams), max_ttd(max), type(type)
 {
-
 }
 
 
@@ -34,17 +33,18 @@ void Enemy::update()
     changeFrame(4, 200);
     ttd += 1; // increase time to die value
 
-    // if it's time to die, then die
+    // if it's time to die, then die (enemies currently only live for specified max_ttd)
     if(ttd >= max_ttd)
     {
         dead = true;
         return;
     }
+
 }
 
 void Enemy::draw()
 {
-    // if dead render the death frames at a set speed, else render the move animation
+    // if dead, render the death frames at a set speed, else render the move animation
     if(dead)
     {
         if(deathTime > 20)

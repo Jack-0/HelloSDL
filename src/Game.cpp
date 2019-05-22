@@ -44,6 +44,7 @@ bool Game::init(const char* title, int x, int y, int w, int h, int flags)
     load("r_balloon_death", "../res/redBalloonDeath.png");
     load("b_balloon", "../res/blueBalloon.png");
     load("b_balloon_death", "../res/blueBalloonDeath.png");
+
     // game is now running
     running = true;
     return true;
@@ -87,6 +88,8 @@ void Game::update()
 {
     std::string balloonType = "";
     int type;
+
+    // randomly choose a balloon to spawn
     switch(getRandom(0,2))
     {
         case 0:
@@ -102,8 +105,10 @@ void Game::update()
             type = 2;
             break;
     }
+    // create and add balloon to game objects (balloon type based on the random balloon choice)
     m_gameObjects.push_back(new Enemy(new LoaderParams(-70,getRandom(-100,900),68, 128, balloonType),getRandom(0,720),type));
 
+    // update all game objects
     for(std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++)
     {
         m_gameObjects[i]->update();
