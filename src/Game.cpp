@@ -33,6 +33,10 @@ bool Game::init(const char* title, int x, int y, int w, int h, int flags)
         { return false; }
 
     // load textures into the texture manager
+    // menu textures
+    load("play", "../res/play.png");
+    load("exit", "../res/exit.png");
+    // balloon textures
     load("p_balloon", "../res/playerBalloon.png");
     load("g_balloon", "../res/greenBalloon.png");
     load("g_balloon_death", "../res/greenBalloonDeath.png");
