@@ -11,10 +11,6 @@ Game* Game::s_pInstance = 0; // singleton
 
 bool Game::init(const char* title, int x, int y, int w, int h, int flags)
 {
-
-    // create some game objects
-    m_gameObjects.push_back(new Player(new LoaderParams(720 - 68 / 2, 450 - 128 / 2,68,128,"p_balloon")));
-
     // initialise SDL
     if(SDL_INIT_EVERYTHING >= 0)
     {
@@ -50,6 +46,16 @@ bool Game::init(const char* title, int x, int y, int w, int h, int flags)
     return true;
 }
 
+void Game::initPlayer()
+{
+    if(!playerInit)
+    {
+        // create some game objects
+        m_gameObjects.push_back(new Player(new LoaderParams(720 - 68 / 2, 450 - 128 / 2,68,128,"p_balloon")));
+        playerInit = true;
+    }
+}
+
 void Game::load(std::string name, std::string path)
 {
     if(!TheTextureManager::Instance()->load(path,name,renderer))
@@ -83,12 +89,10 @@ int Game::getRandom(int low, int high)
     return rand(rng);
 }
 
-
-void Game::update()
+void Game::play()
 {
     std::string balloonType = "";
     int type;
-
     // randomly choose a balloon to spawn
     switch(getRandom(0,2))
     {
@@ -107,11 +111,33 @@ void Game::update()
     }
     // create and add balloon to game objects (balloon type based on the random balloon choice)
     m_gameObjects.push_back(new Enemy(new LoaderParams(-70,getRandom(-100,900),68, 128, balloonType),getRandom(0,720),type));
-
     // update all game objects
     for(std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++)
     {
         m_gameObjects[i]->update();
+        // check if the game object is an enemy
+        /*
+        if (dynamic_cast<const Enemy*> (m_gameObjects[i])){
+            std::cout<<"\tobject is an enemy\n";
+        }
+        */
+    }
+
+    std::cout << "Game object count = " << m_gameObjects.size() << std::endl;
+}
+
+void Game::update()
+{
+    switch(m_currentState)
+    {
+        case MENU:
+            break;
+        case PLAY:
+            initPlayer();
+            play();
+            break;
+        case GAMEOVER:
+            break;
     }
 }
 

@@ -37,6 +37,12 @@ public:
     void clean();
     bool isRunning() { return running; }
 
+    void play(); // game loop
+
+    void initPlayer();
+
+
+    void menu();
     void quit();
 
     int getRandom(int low, int high);
@@ -55,10 +61,21 @@ private:
     void load(std::string name, std::string path);
 
     bool running;
+    bool playerInit = false;
+
     SDL_Window* window;
     SDL_Renderer* renderer;
 
     std::random_device dev;
+
+    enum game_states
+    {
+        MENU = 0,
+        PLAY = 1,
+        GAMEOVER = 2
+    };
+    int m_currentState = 1;
+
 
 };
 
