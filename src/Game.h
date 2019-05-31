@@ -14,6 +14,7 @@
 #include "GameObject.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Button.h"
 
 class Game
 {
@@ -74,7 +75,7 @@ private:
         PLAY = 1,
         GAMEOVER = 2
     };
-    int m_currentState = 1;
+    int m_currentState = 0;
 
 
 };
