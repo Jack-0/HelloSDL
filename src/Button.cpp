@@ -17,8 +17,8 @@ void Button::draw()
 void Button::update()
 {
     //Vector2D* pMousePos = TheInputHandler::Instance()->getMousePosition();
-    float mx = TheInputHandler::Instance()->mouseX;
-    float my = TheInputHandler::Instance()->mouseY;
+    float mx = TheInputHandler::Instance()->getMouseX();
+    float my = TheInputHandler::Instance()->getMouseY();
     /*
     if(pMousePos->getX() < (m_pos.getX() + m_width)
     && pMousePos->getX() > m_pos.getX()
@@ -41,7 +41,4 @@ void Button::update()
     {
         m_currentFrame = MOUSE_OUT;
     }
-
-    //SDLGameObject::update();
-    //SDLGameObject::changeFrame(1,1);
 }

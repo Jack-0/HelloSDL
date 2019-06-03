@@ -18,6 +18,9 @@ SDLGameObject::SDLGameObject(const LoaderParams *pParams)
     m_currentRow = 1;
 }
 
+void SDLGameObject::clean()
+{
+}
 
 void SDLGameObject::draw()
 {

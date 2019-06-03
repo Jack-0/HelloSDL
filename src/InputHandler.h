@@ -34,15 +34,20 @@ public:
         return m_mouseButtonStates[btnNumber];
     }
 
-    float mouseX = 0;
-    float mouseY = 0;
-
-    Vector2D* getMousePosition()
+    float getMouseX()
     {
-        return m_mousePosition;
+        return mouseX;
+    }
+
+    float getMouseY()
+    {
+        return mouseY;
     }
 
 private:
+
+    float mouseX;
+    float mouseY;
 
     InputHandler();
     ~InputHandler() {}
@@ -53,7 +58,6 @@ private:
     static InputHandler* s_pInstance;
     void handleMouse(const SDL_Event& event);
 
-    Vector2D* m_mousePosition;
     std::vector<bool> m_mouseButtonStates;
 
     const Uint8* m_keystates = SDL_GetKeyboardState(NULL);

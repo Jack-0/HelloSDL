@@ -6,6 +6,11 @@
 
 TextureManager* TextureManager::s_pInstance = 0;
 
+void TextureManager::clearFromTextureMap(std::string id)
+{
+    texturemMap.erase(id);
+}
+
 bool TextureManager::load(std::string filename, std::string id, SDL_Renderer* renderer)
 {
     SDL_Surface* pTempSurface = IMG_Load(filename.c_str());
