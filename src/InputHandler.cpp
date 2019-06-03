@@ -107,7 +107,18 @@ void InputHandler::handleMouse(const SDL_Event& event)
     // handle mouse motion
     if(event.type == SDL_MOUSEMOTION)
     {
-        //m_mousePosition->setX(event.motion.x); // TODO this
-        //m_mousePosition->setY(event.motion.y);
+        //getMousePosition()->setX(event.motion.x);
+        //getMousePosition()->setY(event.motion.y);
+
+        mouseX = event.motion.x;
+        mouseY = event.motion.y;
+        /* TODO seg fault
+         *
+        std::cout << "Mouse x = " << event.motion.x;
+        std::cout << "Mouse x = " << event.motion.x;
+
+        m_mousePosition->setX(event.motion.x);
+        m_mousePosition->setY(event.motion.y);
+         */
     }
 }

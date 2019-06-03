@@ -16,6 +16,32 @@ void Button::draw()
 
 void Button::update()
 {
-    SDLGameObject::update();
-    SDLGameObject::changeFrame(1,1);
+    //Vector2D* pMousePos = TheInputHandler::Instance()->getMousePosition();
+    float mx = TheInputHandler::Instance()->mouseX;
+    float my = TheInputHandler::Instance()->mouseY;
+    /*
+    if(pMousePos->getX() < (m_pos.getX() + m_width)
+    && pMousePos->getX() > m_pos.getX()
+    && pMousePos->getY() < (m_pos.getY() + m_height)
+    && pMousePos->getY() > m_pos.getY() )
+     */
+    if(mx < (m_pos.getX() + m_width)
+    && mx > m_pos.getX()
+    && my < (m_pos.getY() + m_height)
+    && my > m_pos.getY() )
+    {
+        m_currentFrame = MOUSE_OVER;
+
+        if(TheInputHandler::Instance()->getMouseButtonStates(LEFT))
+        {
+            m_currentFrame = CLICKED;
+        }
+    }
+    else
+    {
+        m_currentFrame = MOUSE_OUT;
+    }
+
+    //SDLGameObject::update();
+    //SDLGameObject::changeFrame(1,1);
 }

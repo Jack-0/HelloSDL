@@ -32,10 +32,13 @@ bool Game::init(const char* title, int x, int y, int w, int h, int flags)
     } else
         { return false; }
 
+
+    // Game state
+    m_pGameStateMachine = new GameStateMachine();
+    m_pGameStateMachine->changeState(new MenuState());
+
     // load textures into the texture manager
     // menu textures
-    load("play", "../res/play.png");
-    load("exit", "../res/exit.png");
     // balloon textures
     load("p_balloon", "../res/playerBalloon.png");
     load("g_balloon", "../res/greenBalloon.png");
@@ -84,7 +87,8 @@ void Game::render()
 {
     SDL_RenderClear(renderer);
     /// render start
-    draw();
+    //draw();
+    m_pGameStateMachine->render();
     /// render end
     SDL_RenderPresent(renderer);
 }
@@ -132,11 +136,10 @@ void Game::play()
     {
         m_gameObjects[i]->update();
         // check if the game object is an enemy
-        /*
         if (dynamic_cast<const Enemy*> (m_gameObjects[i])){
             std::cout<<"\tobject is an enemy\n";
+
         }
-        */
     }
 
     std::cout << "Game object count = " << m_gameObjects.size() << std::endl;
@@ -144,6 +147,8 @@ void Game::play()
 
 void Game::update()
 {
+    m_pGameStateMachine->update();
+    /*
     switch(m_currentState)
     {
         case MENU:
@@ -158,6 +163,7 @@ void Game::update()
         case GAMEOVER:
             break;
     }
+     */
 }
 
 void Game::clean()
@@ -176,4 +182,10 @@ void Game::quit()
 void Game::handleEvents()
 {
     TheInputHandler::Instance()->update();
+
+    if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RETURN))
+    {
+        m_pGameStateMachine->changeState(new PlayState());
+    }
+
 }

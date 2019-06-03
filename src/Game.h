@@ -15,6 +15,10 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Button.h"
+#include "GameStateMachine.h"
+#include "MenuState.h"
+#include "PlayState.h"
+
 
 class Game
 {
@@ -75,7 +79,10 @@ private:
         PLAY = 1,
         GAMEOVER = 2
     };
+
     int m_currentState = 0;
+
+    GameStateMachine* m_pGameStateMachine;
 
 
 };

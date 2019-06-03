@@ -36,7 +36,7 @@ public:
     void setYacceleration(float y){m_acceleration.setY(y);}
 
 
-private:
+protected:
     Vector2D m_pos;
     Vector2D m_velocity;
     Vector2D m_acceleration;
