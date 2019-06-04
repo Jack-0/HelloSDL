@@ -52,7 +52,7 @@ bool Game::init(const char* title, int x, int y, int w, int h, int flags)
     running = true;
     return true;
 }
-
+/*
 void Game::initPlayer()
 {
     if(!playerInit)
@@ -62,6 +62,7 @@ void Game::initPlayer()
         playerInit = true;
     }
 }
+ */
 
 void Game::load(std::string name, std::string path)
 {
@@ -97,6 +98,7 @@ int Game::getRandom(int low, int high)
     return rand(rng);
 }
 
+/*
 void Game::play()
 {
     std::string balloonType = "";
@@ -132,6 +134,7 @@ void Game::play()
 
     std::cout << "Game object count = " << m_gameObjects.size() << std::endl;
 }
+ */
 
 void Game::update()
 {

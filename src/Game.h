@@ -42,10 +42,7 @@ public:
     void clean();
     bool isRunning() { return running; }
 
-    void play(); // game loop
-
-    void initPlayer();
-
+    GameStateMachine* getStateMachine() { return m_pGameStateMachine; }
 
     void menu();
     void quit();

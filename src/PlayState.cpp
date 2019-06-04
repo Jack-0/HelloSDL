@@ -9,7 +9,7 @@ const std::string PlayState::s_playID = "PLAY";
 
 void PlayState::update()
 {
-
+    std::cout << "asds\n";
 }
 
 void PlayState::render()

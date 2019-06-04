@@ -67,11 +67,13 @@ bool MenuState::onExit()
 void MenuState::s_menuToPlay()
 {
     std::cout << "Play btn clicked!\n";
+    // TODO playstate is causing the problem works with new MenuState?? seg fault
+    TheGame::Instance()->getStateMachine()->changeState(new PlayState());
 }
 
 void MenuState::s_exitFromMenu()
 {
-    std::cout << "Exit btn clicked!\n";
+    TheGame::Instance()->quit();
 }
 
 

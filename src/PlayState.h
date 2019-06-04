@@ -5,12 +5,13 @@
 #ifndef HELLOSDL_PLAYSTATE_H
 #define HELLOSDL_PLAYSTATE_H
 
+#include <vector>
 #include "GameState.h"
+#include "GameObject.h"
 
 class PlayState : public GameState
 {
 public:
-
     virtual void update();
     virtual void render();
 
@@ -21,6 +22,8 @@ public:
 
 private:
     static const std::string s_playID;
+
+    std::vector<GameObject*> m_gameObjects;
 };
 
 
