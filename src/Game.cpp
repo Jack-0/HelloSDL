@@ -53,18 +53,6 @@ bool Game::init(const char* title, int x, int y, int w, int h, int flags)
     return true;
 }
 
-void Game::menu()
-{
-    // TODO these should be menuObjects and I probably should make a menu class... but for now I will just leave this
-    // TODO horrid hack here (very unsafe code)
-    m_gameObjects.push_back(new Button(new LoaderParams( (720 / 2) + 228, (450 / 2), 256, 100, "play")));
-    m_gameObjects.push_back(new Button(new LoaderParams( (720 / 2) + 228, (450 / 2) + 200, 256, 100, "exit")));
-    m_gameObjects[0]->update();
-    m_gameObjects[0]->draw();
-    m_gameObjects[1]->update();
-    m_gameObjects[1]->draw();
-}
-
 void Game::initPlayer()
 {
     if(!playerInit)

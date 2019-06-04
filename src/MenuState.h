@@ -23,6 +23,10 @@ public:
 private:
     static const std::string s_menuID;
     std::vector<GameObject*> m_gameObjects;
+
+    // functions used with button callbacks
+    static void s_menuToPlay();
+    static void s_exitFromMenu();
 };
 
 

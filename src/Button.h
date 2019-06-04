@@ -12,19 +12,24 @@ class Button : public SDLGameObject
 {
 public:
 
-    Button(const LoaderParams* pParams);
+    Button(const LoaderParams* pParams, void (*callback) () );
 
     virtual void draw();
     virtual void update();
-    //virtual void clean();
+    virtual void clean();
 
 private:
+
     enum btn_state
     {
         MOUSE_OUT = 0,
         MOUSE_OVER = 1,
         CLICKED = 2
     };
+
+    void (*m_callback) ();
+
+    bool m_bReleased;
 
 };
 
