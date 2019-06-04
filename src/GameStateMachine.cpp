@@ -35,6 +35,8 @@ void GameStateMachine::changeState(GameState *pState)
         }
 
         /* TODO Deleting unused game state causes a problem...
+         * TODO The problem maybe that delete removes state from heap but we still have a reference
+         * TODO that is then called and looks to empty memory?
         if(m_gameStates.back()->onExit())
         {
             std::cout << "***Deleting " << m_gameStates.back()->getStateID() << "\n";
