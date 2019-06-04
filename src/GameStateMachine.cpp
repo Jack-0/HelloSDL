@@ -4,6 +4,8 @@
 
 #include "GameStateMachine.h"
 
+#include <iostream>
+
 void GameStateMachine::pushState(GameState *pState)
 {
     m_gameStates.push_back(pState);
@@ -28,14 +30,18 @@ void GameStateMachine::changeState(GameState *pState)
     {
         if(m_gameStates.back()->getStateID() == pState->getStateID())
         {
+            std::cout << "***Game State == " << pState->getStateID() << "\n";
             return;
         }
 
+        /* TODO Deleting unused game state causes a problem...
         if(m_gameStates.back()->onExit())
         {
+            std::cout << "***Deleting " << m_gameStates.back()->getStateID() << "\n";
             delete m_gameStates.back();
             m_gameStates.pop_back();
         }
+         */
     }
 
     m_gameStates.push_back(pState);
