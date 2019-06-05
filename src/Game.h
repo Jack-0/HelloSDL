@@ -8,7 +8,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <vector>
-#include <random>
 
 #include "TextureManager.h"
 #include "GameObject.h"
@@ -44,7 +43,6 @@ public:
 
     GameStateMachine* getStateMachine() { return m_pGameStateMachine; }
 
-    void menu();
     void quit();
 
     int getRandom(int low, int high);
@@ -54,34 +52,14 @@ public:
 private:
 
     Game() {}
+    void draw();
 
     static Game* s_pInstance;
-
-    std::vector<GameObject*> m_gameObjects;
-
-    void draw();
-    void load(std::string name, std::string path);
-
     bool running;
-    bool playerInit = false;
-
+    std::vector<GameObject*> m_gameObjects;
     SDL_Window* window;
     SDL_Renderer* renderer;
-
-    std::random_device dev;
-
-    enum game_states
-    {
-        MENU = 0,
-        PLAY = 1,
-        GAMEOVER = 2
-    };
-
-    int m_currentState = 0;
-
     GameStateMachine* m_pGameStateMachine;
-
-
 };
 
 typedef Game TheGame;

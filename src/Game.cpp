@@ -37,46 +37,15 @@ bool Game::init(const char* title, int x, int y, int w, int h, int flags)
     m_pGameStateMachine = new GameStateMachine();
     m_pGameStateMachine->changeState(new MenuState());
 
-    // load textures into the texture manager
-    // menu textures
-    // balloon textures
-    load("p_balloon", "../res/playerBalloon.png");
-    load("g_balloon", "../res/greenBalloon.png");
-    load("g_balloon_death", "../res/greenBalloonDeath.png");
-    load("r_balloon", "../res/redBalloon.png");
-    load("r_balloon_death", "../res/redBalloonDeath.png");
-    load("b_balloon", "../res/blueBalloon.png");
-    load("b_balloon_death", "../res/blueBalloonDeath.png");
-
     // game is now running
     running = true;
     return true;
-}
-/*
-void Game::initPlayer()
-{
-    if(!playerInit)
-    {
-        // create some game objects
-        m_gameObjects.push_back(new Player(new LoaderParams(720 - 68 / 2, 450 - 128 / 2,68,128,"p_balloon")));
-        playerInit = true;
-    }
-}
- */
-
-void Game::load(std::string name, std::string path)
-{
-    if(!TheTextureManager::Instance()->load(path,name,renderer))
-    {
-        std::cout << "Error with the texture (\"" << name << "\", \"" << path << "\")" << std::endl;
-    }
 }
 
 void Game::render()
 {
     SDL_RenderClear(renderer);
     /// render start
-    //draw();
     m_pGameStateMachine->render();
     /// render end
     SDL_RenderPresent(renderer);
@@ -91,70 +60,13 @@ void Game::draw()
     }
 }
 
-int Game::getRandom(int low, int high)
-{
-    std::mt19937 rng(dev());
-    std::uniform_int_distribution<std::mt19937::result_type> rand(low, high);
-    return rand(rng);
-}
 
-/*
-void Game::play()
-{
-    std::string balloonType = "";
-    int type;
-    // randomly choose a balloon to spawn
-    switch(getRandom(0,2))
-    {
-        case 0:
-            balloonType = "r_balloon";
-            type = 0;
-            break;
-        case 1:
-            balloonType = "g_balloon";
-            type = 1;
-            break;
-        case 2:
-            balloonType = "b_balloon";
-            type = 2;
-            break;
-    }
-    // create and add balloon to game objects (balloon type based on the random balloon choice)
-    m_gameObjects.push_back(new Enemy(new LoaderParams(-70,getRandom(-100,900),68, 128, balloonType),getRandom(0,720),type));
-    // update all game objects
-    for(std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++)
-    {
-        m_gameObjects[i]->update();
-        // check if the game object is an enemy
-        if (dynamic_cast<const Enemy*> (m_gameObjects[i])){
-            std::cout<<"\tobject is an enemy\n";
 
-        }
-    }
 
-    std::cout << "Game object count = " << m_gameObjects.size() << std::endl;
-}
- */
 
 void Game::update()
 {
     m_pGameStateMachine->update();
-    /*
-    switch(m_currentState)
-    {
-        case MENU:
-            SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-            menu();
-            break;
-        case PLAY:
-            SDL_SetRenderDrawColor(renderer, 100, 100, 100, 0);
-            initPlayer();
-            play();
-            break;
-        case GAMEOVER:
-            break;
-    }
-     */
 }
 
 void Game::clean()
@@ -178,5 +90,4 @@ void Game::handleEvents()
     {
         m_pGameStateMachine->changeState(new PlayState());
     }
-
 }
