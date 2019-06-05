@@ -24,6 +24,8 @@ public:
 
 private:
 
+    bool end = false;
+
     static void s_pauseToMain();
     static void s_resumePlay();
 

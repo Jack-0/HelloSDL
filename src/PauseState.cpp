@@ -19,9 +19,13 @@ void PauseState::s_resumePlay()
 
 void PauseState::update()
 {
-    for(int i = 0; i < m_gameObjects.size(); i++)
+    if(!end)
     {
-        m_gameObjects[i]->update();
+        for(int i = 0; i < m_gameObjects.size(); i++)
+        {
+            m_gameObjects[i]->update();
+        }
+
     }
 }
 
@@ -35,6 +39,7 @@ void PauseState::render()
 
 bool PauseState::onEnter()
 {
+    end = false;
     if(!TheTextureManager::Instance()->load("../res/resumeBtn.png", "resumeBtn", TheGame::Instance()->getRenderer()))
     {
         return false;
@@ -62,6 +67,8 @@ bool PauseState::onExit()
     }
 
     m_gameObjects.clear();
+    end = true;
+
     TheTextureManager::Instance()->clearFromTextureMap("resumeBtn");
     TheTextureManager::Instance()->clearFromTextureMap("menuBtn");
     //TheInputHandler::Instance()->reset();
