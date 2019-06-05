@@ -5,6 +5,7 @@
 #include "PlayState.h"
 #include "TextureManager.h"
 #include "Game.h"
+#include "PauseState.h"
 #include <iostream>
 
 const std::string PlayState::s_playID = "PLAY";
@@ -38,6 +39,12 @@ void PlayState::createAndAddBalloon()
 
 void PlayState::update()
 {
+    if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_ESCAPE))
+    {
+        TheGame::Instance()->getStateMachine()->pushState(new PauseState());
+    }
+
+
     // add a new balloon
     createAndAddBalloon();
 
