@@ -24,7 +24,7 @@ public:
 
 private:
 
-    bool end = false;
+    bool end = false; // solves the issues with pausing, sometimes causing a seg fault crash
 
     static void s_pauseToMain();
     static void s_resumePlay();
