@@ -3,7 +3,7 @@
 //
 
 #include "PauseState.h"
-#include "Game.h"
+#include "../Game.h"
 
 const std::string PauseState::s_pauseID = "PAUSE";
 
@@ -40,12 +40,12 @@ void PauseState::render()
 bool PauseState::onEnter()
 {
     end = false;
-    if(!TheTextureManager::Instance()->load("../res/resumeBtn.png", "resumeBtn", TheGame::Instance()->getRenderer()))
+    if(!TheTextureManager::Instance()->load("../res/menu/resumeBtn.png", "resumeBtn", TheGame::Instance()->getRenderer()))
     {
         return false;
     }
 
-    if(!TheTextureManager::Instance()->load("../res/menuBtn.png", "menuBtn", TheGame::Instance()->getRenderer()))
+    if(!TheTextureManager::Instance()->load("../res/menu/menuBtn.png", "menuBtn", TheGame::Instance()->getRenderer()))
     {
         return false;
     }

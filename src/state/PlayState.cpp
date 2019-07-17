@@ -3,8 +3,8 @@
 //
 
 #include "PlayState.h"
-#include "TextureManager.h"
-#include "Game.h"
+#include "../graphics/TextureManager.h"
+#include "../Game.h"
 #include "PauseState.h"
 #include <iostream>
 
@@ -74,13 +74,13 @@ void PlayState::render()
 bool PlayState::onEnter()
 {
     // load textures into the texture manager
-    TheTextureManager::Instance()->load("../res/playerBalloon.png", "p_balloon", TheGame::Instance()->getRenderer());
-    TheTextureManager::Instance()->load("../res/greenBalloonDeath.png", "g_balloon_death", TheGame::Instance()->getRenderer());
-    TheTextureManager::Instance()->load("../res/blueBalloon.png", "b_balloon", TheGame::Instance()->getRenderer());
-    TheTextureManager::Instance()->load("../res/blueBalloonDeath.png", "b_balloon_death", TheGame::Instance()->getRenderer());
-    TheTextureManager::Instance()->load("../res/redBalloon.png", "r_balloon", TheGame::Instance()->getRenderer());
-    TheTextureManager::Instance()->load("../res/redBalloonDeath.png", "r_balloon_death", TheGame::Instance()->getRenderer());
-    TheTextureManager::Instance()->load("../res/greenBalloon.png", "g_balloon", TheGame::Instance()->getRenderer());
+    TheTextureManager::Instance()->load("../res/mob/playerBalloon.png", "p_balloon", TheGame::Instance()->getRenderer());
+    TheTextureManager::Instance()->load("../res/mob/greenBalloonDeath.png", "g_balloon_death", TheGame::Instance()->getRenderer());
+    TheTextureManager::Instance()->load("../res/mob/blueBalloon.png", "b_balloon", TheGame::Instance()->getRenderer());
+    TheTextureManager::Instance()->load("../res/mob/blueBalloonDeath.png", "b_balloon_death", TheGame::Instance()->getRenderer());
+    TheTextureManager::Instance()->load("../res/mob/redBalloon.png", "r_balloon", TheGame::Instance()->getRenderer());
+    TheTextureManager::Instance()->load("../res/mob/redBalloonDeath.png", "r_balloon_death", TheGame::Instance()->getRenderer());
+    TheTextureManager::Instance()->load("../res/mob/greenBalloon.png", "g_balloon", TheGame::Instance()->getRenderer());
 
     // create a player
     m_gameObjects.push_back(new Player(new LoaderParams(720 - 68 / 2, 450 - 128 / 2,68,128,"p_balloon")));

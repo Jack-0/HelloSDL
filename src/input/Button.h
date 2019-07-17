@@ -5,7 +5,7 @@
 #ifndef HELLOSDL_BUTTON_H
 #define HELLOSDL_BUTTON_H
 
-#include "SDLGameObject.h"
+#include "../entity/SDLGameObject.h"
 #include "InputHandler.h"
 
 class Button : public SDLGameObject

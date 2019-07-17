@@ -5,8 +5,8 @@
 #ifndef HELLOSDL_PLAYER_H
 #define HELLOSDL_PLAYER_H
 
-#include "SDLGameObject.h"
-#include "InputHandler.h"
+#include "../SDLGameObject.h"
+#include "../../input/InputHandler.h"
 
 class Player : public SDLGameObject
 {

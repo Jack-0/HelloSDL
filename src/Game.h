@@ -9,14 +9,14 @@
 #include <SDL2/SDL_image.h>
 #include <vector>
 
-#include "TextureManager.h"
-#include "GameObject.h"
-#include "Player.h"
-#include "Enemy.h"
-#include "Button.h"
-#include "GameStateMachine.h"
-#include "MenuState.h"
-#include "PlayState.h"
+#include "graphics/TextureManager.h"
+#include "entity/GameObject.h"
+#include "entity/mob/Player.h"
+#include "entity/mob/Enemy.h"
+#include "input/Button.h"
+#include "state/GameStateMachine.h"
+#include "state/MenuState.h"
+#include "state/PlayState.h"
 
 
 class Game

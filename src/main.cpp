@@ -2,7 +2,7 @@
 #include <SDL2/SDL.h>
 
 #include "Game.h"
-#include "Player.h"
+#include "entity/mob/Player.h"
 
 
 SDL_Window* window = 0;

@@ -3,8 +3,8 @@
 //
 
 #include "MenuState.h"
-#include "TextureManager.h"
-#include "Game.h"
+#include "../graphics/TextureManager.h"
+#include "../Game.h"
 #include <iostream>
 
 const std::string MenuState::s_menuID = "MENU";
@@ -27,12 +27,12 @@ void MenuState::render()
 
 bool MenuState::onEnter()
 {
-    if(!TheTextureManager::Instance()->load("../res/playBtn.png", "playBtn", TheGame::Instance()->getRenderer()))
+    if(!TheTextureManager::Instance()->load("../res/menu/playBtn.png", "playBtn", TheGame::Instance()->getRenderer()))
     {
         return false;
     }
 
-    if(!TheTextureManager::Instance()->load("../res/exitBtn.png", "exitBtn", TheGame::Instance()->getRenderer()))
+    if(!TheTextureManager::Instance()->load("../res/menu/exitBtn.png", "exitBtn", TheGame::Instance()->getRenderer()))
     {
         return false;
     }

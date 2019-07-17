@@ -6,7 +6,7 @@
 #define HELLOSDL_GAMEOBJECT_H
 
 
-#include "LoaderParams.h"
+#include "../utilities/LoaderParams.h"
 
 /// GameObject is an abstract class that represent the abstract concept of a game object (interface)
 

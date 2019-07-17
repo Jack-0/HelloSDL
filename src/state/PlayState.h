@@ -8,7 +8,7 @@
 #include <vector>
 #include <random>
 #include "GameState.h"
-#include "GameObject.h"
+#include "../entity/GameObject.h"
 
 class PlayState : public GameState
 {

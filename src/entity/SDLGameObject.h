@@ -6,8 +6,8 @@
 #define HELLOSDL_SDLGAMEOBJECT_H
 
 #include "GameObject.h"
-#include "TextureManager.h"
-#include "Vector2D.h"
+#include "../graphics/TextureManager.h"
+#include "../utilities/Vector2D.h"
 
 /// SDLGameObject interfaces GameObject and is a specific case that uses SDL
 

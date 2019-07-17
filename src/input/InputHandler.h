@@ -7,7 +7,7 @@
 
 #include <vector>
 #include <SDL2/SDL.h>
-#include "Game.h"
+#include "../Game.h"
 
 enum mouse_buttons
 {
