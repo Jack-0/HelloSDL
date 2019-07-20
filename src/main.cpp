@@ -69,6 +69,7 @@ int main()
 
     if(TheGame::Instance()->init("|", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1440, 900, 0))
     {
+        std::cout << "TheGame::Instance()->init = success" << std::endl;
 
         fpsinit();
 
@@ -87,8 +88,8 @@ int main()
 
             //SDL_Delay(6);
 
-            // FPS
-            fpsCalc();
+            /// FPS
+            //fpsCalc();
             //std::cout << "fps = " << framespersecond << std::endl;
         }
     }
