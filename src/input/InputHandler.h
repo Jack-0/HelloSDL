@@ -36,6 +36,12 @@ public:
         return m_mouseButtonStates[btnNumber];
     }
 
+    void reset()
+    {
+        for(int i = 0; i < m_mouseButtonStates.size(); i++)
+            m_mouseButtonStates[i] = false;
+    }
+
     float getMouseX()
     {
         return mouseX;

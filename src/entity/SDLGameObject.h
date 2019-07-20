@@ -25,6 +25,11 @@ public:
     void drawGiven(std::string texID, int frame);
     void changeFrame(int frames, int speed);
 
+
+    Vector2D& getPosition() {return m_pos;}
+    int getWidth() {return m_width;}
+    int getHeight() {return m_height;}
+
     // movement
     void setXvelocity(float x){
         m_velocity.setX(x);
@@ -35,6 +40,8 @@ public:
 
     void setXacceleration(float x){m_acceleration.setX(x);}
     void setYacceleration(float y){m_acceleration.setY(y);}
+
+
 
 
 protected:
