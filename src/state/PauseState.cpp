@@ -71,7 +71,7 @@ bool PauseState::onExit()
 
     TheTextureManager::Instance()->clearFromTextureMap("resumeBtn");
     TheTextureManager::Instance()->clearFromTextureMap("menuBtn");
-    //TheInputHandler::Instance()->reset();
+    TheInputHandler::Instance()->reset();
 
     return true;
 }
