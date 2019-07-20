@@ -9,6 +9,7 @@
 #include <random>
 #include "GameState.h"
 #include "../entity/GameObject.h"
+#include "../entity/SDLGameObject.h"
 
 class PlayState : public GameState
 {
@@ -17,6 +18,9 @@ public:
     virtual void render();
     virtual bool onEnter();
     virtual bool onExit();
+
+    bool checkCollision(SDLGameObject* p1, SDLGameObject* p2);
+
     virtual std::string getStateID() const {return s_playID;}
 
 private:
@@ -26,6 +30,8 @@ private:
     std::random_device dev;
     static const std::string s_playID;
     std::vector<GameObject*> m_gameObjects;
+
+    int someNumber = 0;
 };
 
 
