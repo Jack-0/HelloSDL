@@ -23,6 +23,8 @@ public:
     {
         if(s_pInstance == 0)
             s_pInstance = new InputHandler();
+
+        return s_pInstance;
     }
 
     void update();
