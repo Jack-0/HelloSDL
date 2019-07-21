@@ -67,7 +67,7 @@ int main()
 {
     Uint32 frame_start, frame_time;
 
-    if(TheGame::Instance()->init("|", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1440, 900, 0))
+    if(TheGame::Instance()->init("Hello SDL", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1440, 900, 0))
     {
         std::cout << "TheGame::Instance()->init = success" << std::endl;
 

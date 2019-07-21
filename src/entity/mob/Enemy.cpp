@@ -12,7 +12,6 @@ Enemy::Enemy(const LoaderParams *pParams, int max, int type)
 
 void Enemy::update()
 {
-
     // TODO test code left click kills red, middle click kills green, right click kills blue
     if(TheInputHandler::Instance()->getMouseButtonStates(LEFT) && type == RED)
         dead = true;
@@ -71,8 +70,7 @@ void Enemy::draw()
         SDLGameObject::draw();
 }
 
-/*
-void Player::clean()
+void Enemy::clean()
 {
+    SDLGameObject::clean();
 }
-*/

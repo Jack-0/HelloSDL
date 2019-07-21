@@ -12,29 +12,7 @@
 const std::string PlayState::s_playID = "PLAY";
 
 
-bool PlayState::checkCollision(SDLGameObject *p1, SDLGameObject *p2)
-{
-    int leftA, leftB, rightA, rightB;
-    int topA, topB, bottomA, bottomB;
 
-    leftA = p1->getPosition().getX();
-    rightA = p1->getPosition().getX() + p1->getWidth();
-    topA = p1->getPosition().getY();
-    bottomA = p1->getPosition().getY() + p1->getHeight();
-
-    leftB = p2->getPosition().getX();
-    rightB = p2->getPosition().getX() + p2->getWidth();
-    topB = p2->getPosition().getY();
-    bottomB = p2->getPosition().getY() + p2->getHeight();
-
-
-    if(bottomA <= topB) {return false;}
-    if(topA >= bottomB) {return false;}
-    if(rightA <= leftB) {return false;}
-    if(leftA >= rightB) {return false;}
-
-    return true;
-}
 
 
 /**
@@ -128,6 +106,8 @@ bool PlayState::onEnter()
     // create a player
     m_gameObjects.push_back(new Player(new LoaderParams(720 - 68 / 2, 450 - 128 / 2,68,128,"p_balloon")));
 
+    // create balloon objects ??? todo
+
     return true;
 }
 
@@ -144,3 +124,26 @@ int PlayState::getRandom(int low, int high)
     return rand(rng);
 }
 
+bool PlayState::checkCollision(SDLGameObject *p1, SDLGameObject *p2)
+{
+    int leftA, leftB, rightA, rightB;
+    int topA, topB, bottomA, bottomB;
+
+    leftA = p1->getPosition().getX();
+    rightA = p1->getPosition().getX() + p1->getWidth();
+    topA = p1->getPosition().getY();
+    bottomA = p1->getPosition().getY() + p1->getHeight();
+
+    leftB = p2->getPosition().getX();
+    rightB = p2->getPosition().getX() + p2->getWidth();
+    topB = p2->getPosition().getY();
+    bottomB = p2->getPosition().getY() + p2->getHeight();
+
+
+    if(bottomA <= topB) {return false;}
+    if(topA >= bottomB) {return false;}
+    if(rightA <= leftB) {return false;}
+    if(leftA >= rightB) {return false;}
+
+    return true;
+}

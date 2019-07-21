@@ -24,13 +24,13 @@ void Player::update()
 
     // Detect movement and move the player
     if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_W))
-        setYvelocity(-2);
+        setYvelocity(-speed);
     if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_S))
-        setYvelocity(2);
+        setYvelocity(speed);
     if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_A))
-        setXvelocity(-2);
+        setXvelocity(-speed);
     if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_D))
-        setXvelocity(2);
+        setXvelocity(speed);
 
     // update
     SDLGameObject::update();
@@ -41,8 +41,7 @@ void Player::draw()
     SDLGameObject::draw();
 }
 
-/*
 void Player::clean()
 {
+    SDLGameObject::clean();
 }
-*/

@@ -21,7 +21,7 @@ public:
 
     virtual void draw();
     virtual void update();
-    //virtual void clean();
+    virtual void clean();
 
 
 private:
