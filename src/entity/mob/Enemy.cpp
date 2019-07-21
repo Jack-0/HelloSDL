@@ -9,6 +9,10 @@ Enemy::Enemy(const LoaderParams *pParams, int max, int type)
 {
 }
 
+void Enemy::incrementAcceleration()
+{
+    acceleration += 0.005;
+}
 
 void Enemy::update()
 {
@@ -23,7 +27,7 @@ void Enemy::update()
 
     // if the Enemy is not dead accelerate right, else accelerate down
     if(!dead)
-        setXacceleration(0.005);
+        setXacceleration(acceleration);
     else
         setYacceleration(0.2);
 
@@ -47,7 +51,10 @@ void Enemy::draw()
     if(dead)
     {
         if(deathTime > 20)
+        {
+            setAlive(false);
             return;
+        }
 
         switch(type)
         {

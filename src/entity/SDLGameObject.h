@@ -57,7 +57,7 @@ protected:
     int m_currentRow;
     int m_currentFrame;
 
-    bool alive;
+    bool alive = true;
 
     std::string m_texutreID;
 

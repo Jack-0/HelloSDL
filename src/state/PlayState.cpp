@@ -39,11 +39,7 @@ void PlayState::createAndAddBalloon()
             break;
     }
     // create and add balloon to game objects (balloon type based on the random balloon choice)
-    if(someNumber < 20)
-    {
-        m_gameObjects.push_back(new Enemy(new LoaderParams(-70,getRandom(-100,900),68, 128, balloonType),getRandom(0,720),type));
-        someNumber++;
-    }
+    m_gameObjects.push_back(new Enemy(new LoaderParams(-70,getRandom(-100,900),68, 128, balloonType),getRandom(0,720),type));
 }
 
 void PlayState::update()
@@ -55,23 +51,25 @@ void PlayState::update()
 
 
     // add a new balloon
-    createAndAddBalloon();
+    if(m_gameObjects.size() < 100)
+        createAndAddBalloon();
 
     // update all game objects
     for(int i = 0; i < m_gameObjects.size(); i++)
     {
-        // TODO test if the object is a balloon with a cast
-        //if (dynamic_cast<const Enemy*> (m_gameObjects[i]))
-        //{
 
-            //std::cout<<"\tobject is an enemy\n";
-        //}
-
+        // if it is not the player
         if(i != 0)
         {
             if(checkCollision(dynamic_cast<SDLGameObject*>(m_gameObjects[0]), dynamic_cast<SDLGameObject*>(m_gameObjects[i])))
             {
                 TheGame::Instance()->getStateMachine()->changeState(new GameOverState());
+            }
+
+            if(!checkAlive(dynamic_cast<SDLGameObject*>(m_gameObjects[i])))
+            {
+                m_gameObjects[i]->clean();
+                m_gameObjects.erase(m_gameObjects.begin() + i);
             }
         }
 
@@ -146,4 +144,9 @@ bool PlayState::checkCollision(SDLGameObject *p1, SDLGameObject *p2)
     if(leftA >= rightB) {return false;}
 
     return true;
+}
+
+bool PlayState::checkAlive(SDLGameObject *p)
+{
+    return p->isAlive();
 }

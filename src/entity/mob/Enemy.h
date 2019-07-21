@@ -23,6 +23,7 @@ public:
     virtual void update();
     virtual void clean();
 
+    void incrementAcceleration();
 
 private:
     bool dead = false;
@@ -31,6 +32,7 @@ private:
     int ttd = 0;
     int max_ttd;
     int type;
+    float acceleration = 0.005;
 
 };
 

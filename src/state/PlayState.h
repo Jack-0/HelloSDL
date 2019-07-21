@@ -20,6 +20,7 @@ public:
     virtual bool onExit();
 
     bool checkCollision(SDLGameObject* p1, SDLGameObject* p2);
+    bool checkAlive(SDLGameObject* p);
 
     virtual std::string getStateID() const {return s_playID;}
 
@@ -30,8 +31,6 @@ private:
     std::random_device dev;
     static const std::string s_playID;
     std::vector<GameObject*> m_gameObjects;
-
-    int someNumber = 0;
 };
 
 
