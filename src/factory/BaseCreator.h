@@ -9,7 +9,7 @@
 
 #include <string>
 #include <map>
-#include "GameObject.h"
+#include "../entity/GameObject.h"
 
 class BaseCreator
 {
