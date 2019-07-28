@@ -19,7 +19,7 @@ public:
     virtual void clean();
     virtual void load(const LoaderParams* pParams);
 
-    void setCallBack(void(*callback)) { m_callback = callback; }
+    void setCallBack(void(*callback) ()) { m_callback = callback; }
     int getCallbackID() { return m_callbackID; }
 
 private:
@@ -38,5 +38,14 @@ private:
 
 };
 
+class ButtonCreator : public BaseCreator
+{
+public:
+    GameObject* createGameObject() const
+    {
+        return new Button();
+    }
+
+};
 
 #endif //HELLOSDL_BUTTON_H

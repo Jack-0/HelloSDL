@@ -33,9 +33,12 @@ bool Game::init(const char* title, int x, int y, int w, int h, int flags)
         { return false; }
 
 
+    // TODO
+    TheGameObjectFactory::Instance()->registerType("MenuButton", new ButtonCreator());
+
     // Game state
     m_pGameStateMachine = new GameStateMachine();
-    m_pGameStateMachine->changeState(new MenuState());
+    //m_pGameStateMachine->changeState(new MenuState()); // todo
 
     // game is now running
     running = true;

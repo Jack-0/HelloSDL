@@ -4,6 +4,7 @@
 
 #include <string>
 #include <iostream>
+#include <map>
 #include "../entity/GameObject.h"
 
 #ifndef HELLOSDL_GAMEOBJECTFACTORY_H

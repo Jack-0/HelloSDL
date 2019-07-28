@@ -4,7 +4,8 @@
 
 #include "AnimatedGraphic.h"
 
-AnimatedGraphic::AnimatedGraphic(const LoaderParams* params, int animSpeed) : SDLGameObject(params), m_animSpeed(animSpeed)
+//AnimatedGraphic::AnimatedGraphic(const LoaderParams* params, int animSpeed) : SDLGameObject(params), m_animSpeed(animSpeed)
+AnimatedGraphic::AnimatedGraphic(const LoaderParams* params, int animSpeed) : SDLGameObject(), m_animSpeed(animSpeed)
 {
 }
 

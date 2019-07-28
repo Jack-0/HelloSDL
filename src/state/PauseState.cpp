@@ -9,7 +9,7 @@ const std::string PauseState::s_pauseID = "PAUSE";
 
 void PauseState::s_pauseToMain()
 {
-    TheGame::Instance()->getStateMachine()->changeState(new MenuState());
+    TheGame::Instance()->getStateMachine()->changeState(new MainMenuState());
 }
 
 void PauseState::s_resumePlay()
@@ -50,6 +50,7 @@ bool PauseState::onEnter()
         return false;
     }
 
+    /* todo
     GameObject* playButton = new Button(
             new LoaderParams( (720 / 2) + 228, (450 / 2), 256, 100, "resumeBtn"), s_resumePlay );
     GameObject* exitButton = new Button(
@@ -57,6 +58,7 @@ bool PauseState::onEnter()
 
     m_gameObjects.push_back(playButton);
     m_gameObjects.push_back(exitButton);
+     */
 }
 
 bool PauseState::onExit()

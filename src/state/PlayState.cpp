@@ -39,7 +39,7 @@ void PlayState::createAndAddBalloon()
             break;
     }
     // create and add balloon to game objects (balloon type based on the random balloon choice)
-    m_gameObjects.push_back(new Enemy(new LoaderParams(-70,getRandom(-100,900),68, 128, balloonType),getRandom(0,720),type));
+    //todo m_gameObjects.push_back(new Enemy(new LoaderParams(-70,getRandom(-100,900),68, 128, balloonType),getRandom(0,720),type));
 }
 
 void PlayState::update()
@@ -102,7 +102,7 @@ bool PlayState::onEnter()
     TheTextureManager::Instance()->load("../res/mob/greenBalloon.png", "g_balloon", TheGame::Instance()->getRenderer());
 
     // create a player
-    m_gameObjects.push_back(new Player(new LoaderParams(720 - 68 / 2, 450 - 128 / 2,68,128,"p_balloon")));
+    //todo m_gameObjects.push_back(new Player(new LoaderParams(720 - 68 / 2, 450 - 128 / 2,68,128,"p_balloon")));
 
     // create balloon objects ??? todo
 
