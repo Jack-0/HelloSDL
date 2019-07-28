@@ -4,9 +4,15 @@
 
 #include "Enemy.h"
 
-Enemy::Enemy(const LoaderParams *pParams, int max, int type)
-: SDLGameObject(pParams), max_ttd(max), type(type)
+Enemy::Enemy() : SDLGameObject()
 {
+}
+
+void Enemy::load(const LoaderParams *pParams, int max, int eType)
+{
+    SDLGameObject::load(pParams);
+    max_ttd = max;
+    type = eType;
 }
 
 void Enemy::incrementAcceleration()

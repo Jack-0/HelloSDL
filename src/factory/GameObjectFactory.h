@@ -4,10 +4,17 @@
 
 #include <string>
 #include <iostream>
-#include "BaseCreator.h"
+#include "../entity/GameObject.h"
 
 #ifndef HELLOSDL_GAMEOBJECTFACTORY_H
 #define HELLOSDL_GAMEOBJECTFACTORY_H
+
+class BaseCreator
+{
+public:
+    virtual GameObject* createGameObject() const = 0;
+    virtual ~BaseCreator() {}
+};
 
 
 class GameObjectFactory

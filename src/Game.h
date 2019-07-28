@@ -15,7 +15,7 @@
 #include "entity/mob/Enemy.h"
 #include "input/Button.h"
 #include "state/GameStateMachine.h"
-#include "state/MenuState.h"
+#include "state/MainMenuState.h"
 #include "state/PlayState.h"
 
 

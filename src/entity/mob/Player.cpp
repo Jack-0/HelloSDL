@@ -4,13 +4,18 @@
 
 #include "Player.h"
 
-Player::Player(const LoaderParams *pParams)
-: SDLGameObject(pParams)
+Player::Player() : SDLGameObject()
 {
+}
+
+void Player::load(const LoaderParams* pParams)
+{
+    SDLGameObject::load(pParams);
 }
 
 void Player::update()
 {
+    int speed = 4; // TODO this should be private (doesn't need to be generated on each update)
     // update the players animation
     changeFrame(4,200);
 
