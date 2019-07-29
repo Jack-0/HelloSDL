@@ -12,7 +12,8 @@ bool StateParser::parseState(const char *stateFile, std::string stateID, std::ve
 
     if (!xmlDoc.LoadFile(stateFile))
     {
-        return false; // erro a carregar o ficheiro
+        std::cout << "XML File not found\n" ;
+        return false;
     }
 
     TiXmlElement* pRoot = xmlDoc.RootElement();
@@ -53,12 +54,16 @@ bool StateParser::parseState(const char *stateFile, std::string stateID, std::ve
 
 void StateParser::parseTextures(TiXmlElement* pStateRoot, std::vector<std::string> *pTextureIDs)
 {
+    std::cout << "State Parser :: parseTextures()\n";
     for (TiXmlElement* e = pStateRoot->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
     {
         std::string filenameAttribute = e->Attribute("filename");
         std::string idAttribute = e->Attribute("ID");
         pTextureIDs->push_back(idAttribute);
-        TheTextureManager::Instance()->load(filenameAttribute, idAttribute, TheGame::Instance()->getRenderer());
+        if(!TheTextureManager::Instance()->load(filenameAttribute, idAttribute, TheGame::Instance()->getRenderer()))
+            std::cout << "\tfailed to load texture\n";
+        else
+            std::cout << "\tparsed texture at " << filenameAttribute << " successfully\n";
     }
 }
 

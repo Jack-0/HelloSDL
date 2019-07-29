@@ -38,7 +38,7 @@ bool Game::init(const char* title, int x, int y, int w, int h, int flags)
 
     // Game state
     m_pGameStateMachine = new GameStateMachine();
-    //m_pGameStateMachine->changeState(new MenuState()); // todo
+    m_pGameStateMachine->changeState(new MainMenuState()); // todo
 
     // game is now running
     running = true;

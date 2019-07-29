@@ -41,7 +41,7 @@ private:
 class ButtonCreator : public BaseCreator
 {
 public:
-    GameObject* createGameObject() const
+    virtual GameObject* createGameObject() const
     {
         return new Button();
     }

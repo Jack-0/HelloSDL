@@ -7,8 +7,8 @@
         </TEXTURES>
 
         <OBJECTS>
-            <object type="MenuButton" x="588" y="225" width="256" hieght="100" textureID="playButton" numFrames="0" callbackID="1" />
-            <object type="ExitButton" x="588" y="425" width="256" hieght="100" textureID="exitButton" numFrames="0" callbackID="2" />
+            <object type="MenuButton" x="588" y="225" width="256" height="100" textureID="playButton" numFrames="0" callbackID="1"/>
+            <object type="MenuButton" x="588" y="425" width="256" height="100" textureID="exitButton" numFrames="0" callbackID="2"/>
         </OBJECTS>
     </MENU>
 </STATES>
