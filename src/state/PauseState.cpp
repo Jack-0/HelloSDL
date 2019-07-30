@@ -46,18 +46,8 @@ bool PauseState::onEnter()
 
     std::cout << "entering pause state\n";
     return true;
-
-    std::cout << "in pause state\n";
-    /* todo
-    GameObject* playButton = new Button(
-            new LoaderParams( (720 / 2) + 228, (450 / 2), 256, 100, "resumeBtn"), s_resumePlay );
-    GameObject* exitButton = new Button(
-            new LoaderParams( (720 / 2) + 228, (450 / 2) + 200, 256, 100, "menuBtn"), s_pauseToMain );
-
-    m_gameObjects.push_back(playButton);
-    m_gameObjects.push_back(exitButton);
-     */
 }
+
 void PauseState::setCallbacks(const std::vector<MenuState::Callback> &callbacks)
 {
     // go through game objects
@@ -87,19 +77,5 @@ bool PauseState::onExit()
     }
 
     std::cout << "Exiting pause state\n";
-    return true;
-
-    for(int i = 0; i < m_gameObjects.size(); i++)
-    {
-        m_gameObjects[i]->clean();
-    }
-
-    m_gameObjects.clear();
-    //end = true;
-
-    TheTextureManager::Instance()->clearFromTextureMap("resumeBtn");
-    TheTextureManager::Instance()->clearFromTextureMap("menuBtn");
-    TheInputHandler::Instance()->reset();
-
     return true;
 }
