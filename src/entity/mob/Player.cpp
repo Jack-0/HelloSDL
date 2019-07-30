@@ -11,13 +11,14 @@ Player::Player() : SDLGameObject()
 void Player::load(const LoaderParams* pParams)
 {
     SDLGameObject::load(pParams);
+    m_numFrames = pParams->getNumFrames();
 }
 
 void Player::update()
 {
     int speed = 4; // TODO this should be private (doesn't need to be generated on each update)
     // update the players animation
-    changeFrame(4,200);
+    changeFrame(m_numFrames,200);
 
     // Old test code TODO remove this
     //if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_SPACE))

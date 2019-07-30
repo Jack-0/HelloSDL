@@ -19,7 +19,6 @@ public:
     virtual void update();
     virtual void clean();
     virtual void load(const LoaderParams* pParams);
-
 };
 
 class PlayerCreator : public BaseCreator

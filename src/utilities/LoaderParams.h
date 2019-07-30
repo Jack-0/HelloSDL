@@ -29,6 +29,7 @@ public:
     int getHeight() const {return m_height;}
     int getWidth() const {return m_width;}
     int getCallbackID() const {return m_callbackID;}
+    int getNumFrames() const {return m_numFrames;}
     std::string getTextureID() const {return m_textureID;}
 
 

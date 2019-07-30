@@ -7,6 +7,7 @@
 #include "../Game.h"
 #include "PauseState.h"
 #include "GameOverState.h"
+#include "StateParser.h"
 #include <iostream>
 
 const std::string PlayState::s_playID = "PLAY";
@@ -92,6 +93,14 @@ void PlayState::render()
 
 bool PlayState::onEnter()
 {
+    // parse the state
+    StateParser stateParser;
+    stateParser.parseState("../res/xml/test.xml", s_playID, &m_gameObjects, &m_textureIDs);
+
+    std::cout << "entering play state\n";
+    return true;
+
+    /*
     // load textures into the texture manager
     TheTextureManager::Instance()->load("../res/mob/playerBalloon.png", "p_balloon", TheGame::Instance()->getRenderer());
     TheTextureManager::Instance()->load("../res/mob/greenBalloonDeath.png", "g_balloon_death", TheGame::Instance()->getRenderer());
@@ -107,10 +116,15 @@ bool PlayState::onEnter()
     // create balloon objects ??? todo
 
     return true;
+     */
 }
 
 bool PlayState::onExit()
 {
+    for(int i = 0; i < m_textureIDs.size(); i++)
+    {
+        TheTextureManager::Instance()->clearFromTextureMap(m_textureIDs[i]);
+    }
     std::cout << "exiting play state \n";
     return true;
 }

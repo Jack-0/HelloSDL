@@ -23,7 +23,7 @@ public:
     virtual void draw();
     virtual void update();
     virtual void clean();
-    virtual void load(const LoaderParams* pParams, int max, int eType);
+    virtual void load(const LoaderParams* pParams);
 
     void incrementAcceleration();
 
