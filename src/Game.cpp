@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "Game.h"
+#include "entity/AnimatedGraphic.h"
 
 Game* Game::s_pInstance = 0; // singleton
 
@@ -36,6 +37,7 @@ bool Game::init(const char* title, int x, int y, int w, int h, int flags)
     TheGameObjectFactory::Instance()->registerType("MenuButton", new ButtonCreator());
     TheGameObjectFactory::Instance()->registerType("Player", new PlayerCreator());
     TheGameObjectFactory::Instance()->registerType("Enemy", new EnemyCreator());
+    TheGameObjectFactory::Instance()->registerType("AnimatedGraphic", new AnimatedGraphicCreator());
 
     // Game state
     m_pGameStateMachine = new GameStateMachine();

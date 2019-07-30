@@ -121,11 +121,19 @@ bool PlayState::onEnter()
 
 bool PlayState::onExit()
 {
-    for(int i = 0; i < m_textureIDs.size(); i++)
+    for(int i = 0; i < m_gameObjects.size(); i++)
+    {
+        m_gameObjects[i]->clean();
+    }
+
+    m_gameObjects.clear();
+
+    for (int i = 0; i < m_textureIDs.size(); i++)
     {
         TheTextureManager::Instance()->clearFromTextureMap(m_textureIDs[i]);
     }
-    std::cout << "exiting play state \n";
+
+    std::cout << "Exiting play state\n";
     return true;
 }
 

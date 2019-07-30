@@ -25,4 +25,19 @@
         </OBJECTS>
     </PLAY>
 
+    <GAMEOVER>
+        <TEXTURES>
+            <texture filename="../res/menu/menuBtn.png" ID="menuButton"/>
+            <texture filename="../res/menu/restartBtn.png" ID="restartButton"/>
+            <texture filename="../res/menu/gameOver.png" ID="gameOverText"/>
+        </TEXTURES>
+
+        <OBJECTS>
+            <object type="AnimatedGraphic" x="588" y="125" width="256" height="100" textureID="gameOverText" numFrames="2" animSpeed="2"/>
+            <object type="MenuButton" x="588" y="225" width="256" height="100" textureID="menuButton" numFrames="0" callbackID="1"/>
+            <object type="MenuButton" x="588" y="425" width="256" height="100" textureID="restartButton" numFrames="0" callbackID="2"/>
+        </OBJECTS>
+    </GAMEOVER>
+
+
 </STATES>

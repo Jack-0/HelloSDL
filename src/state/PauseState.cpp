@@ -50,6 +50,7 @@ bool PauseState::onEnter()
         return false;
     }
 
+    std::cout << "in pause state\n";
     /* todo
     GameObject* playButton = new Button(
             new LoaderParams( (720 / 2) + 228, (450 / 2), 256, 100, "resumeBtn"), s_resumePlay );

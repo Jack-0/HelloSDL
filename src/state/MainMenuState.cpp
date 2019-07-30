@@ -31,7 +31,6 @@ bool MainMenuState::onEnter()
     // parse the state
     StateParser stateParser;
     stateParser.parseState("../res/xml/test.xml", s_menuID, &m_gameObjects, &m_textureIDs);
-
     m_callbacks.push_back(0); // to start from 1...
     m_callbacks.push_back(s_menuToPlay);
     m_callbacks.push_back(s_exitFromMenu);
