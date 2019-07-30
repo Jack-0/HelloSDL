@@ -7,20 +7,28 @@
 
 #include "../SDLGameObject.h"
 #include "../../input/InputHandler.h"
+#include "../../factory/GameObjectFactory.h"
 
 class Player : public SDLGameObject
 {
 public:
 
-    Player(const LoaderParams* pParams);
+    Player();
 
     virtual void draw();
     virtual void update();
     virtual void clean();
-
-private:
-    int speed = 4;
+    virtual void load(const LoaderParams* pParams);
 };
 
+class PlayerCreator : public BaseCreator
+{
+public:
+    GameObject* createGameObject() const
+    {
+        return new Player();
+    }
+
+};
 
 #endif //HELLOSDL_PLAYER_H

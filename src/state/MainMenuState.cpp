@@ -1,30 +1,24 @@
 //
-// Created by jack on 05/06/19.
+// Created by jack on 31/05/19.
 //
 
-#include "PauseState.h"
+#include "MainMenuState.h"
+#include "../graphics/TextureManager.h"
 #include "../Game.h"
 #include "StateParser.h"
+#include <iostream>
 
-const std::string PauseState::s_pauseID = "PAUSE";
+const std::string MainMenuState::s_menuID = "MENU";
 
-void PauseState::s_pauseToMain()
-{
-    TheGame::Instance()->getStateMachine()->changeState(new MainMenuState());
-}
-
-void PauseState::s_resumePlay()
-{
-    TheGame::Instance()->getStateMachine()->popState();
-}
-
-void PauseState::update()
+void MainMenuState::update()
 {
     for(int i = 0; i < m_gameObjects.size(); i++)
+    {
         m_gameObjects[i]->update();
+    }
 }
 
-void PauseState::render()
+void MainMenuState::render()
 {
     for(int i = 0; i < m_gameObjects.size(); i++)
     {
@@ -32,23 +26,23 @@ void PauseState::render()
     }
 }
 
-bool PauseState::onEnter()
+bool MainMenuState::onEnter()
 {
     // parse the state
     StateParser stateParser;
-    stateParser.parseState("../res/xml/test.xml", s_pauseID, &m_gameObjects, &m_textureIDs);
+    stateParser.parseState("../res/xml/test.xml", s_menuID, &m_gameObjects, &m_textureIDs);
     m_callbacks.push_back(0); // to start from 1...
-    m_callbacks.push_back(s_resumePlay);
-    m_callbacks.push_back(s_pauseToMain);
+    m_callbacks.push_back(s_menuToPlay);
+    m_callbacks.push_back(s_exitFromMenu);
 
     // set the callbacks from menu items
     setCallbacks(m_callbacks);
 
-    std::cout << "entering pause state\n";
+    std::cout << "entering menu state\n";
     return true;
 }
 
-void PauseState::setCallbacks(const std::vector<MenuState::Callback> &callbacks)
+void MainMenuState::setCallbacks(const std::vector<MenuState::Callback> &callbacks)
 {
     // go through game objects
     for(int i = 0; i < m_gameObjects.size(); i++)
@@ -62,7 +56,7 @@ void PauseState::setCallbacks(const std::vector<MenuState::Callback> &callbacks)
     }
 }
 
-bool PauseState::onExit()
+bool MainMenuState::onExit()
 {
     for(int i = 0; i < m_gameObjects.size(); i++)
     {
@@ -76,6 +70,20 @@ bool PauseState::onExit()
         TheTextureManager::Instance()->clearFromTextureMap(m_textureIDs[i]);
     }
 
-    std::cout << "Exiting pause state\n";
+    std::cout << "Exiting menu state\n";
     return true;
 }
+
+void MainMenuState::s_menuToPlay()
+{
+    std::cout << "Play btn clicked!\n";
+    // TODO playstate is causing the problem works with new MenuState?? seg fault
+    TheGame::Instance()->getStateMachine()->changeState(new PlayState());
+}
+
+void MainMenuState::s_exitFromMenu()
+{
+    TheGame::Instance()->quit();
+}
+
+

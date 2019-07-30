@@ -14,11 +14,12 @@
 class SDLGameObject : public GameObject
 {
 public:
-    SDLGameObject(const LoaderParams* pParams);
+    SDLGameObject();
 
     virtual void draw() override;
     virtual void update() override;
     virtual void clean();
+    virtual void load(const LoaderParams* pParams);
 
     // animate and draw a certain frame
     // TODO these need to go we change frame with m_currentFrame
@@ -47,13 +48,15 @@ public:
 
 
 protected:
-    Vector2D m_pos;
-    Vector2D m_velocity;
-    Vector2D m_acceleration;
+    Vector2D m_pos = Vector2D(0, 0);
+    Vector2D m_velocity = Vector2D(0, 0);
+    Vector2D m_acceleration = Vector2D(0, 0);
 
     int m_width;
     int m_height;
 
+    int m_numFrames;
+    int m_animSpeed = 5;
     int m_currentRow;
     int m_currentFrame;
 

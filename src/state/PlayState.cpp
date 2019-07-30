@@ -7,6 +7,7 @@
 #include "../Game.h"
 #include "PauseState.h"
 #include "GameOverState.h"
+#include "StateParser.h"
 #include <iostream>
 
 const std::string PlayState::s_playID = "PLAY";
@@ -39,7 +40,7 @@ void PlayState::createAndAddBalloon()
             break;
     }
     // create and add balloon to game objects (balloon type based on the random balloon choice)
-    m_gameObjects.push_back(new Enemy(new LoaderParams(-70,getRandom(-100,900),68, 128, balloonType),getRandom(0,720),type));
+    //todo m_gameObjects.push_back(new Enemy(new LoaderParams(-70,getRandom(-100,900),68, 128, balloonType),getRandom(0,720),type));
 }
 
 void PlayState::update()
@@ -92,6 +93,14 @@ void PlayState::render()
 
 bool PlayState::onEnter()
 {
+    // parse the state
+    StateParser stateParser;
+    stateParser.parseState("../res/xml/test.xml", s_playID, &m_gameObjects, &m_textureIDs);
+
+    std::cout << "entering play state\n";
+    return true;
+
+    /*
     // load textures into the texture manager
     TheTextureManager::Instance()->load("../res/mob/playerBalloon.png", "p_balloon", TheGame::Instance()->getRenderer());
     TheTextureManager::Instance()->load("../res/mob/greenBalloonDeath.png", "g_balloon_death", TheGame::Instance()->getRenderer());
@@ -102,16 +111,29 @@ bool PlayState::onEnter()
     TheTextureManager::Instance()->load("../res/mob/greenBalloon.png", "g_balloon", TheGame::Instance()->getRenderer());
 
     // create a player
-    m_gameObjects.push_back(new Player(new LoaderParams(720 - 68 / 2, 450 - 128 / 2,68,128,"p_balloon")));
+    //todo m_gameObjects.push_back(new Player(new LoaderParams(720 - 68 / 2, 450 - 128 / 2,68,128,"p_balloon")));
 
     // create balloon objects ??? todo
 
     return true;
+     */
 }
 
 bool PlayState::onExit()
 {
-    std::cout << "exiting play state \n";
+    for(int i = 0; i < m_gameObjects.size(); i++)
+    {
+        m_gameObjects[i]->clean();
+    }
+
+    m_gameObjects.clear();
+
+    for (int i = 0; i < m_textureIDs.size(); i++)
+    {
+        TheTextureManager::Instance()->clearFromTextureMap(m_textureIDs[i]);
+    }
+
+    std::cout << "Exiting play state\n";
     return true;
 }
 

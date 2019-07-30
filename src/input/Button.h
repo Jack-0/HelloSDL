@@ -12,11 +12,15 @@ class Button : public SDLGameObject
 {
 public:
 
-    Button(const LoaderParams* pParams, void (*callback) () );
+    Button();
 
     virtual void draw();
     virtual void update();
     virtual void clean();
+    virtual void load(const LoaderParams* pParams);
+
+    void setCallBack(void(*callback) ()) { m_callback = callback; }
+    int getCallbackID() { return m_callbackID; }
 
 private:
 
@@ -29,9 +33,19 @@ private:
 
     void (*m_callback) ();
 
+    int m_callbackID;
     bool m_bReleased;
 
 };
 
+class ButtonCreator : public BaseCreator
+{
+public:
+    virtual GameObject* createGameObject() const
+    {
+        return new Button();
+    }
+
+};
 
 #endif //HELLOSDL_BUTTON_H

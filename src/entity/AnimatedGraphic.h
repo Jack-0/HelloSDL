@@ -7,11 +7,14 @@
 
 
 #include "SDLGameObject.h"
+#include "../factory/GameObjectFactory.h"
 
 class AnimatedGraphic : public SDLGameObject
 {
 public:
-    AnimatedGraphic(const LoaderParams* params, int animSpeed);
+    AnimatedGraphic();
+
+    virtual void load(const LoaderParams *pParams);
     virtual void update();
     virtual void draw();
     virtual void clean();
@@ -20,5 +23,14 @@ private:
     int m_numFrames = 2;
 };
 
+class AnimatedGraphicCreator : public BaseCreator
+{
+public:
+    virtual GameObject* createGameObject() const
+    {
+        return new AnimatedGraphic();
+    }
+
+};
 
 #endif //HELLOSDL_ANIMATEDGRAPHIC_H

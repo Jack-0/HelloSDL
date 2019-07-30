@@ -4,9 +4,16 @@
 
 #include "Button.h"
 
-Button::Button(const LoaderParams *pParams, void (*callback) ())
-: SDLGameObject(pParams), m_callback(callback)
+Button::Button() : SDLGameObject()
 {
+}
+
+void Button::load(const LoaderParams *pParams)
+{
+    SDLGameObject::load(pParams);
+    m_callbackID = pParams->getCallbackID();
+    m_currentFrame = MOUSE_OUT;
+
 }
 
 void Button::draw()

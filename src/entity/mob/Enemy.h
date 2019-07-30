@@ -7,6 +7,7 @@
 
 #include "../SDLGameObject.h"
 #include "../../input/InputHandler.h"
+#include "../../factory/GameObjectFactory.h"
 
 static const int RED = 0;
 static const int GREEN = 1;
@@ -17,11 +18,12 @@ class Enemy : public SDLGameObject
 {
 public:
 
-    Enemy(const LoaderParams* pParams, int max, int type);
+    Enemy();
 
     virtual void draw();
     virtual void update();
     virtual void clean();
+    virtual void load(const LoaderParams* pParams);
 
     void incrementAcceleration();
 
@@ -36,4 +38,13 @@ private:
 
 };
 
+class EnemyCreator : public BaseCreator
+{
+public:
+    GameObject* createGameObject() const
+    {
+        return new Enemy();
+    }
+
+};
 #endif //HELLOSDL_ENEMY_H
