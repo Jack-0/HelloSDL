@@ -9,8 +9,9 @@
 #include <vector>
 #include "GameState.h"
 #include "../entity/GameObject.h"
+#include "MenuState.h"
 
-class PauseState : public GameState
+class PauseState : public MenuState
 {
 public:
 
@@ -24,7 +25,7 @@ public:
 
 private:
 
-    bool end = false; // solves the issues with pausing, sometimes causing a seg fault crash
+    virtual void setCallbacks(const std::vector<Callback>& callbacks);
 
     static void s_pauseToMain();
     static void s_resumePlay();

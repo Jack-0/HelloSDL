@@ -25,6 +25,18 @@
         </OBJECTS>
     </PLAY>
 
+    <PAUSE>
+         <TEXTURES>
+            <texture filename="../res/menu/resumeBtn.png" ID="resumeButton"/>
+            <texture filename="../res/menu/menuBtn.png" ID="menuButton"/>
+        </TEXTURES>
+
+        <OBJECTS>
+            <object type="MenuButton" x="588" y="225" width="256" height="100" textureID="resumeButton" numFrames="0" callbackID="1"/>
+            <object type="MenuButton" x="588" y="425" width="256" height="100" textureID="menuButton" numFrames="0" callbackID="2"/>
+        </OBJECTS>
+    </PAUSE>
+
     <GAMEOVER>
         <TEXTURES>
             <texture filename="../res/menu/menuBtn.png" ID="menuButton"/>

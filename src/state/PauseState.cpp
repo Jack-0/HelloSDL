@@ -4,6 +4,7 @@
 
 #include "PauseState.h"
 #include "../Game.h"
+#include "StateParser.h"
 
 const std::string PauseState::s_pauseID = "PAUSE";
 
@@ -19,14 +20,8 @@ void PauseState::s_resumePlay()
 
 void PauseState::update()
 {
-    if(!end)
-    {
-        for(int i = 0; i < m_gameObjects.size(); i++)
-        {
-            m_gameObjects[i]->update();
-        }
-
-    }
+    for(int i = 0; i < m_gameObjects.size(); i++)
+        m_gameObjects[i]->update();
 }
 
 void PauseState::render()
@@ -39,16 +34,18 @@ void PauseState::render()
 
 bool PauseState::onEnter()
 {
-    end = false;
-    if(!TheTextureManager::Instance()->load("../res/menu/resumeBtn.png", "resumeBtn", TheGame::Instance()->getRenderer()))
-    {
-        return false;
-    }
+    // parse the state
+    StateParser stateParser;
+    stateParser.parseState("../res/xml/test.xml", s_pauseID, &m_gameObjects, &m_textureIDs);
+    m_callbacks.push_back(0); // to start from 1...
+    m_callbacks.push_back(s_resumePlay);
+    m_callbacks.push_back(s_pauseToMain);
 
-    if(!TheTextureManager::Instance()->load("../res/menu/menuBtn.png", "menuBtn", TheGame::Instance()->getRenderer()))
-    {
-        return false;
-    }
+    // set the callbacks from menu items
+    setCallbacks(m_callbacks);
+
+    std::cout << "entering pause state\n";
+    return true;
 
     std::cout << "in pause state\n";
     /* todo
@@ -61,6 +58,19 @@ bool PauseState::onEnter()
     m_gameObjects.push_back(exitButton);
      */
 }
+void PauseState::setCallbacks(const std::vector<MenuState::Callback> &callbacks)
+{
+    // go through game objects
+    for(int i = 0; i < m_gameObjects.size(); i++)
+    {
+        // if they are type button then set callback
+        if(dynamic_cast<Button*>(m_gameObjects[i]))
+        {
+            Button* pButton = dynamic_cast<Button*>(m_gameObjects[i]);
+            pButton->setCallBack(callbacks[pButton->getCallbackID()]);
+        }
+    }
+}
 
 bool PauseState::onExit()
 {
@@ -70,7 +80,22 @@ bool PauseState::onExit()
     }
 
     m_gameObjects.clear();
-    end = true;
+
+    for (int i = 0; i < m_textureIDs.size(); i++)
+    {
+        TheTextureManager::Instance()->clearFromTextureMap(m_textureIDs[i]);
+    }
+
+    std::cout << "Exiting pause state\n";
+    return true;
+
+    for(int i = 0; i < m_gameObjects.size(); i++)
+    {
+        m_gameObjects[i]->clean();
+    }
+
+    m_gameObjects.clear();
+    //end = true;
 
     TheTextureManager::Instance()->clearFromTextureMap("resumeBtn");
     TheTextureManager::Instance()->clearFromTextureMap("menuBtn");
