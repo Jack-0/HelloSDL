@@ -6,6 +6,7 @@
 #include "../graphics/TextureManager.h"
 #include "../Game.h"
 #include "StateParser.h"
+#include "../utilities/SoundManager.h"
 #include <iostream>
 
 const std::string MainMenuState::s_menuID = "MENU";
@@ -77,6 +78,7 @@ bool MainMenuState::onExit()
 void MainMenuState::s_menuToPlay()
 {
     std::cout << "Play btn clicked!\n";
+    TheSoundManager::Instance()->play("test");
     // TODO playstate is causing the problem works with new MenuState?? seg fault
     TheGame::Instance()->getStateMachine()->changeState(new PlayState());
 }

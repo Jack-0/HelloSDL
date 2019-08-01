@@ -6,6 +6,7 @@
 
 #include "Game.h"
 #include "entity/AnimatedGraphic.h"
+#include "utilities/SoundManager.h"
 
 Game* Game::s_pInstance = 0; // singleton
 
@@ -38,6 +39,8 @@ bool Game::init(const char* title, int x, int y, int w, int h, int flags)
     TheGameObjectFactory::Instance()->registerType("Player", new PlayerCreator());
     TheGameObjectFactory::Instance()->registerType("Enemy", new EnemyCreator());
     TheGameObjectFactory::Instance()->registerType("AnimatedGraphic", new AnimatedGraphicCreator());
+    
+    TheSoundManager::Instance()->load("../res/sound/test.wav", "test");
 
     // Game state
     m_pGameStateMachine = new GameStateMachine();
