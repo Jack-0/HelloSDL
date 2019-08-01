@@ -17,7 +17,7 @@
 class TextureManager
 {
 public:
-    std::map<std::string, SDL_Texture*> texturemMap;
+    std::map<std::string, SDL_Texture*> textureMap;
 
     bool load(std::string, std::string, SDL_Renderer*);
     /// draw animation

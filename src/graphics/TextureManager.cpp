@@ -8,7 +8,7 @@ TextureManager* TextureManager::s_pInstance = 0;
 
 void TextureManager::clearFromTextureMap(std::string id)
 {
-    texturemMap.erase(id);
+    textureMap.erase(id);
 }
 
 bool TextureManager::load(std::string filename, std::string id, SDL_Renderer* renderer)
@@ -25,7 +25,7 @@ bool TextureManager::load(std::string filename, std::string id, SDL_Renderer* re
 
     if(pTexture != 0)
     {
-        texturemMap[id] = pTexture;
+        textureMap[id] = pTexture;
         return true;
     }
 
@@ -45,7 +45,7 @@ void TextureManager::draw(std::string id, int x, int y, int w, int h, SDL_Render
     destRect.x = x;
     destRect.y = y;
 
-    SDL_RenderCopyEx(renderer, texturemMap[id], &srcRect, &destRect, 0, 0, flip);
+    SDL_RenderCopyEx(renderer, textureMap[id], &srcRect, &destRect, 0, 0, flip);
 }
 
 void TextureManager::drawFrame(std::string id, int x, int y, int w, int h, int row, int frame,
@@ -60,7 +60,7 @@ void TextureManager::drawFrame(std::string id, int x, int y, int w, int h, int r
     destRect.x = x;
     destRect.y = y;
 
-    SDL_RenderCopyEx(renderer, texturemMap[id], &srcRect, &destRect, 0, 0, flip);
+    SDL_RenderCopyEx(renderer, textureMap[id], &srcRect, &destRect, 0, 0, flip);
 }
 
 
