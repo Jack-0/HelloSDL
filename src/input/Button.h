@@ -35,7 +35,7 @@ private:
 
     int m_callbackID;
     bool m_bReleased;
-
+    bool soundPlayedOnMouseOver = false;
 };
 
 class ButtonCreator : public BaseCreator

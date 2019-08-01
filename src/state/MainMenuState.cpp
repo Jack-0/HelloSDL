@@ -78,7 +78,6 @@ bool MainMenuState::onExit()
 void MainMenuState::s_menuToPlay()
 {
     std::cout << "Play btn clicked!\n";
-    TheSoundManager::Instance()->play("test");
     // TODO playstate is causing the problem works with new MenuState?? seg fault
     TheGame::Instance()->getStateMachine()->changeState(new PlayState());
 }

@@ -39,12 +39,13 @@ bool Game::init(const char* title, int x, int y, int w, int h, int flags)
     TheGameObjectFactory::Instance()->registerType("Player", new PlayerCreator());
     TheGameObjectFactory::Instance()->registerType("Enemy", new EnemyCreator());
     TheGameObjectFactory::Instance()->registerType("AnimatedGraphic", new AnimatedGraphicCreator());
-    
-    TheSoundManager::Instance()->load("../res/sound/test.wav", "test");
+
+    TheSoundManager::Instance()->load("../res/sound/bang.wav", "bang");
+    TheSoundManager::Instance()->load("../res/sound/beep.wav", "beep");
 
     // Game state
     m_pGameStateMachine = new GameStateMachine();
-    m_pGameStateMachine->changeState(new MainMenuState()); // todo
+    m_pGameStateMachine->changeState(new MainMenuState());
 
 
 
