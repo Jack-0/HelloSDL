@@ -25,7 +25,14 @@ public:
     /// draw a single frame
     void drawFrame(std::string, int, int, int, int, int, int, SDL_Renderer*, SDL_RendererFlip = SDL_FLIP_NONE);
 
+    void updateTexture(std::string id);
+
     void clearFromTextureMap(std::string);
+
+    SDL_Texture* getTexture(std::string id)
+    {
+        return textureMap[id];
+    }
 
     static  TextureManager* Instance()
     {
