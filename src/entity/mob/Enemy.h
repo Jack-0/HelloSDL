@@ -8,6 +8,7 @@
 #include "../SDLGameObject.h"
 #include "../../input/InputHandler.h"
 #include "../../factory/GameObjectFactory.h"
+#include "../VanityItem.h"
 
 static const int RED = 0;
 static const int GREEN = 1;
@@ -35,6 +36,8 @@ private:
     int max_ttd;
     int type;
     float acceleration = 0.005;
+
+    VanityItem tail = VanityItem();
 };
 
 class EnemyCreator : public BaseCreator

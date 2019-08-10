@@ -11,7 +11,8 @@ Player::Player() : SDLGameObject()
 void Player::load(const LoaderParams* pParams)
 {
     SDLGameObject::load(pParams);
-    m_numFrames = pParams->getNumFrames();
+    tail.load(new LoaderParams((m_pos.getX() + m_width / 2) - 3, m_pos.getY() + m_height, 6, 51, "tail", 2));
+    hat.load(new LoaderParams((m_pos.getX() + m_width / 2) - 9, m_pos.getY() - 14, 18, 16, "hat", 1));
 }
 
 void Player::update()
@@ -38,14 +39,25 @@ void Player::update()
 
     // update
     SDLGameObject::update();
+
+    // update tail position
+    tail.setPos((m_pos.getX() + m_width / 2) - 3, m_pos.getY() + m_height);
+    tail.update();
+
+    // update hat position
+    hat.setPos((m_pos.getX() + m_width / 2) - 9, m_pos.getY() - 14);
+    hat.update();
 }
 
 void Player::draw()
 {
     SDLGameObject::draw();
+    tail.draw();
+    hat.draw();
 }
 
 void Player::clean()
 {
+    tail.clean();
     SDLGameObject::clean();
 }

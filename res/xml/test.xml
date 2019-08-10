@@ -15,13 +15,15 @@
 
     <PLAY>
         <TEXTURES>
-            <texture filename="../res/mob/playerBalloon.png" ID="playerBalloon"/>
-            <texture filename="../res/mob/redBalloon.png" ID="redBalloon"/>
+            <texture filename="../res/mob/head.png" ID="head"/>
+            <texture filename="../res/mob/tail.png" ID="tail"/>
+            <texture filename="../res/mob/hat.png" ID="hat"/>
         </TEXTURES>
 
         <OBJECTS>
-            <object type="Player" x="326" y="332" width="68" height="128" textureID="playerBalloon" numFrames="4"/>
-            <object type="Enemy" x="100" y="100" width="68" height="128" textureID="redBalloon" numFrames="4"/>
+            <object type="Player" x="326" y="332" width="38" height="52" textureID="head" numFrames="1"/>
+            <!--<object type="Player" x="600" y="332" width="6" height="51" textureID="tail" numFrames="2"/>-->
+            <object type="Enemy" x="100" y="100" width="38" height="52" textureID="head" numFrames="1"/>
         </OBJECTS>
     </PLAY>
 

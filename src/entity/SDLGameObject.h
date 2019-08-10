@@ -23,8 +23,8 @@ public:
 
     // animate and draw a certain frame
     // TODO these need to go we change frame with m_currentFrame
-    void drawGiven(std::string texID, int frame);
-    void changeFrame(int frames, int speed);
+    //void drawGiven(std::string texID, int frame);
+    //void changeFrame(int frames, int speed);
 
 
     Vector2D& getPosition() {return m_pos;}

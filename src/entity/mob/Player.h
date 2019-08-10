@@ -8,6 +8,7 @@
 #include "../SDLGameObject.h"
 #include "../../input/InputHandler.h"
 #include "../../factory/GameObjectFactory.h"
+#include "../VanityItem.h"
 
 class Player : public SDLGameObject
 {
@@ -19,6 +20,10 @@ public:
     virtual void update();
     virtual void clean();
     virtual void load(const LoaderParams* pParams);
+private:
+    VanityItem tail = VanityItem();
+    VanityItem hat = VanityItem();
+
 };
 
 class PlayerCreator : public BaseCreator
