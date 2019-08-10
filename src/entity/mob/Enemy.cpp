@@ -12,12 +12,11 @@ void Enemy::load(const LoaderParams *pParams)
 {
     SDLGameObject::load(pParams);
     m_numFrames = pParams->getNumFrames();
-    m_velocity.setY(2);
+    m_velocity.setX(1);
 }
 
 void Enemy::update()
 {
-    changeFrame(m_numFrames, 200);
     SDLGameObject::update();
 }
 

@@ -78,7 +78,7 @@ void PlayState::update()
         m_gameObjects[i]->update();
     }
 
-    std::cout << "total objects = " << m_gameObjects.size() << "\n";
+    //std::cout << "total objects = " << m_gameObjects.size() << "\n";
 
 
 }

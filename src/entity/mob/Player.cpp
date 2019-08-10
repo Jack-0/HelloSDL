@@ -17,8 +17,6 @@ void Player::load(const LoaderParams* pParams)
 void Player::update()
 {
     int speed = 4; // TODO this should be private (doesn't need to be generated on each update)
-    // update the players animation
-    changeFrame(m_numFrames,200);
 
     // Old test code TODO remove this
     //if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_SPACE))

@@ -35,7 +35,6 @@ private:
     int max_ttd;
     int type;
     float acceleration = 0.005;
-
 };
 
 class EnemyCreator : public BaseCreator

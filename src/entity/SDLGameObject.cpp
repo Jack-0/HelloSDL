@@ -38,14 +38,10 @@ void SDLGameObject::drawGiven(std::string texID, int frame)
     TextureManager::Instance()->drawFrame(texID, m_pos.getX(), m_pos.getY(), m_width, m_height, m_currentRow, frame, TheGame::Instance()->getRenderer());
 }
 
-
-void SDLGameObject::changeFrame(int frames, int speed)
-{
-    m_currentFrame = int ((SDL_GetTicks() / speed) % frames);
-}
-
 void SDLGameObject::update()
 {
     m_velocity += m_acceleration;
     m_pos += m_velocity;
+    m_currentFrame = int ((SDL_GetTicks() / 200) % m_numFrames);
+    //animate();
 }
