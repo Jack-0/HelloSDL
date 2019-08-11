@@ -23,7 +23,7 @@
         <OBJECTS>
             <object type="Player" x="326" y="332" width="38" height="52" textureID="head" numFrames="1"/>
             <!--<object type="Player" x="600" y="332" width="6" height="51" textureID="tail" numFrames="2"/>-->
-            <object type="Enemy" x="100" y="100" width="38" height="52" textureID="head" numFrames="1"/>
+            <!--<object type="Enemy" x="100" y="100" width="38" height="52" textureID="head" numFrames="1"/>-->
         </OBJECTS>
     </PLAY>
 

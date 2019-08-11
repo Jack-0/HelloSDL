@@ -12,35 +12,27 @@
 
 const std::string PlayState::s_playID = "PLAY";
 
-
-
-
-
 /**
  * Creates one balloon and adds it to game objects, note the balloon has random properties
  */
-void PlayState::createAndAddBalloon()
-{
-    std::string balloonType = "";
-    int type;
+void PlayState::addEnemy(){
+    std::string head_type = "";
+
     // randomly choose a balloon to spawn
     switch(getRandom(0,2))
     {
         case 0:
-            balloonType = "r_balloon";
-            type = 0;
+            head_type = "head_r";
             break;
         case 1:
-            balloonType = "g_balloon";
-            type = 1;
+            head_type = "head_g";
             break;
         case 2:
-            balloonType = "b_balloon";
-            type = 2;
+            head_type = "head_b";
             break;
     }
     // create and add balloon to game objects (balloon type based on the random balloon choice)
-    //todo m_gameObjects.push_back(new Enemy(new LoaderParams(-70,getRandom(-100,900),68, 128, balloonType),getRandom(0,720),type));
+    m_gameObjects.push_back(new Enemy(new LoaderParams(-70, getRandom(-100,900) ,38, 52, head_type, 1)));
 }
 
 void PlayState::update()
@@ -52,13 +44,12 @@ void PlayState::update()
 
 
     // add a new balloon
-    if(m_gameObjects.size() < 100)
-        createAndAddBalloon();
+    if(m_gameObjects.size() < MAX_GAMEOBJECTS)
+        addEnemy();
 
     // update all game objects
     for(int i = 0; i < m_gameObjects.size(); i++)
     {
-
         // if it is not the player
         if(i != 0)
         {
@@ -73,14 +64,10 @@ void PlayState::update()
                 m_gameObjects.erase(m_gameObjects.begin() + i);
             }
         }
-
-        // TODO end test
         m_gameObjects[i]->update();
     }
 
     //std::cout << "total objects = " << m_gameObjects.size() << "\n";
-
-
 }
 
 void PlayState::render()
@@ -97,26 +84,25 @@ bool PlayState::onEnter()
     StateParser stateParser;
     stateParser.parseState("../res/xml/test.xml", s_playID, &m_gameObjects, &m_textureIDs);
 
-    std::cout << "entering play state\n";
+    // generate coloured balloons
+    SDL_Color red;
+    SDL_Color green;
+    SDL_Color blue;
+    red.r = 200; red.g = 0; red.b = 120; red.a = 0;
+    green.r = 0; green.g = 200; green.b = 120; green.a = 0;
+    blue.r = 0; blue.g = 120; blue.b = 200; blue.a = 0;
+
+    // Generate red green and blue textures from default pink head image
+    m_textureIDs.push_back("head_r");
+    m_textureIDs.push_back("head_g");
+    m_textureIDs.push_back("head_b");
+    TheTextureManager::Instance()->loadWithNewColour("../res/mob/head.png", "head_r", TheGame::Instance()->getRenderer(), red);
+    TheTextureManager::Instance()->loadWithNewColour("../res/mob/head.png", "head_g", TheGame::Instance()->getRenderer(), green);
+    TheTextureManager::Instance()->loadWithNewColour("../res/mob/head.png", "head_b", TheGame::Instance()->getRenderer(), blue);
+
+
+    std::cout << "Entering play state\n";
     return true;
-
-    /*
-    // load textures into the texture manager
-    TheTextureManager::Instance()->load("../res/mob/playerBalloon.png", "p_balloon", TheGame::Instance()->getRenderer());
-    TheTextureManager::Instance()->load("../res/mob/greenBalloonDeath.png", "g_balloon_death", TheGame::Instance()->getRenderer());
-    TheTextureManager::Instance()->load("../res/mob/blueBalloon.png", "b_balloon", TheGame::Instance()->getRenderer());
-    TheTextureManager::Instance()->load("../res/mob/blueBalloonDeath.png", "b_balloon_death", TheGame::Instance()->getRenderer());
-    TheTextureManager::Instance()->load("../res/mob/redBalloon.png", "r_balloon", TheGame::Instance()->getRenderer());
-    TheTextureManager::Instance()->load("../res/mob/redBalloonDeath.png", "r_balloon_death", TheGame::Instance()->getRenderer());
-    TheTextureManager::Instance()->load("../res/mob/greenBalloon.png", "g_balloon", TheGame::Instance()->getRenderer());
-
-    // create a player
-    //todo m_gameObjects.push_back(new Player(new LoaderParams(720 - 68 / 2, 450 - 128 / 2,68,128,"p_balloon")));
-
-    // create balloon objects ??? todo
-
-    return true;
-     */
 }
 
 bool PlayState::onExit()

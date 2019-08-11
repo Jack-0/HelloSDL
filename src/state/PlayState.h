@@ -11,6 +11,7 @@
 #include "../entity/GameObject.h"
 #include "../entity/SDLGameObject.h"
 
+
 class PlayState : public GameState
 {
 public:
@@ -25,8 +26,11 @@ public:
     virtual std::string getStateID() const {return s_playID;}
 
 private:
+
+    const int MAX_GAMEOBJECTS = 20;
+
     int getRandom(int, int);
-    void createAndAddBalloon();
+    void addEnemy();
 
     std::random_device dev;
     static const std::string s_playID;

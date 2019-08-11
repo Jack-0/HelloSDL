@@ -8,6 +8,11 @@ Enemy::Enemy() : SDLGameObject()
 {
 }
 
+Enemy::Enemy(const LoaderParams* pParams) : SDLGameObject()
+{
+    load(pParams);
+}
+
 void Enemy::load(const LoaderParams *pParams)
 {
     SDLGameObject::load(pParams);

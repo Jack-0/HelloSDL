@@ -13,7 +13,6 @@ void TextureManager::clearFromTextureMap(std::string id)
 
 bool TextureManager::load(std::string filename, std::string id, SDL_Renderer* renderer)
 {
-    
     SDL_Surface* pSurface = IMG_Load(filename.c_str());
     
     if(!pSurface)
@@ -22,11 +21,32 @@ bool TextureManager::load(std::string filename, std::string id, SDL_Renderer* re
         return false;
     }
 
+    SDL_Texture* pTexture = SDL_CreateTextureFromSurface(renderer, pSurface);
+    SDL_FreeSurface(pSurface);
+
+    if(pTexture != 0)
+    {
+        textureMap[id] = pTexture;
+        return true;
+    }
+    return false;
+}
+
+bool TextureManager::loadWithNewColour(std::string filename, std::string id, SDL_Renderer *pRenderer, SDL_Color colour)
+{
+SDL_Surface* pSurface = IMG_Load(filename.c_str());
+
+    if(!pSurface)
+    {
+        std::cout << "Error loading file \"" << filename << "\"" << std::endl;
+        return false;
+    }
+
     // recolour certain surfaces
     //if(id == "head")
-    recolour(pSurface);
+    recolour(pSurface, colour);
 
-    SDL_Texture* pTexture = SDL_CreateTextureFromSurface(renderer, pSurface);
+    SDL_Texture* pTexture = SDL_CreateTextureFromSurface(pRenderer, pSurface);
     SDL_FreeSurface(pSurface);
 
     if(pTexture != 0)
@@ -53,7 +73,7 @@ void TextureManager::draw(std::string id, int x, int y, int w, int h, int row, i
     SDL_RenderCopyEx(renderer, textureMap[id], &srcRect, &destRect, 0, 0, flip);
 }
 
-void TextureManager::recolour(SDL_Surface* pSurface)
+void TextureManager::recolour(SDL_Surface* pSurface, SDL_Color colour)
 {
 
     /*
@@ -63,11 +83,6 @@ void TextureManager::recolour(SDL_Surface* pSurface)
      *  ...  #CC00CC
      *  ...  #E600E6
      */
-
-    Uint8 new_r,new_g,new_b;
-    new_r = getRandom(80,250);
-    new_g = getRandom(80,250);
-    new_b = getRandom(80,250);
 
     // for each pixel in the surface
     for(int i = 0; i < pSurface->w * pSurface->h; i++)
@@ -83,27 +98,54 @@ void TextureManager::recolour(SDL_Surface* pSurface)
         // modify the colour value
         if(r == 0x99 && g == 0x00 && b == 0x99)
         {
-            r = new_r - 20 * 3;
-            g = new_g - 20 * 3;
-            b = new_b - 20 * 3;
+            if(colour.r != 0)
+                r = colour.r - 20 * 3;
+            else
+                r = colour.r;
+            if(colour.g != 0)
+                g = colour.g - 20 * 3;
+            else
+                g = colour.g;
+            if(colour.b != 0)
+                b = colour.b - 20 * 3;
+            else
+                b = colour.b;
         }
         else if(r == 0xB3 && g == 0x00 && b == 0xB3)
         {
-            r = new_r - 20 * 2;
-            g = new_g - 20 * 2;
-            b = new_b - 20 * 2;
+            if(colour.r != 0)
+                r = colour.r - 20 * 2;
+            else
+                r = colour.r;
+            if(colour.g != 0)
+                g = colour.g - 20 * 2;
+            else
+                g = colour.g;
+            if(colour.b != 0)
+                b = colour.b - 20 * 2;
+            else
+                b = colour.b;
         }
         else if(r == 0xCC && g == 0x00 && b == 0xCC)
         {
-            r = new_r - 20;
-            g = new_g - 20;
-            b = new_b - 20;
+            if(colour.r != 0)
+                r = colour.r - 20 * 1;
+            else
+                r = colour.r;
+            if(colour.g != 0)
+                g = colour.g - 20 * 1;
+            else
+                g = colour.g;
+            if(colour.b != 0)
+                b = colour.b - 20 * 1;
+            else
+                b = colour.b;
         }
         else if(r == 0xE6 && g == 0x00 && b == 0xE6)
         {
-            r = new_r;
-            g = new_g;
-            b = new_b;
+            r = colour.r;
+            g = colour.g;
+            b = colour.b;
         }
 
         // recolour the index pixel

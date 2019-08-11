@@ -20,7 +20,8 @@ class TextureManager
 public:
     std::map<std::string, SDL_Texture*> textureMap;
 
-    bool load(std::string, std::string, SDL_Renderer*);
+    bool load(std::string filename, std::string id, SDL_Renderer* renderer);
+    bool loadWithNewColour(std::string filename, std::string id, SDL_Renderer* pRenderer, SDL_Color colour);
 
     /// draw a single frame
     void draw(std::string, int, int, int, int, int, int, SDL_Renderer*, SDL_RendererFlip = SDL_FLIP_NONE);
@@ -48,7 +49,7 @@ private:
     int getRandom(int low, int high);
     std::random_device dev;
 
-    void recolour(SDL_Surface* pSurface);
+    void recolour(SDL_Surface* pSurface, SDL_Color colour);
 };
 
 typedef TextureManager TheTextureManager;
