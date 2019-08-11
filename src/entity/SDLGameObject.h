@@ -56,7 +56,7 @@ protected:
     int m_height;
 
     int m_numFrames;
-    int m_animSpeed = 5;
+    int m_animSpeed = 200;
     int m_currentRow;
     int m_currentFrame;
 

@@ -22,7 +22,6 @@ void SDLGameObject::load(const LoaderParams *pParams)
     m_currentRow = 1;
     m_currentFrame = 1;
     m_numFrames = pParams->getNumFrames();
-    //m_frames = pParams->getNumFrames(); //todo implement this
 }
 
 void SDLGameObject::clean()
@@ -31,20 +30,13 @@ void SDLGameObject::clean()
 
 void SDLGameObject::draw()
 {
-    TextureManager::Instance()->drawFrame(m_texutreID, m_pos.getX(), m_pos.getY(), m_width, m_height, m_currentRow, m_currentFrame, TheGame::Instance()->getRenderer());
+    TextureManager::Instance()->draw(m_texutreID, m_pos.getX(), m_pos.getY(), m_width, m_height, m_currentRow, m_currentFrame, TheGame::Instance()->getRenderer());
 }
-
-/*
-void SDLGameObject::drawGiven(std::string texID, int frame)
-{
-    TextureManager::Instance()->drawFrame(texID, m_pos.getX(), m_pos.getY(), m_width, m_height, m_currentRow, frame, TheGame::Instance()->getRenderer());
-}
- */
 
 void SDLGameObject::update()
 {
     m_velocity += m_acceleration;
     m_pos += m_velocity;
-    m_currentFrame = int ((SDL_GetTicks() / 200) % m_numFrames);
-    //animate();
+    // animate the frame
+    m_currentFrame = int ((SDL_GetTicks() / m_animSpeed) % m_numFrames);
 }

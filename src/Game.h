@@ -45,8 +45,6 @@ public:
 
     void quit();
 
-    int getRandom(int low, int high);
-
     SDL_Renderer* getRenderer() const { return renderer; }
 
 private:
