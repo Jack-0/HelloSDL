@@ -13,7 +13,7 @@
 const std::string PlayState::s_playID = "PLAY";
 
 /**
- * Creates one balloon and adds it to game objects, note the balloon has random properties
+ * Creates one enemy and adds it to game objects, note enemies are assigned random colours
  */
 void PlayState::addEnemy(){
     std::string head_type = "";
@@ -41,7 +41,6 @@ void PlayState::update()
     {
         TheGame::Instance()->getStateMachine()->pushState(new PauseState());
     }
-
 
     // add a new balloon
     if(m_gameObjects.size() < MAX_GAMEOBJECTS)
@@ -84,7 +83,7 @@ bool PlayState::onEnter()
     StateParser stateParser;
     stateParser.parseState("../res/xml/test.xml", s_playID, &m_gameObjects, &m_textureIDs);
 
-    // generate coloured balloons
+    // generate colours for balloons.. note red is not pure red; green is not pure green; etc.
     SDL_Color red;
     SDL_Color green;
     SDL_Color blue;
@@ -99,7 +98,6 @@ bool PlayState::onEnter()
     TheTextureManager::Instance()->loadWithNewColour("../res/mob/head.png", "head_r", TheGame::Instance()->getRenderer(), red);
     TheTextureManager::Instance()->loadWithNewColour("../res/mob/head.png", "head_g", TheGame::Instance()->getRenderer(), green);
     TheTextureManager::Instance()->loadWithNewColour("../res/mob/head.png", "head_b", TheGame::Instance()->getRenderer(), blue);
-
 
     std::cout << "Entering play state\n";
     return true;

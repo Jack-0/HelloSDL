@@ -96,6 +96,7 @@ void TextureManager::recolour(SDL_Surface* pSurface, SDL_Color colour)
 
 
         // modify the colour value
+        // TODO: use function calls to clean this code
         if(r == 0x99 && g == 0x00 && b == 0x99)
         {
             if(colour.r != 0)
