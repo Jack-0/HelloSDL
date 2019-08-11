@@ -27,17 +27,7 @@ public:
     virtual void clean();
     virtual void load(const LoaderParams* pParams);
 
-    void incrementAcceleration();
-
 private:
-    bool dead = false;
-    int deathFrame = 0;
-    int deathTime = 0;
-    int ttd = 0;
-    int max_ttd;
-    int type;
-    float acceleration = 0.005;
-
     VanityItem tail = VanityItem();
 };
 

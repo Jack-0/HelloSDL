@@ -27,7 +27,7 @@ public:
 
 private:
 
-    const int MAX_GAMEOBJECTS = 20;
+    const int MAX_GAMEOBJECTS = 2000;
 
     int getRandom(int, int);
     void addEnemy();

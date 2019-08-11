@@ -43,8 +43,8 @@ public:
     void setYacceleration(float y){m_acceleration.setY(y);}
 
 
-    bool isAlive(){ return alive; }
-    void setAlive(bool x) {alive = x;}
+    bool alive(){ return m_alive; }
+    //void setAlive(bool x) {alive = x;}
 
 
 protected:
@@ -60,7 +60,7 @@ protected:
     int m_currentRow;
     int m_currentFrame;
 
-    bool alive = true;
+    bool m_alive = true;
 
     std::string m_texutreID;
 

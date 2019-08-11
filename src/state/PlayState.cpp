@@ -156,5 +156,5 @@ bool PlayState::checkCollision(SDLGameObject *p1, SDLGameObject *p2)
 
 bool PlayState::checkAlive(SDLGameObject *p)
 {
-    return p->isAlive();
+    return p->alive();
 }

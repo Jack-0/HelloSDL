@@ -26,6 +26,9 @@ void Enemy::update()
 {
     SDLGameObject::update();
 
+    if(m_pos.getX() > 900)
+        m_alive = false;
+
     // update tail position
     tail.setPos((m_pos.getX() + m_width / 2) - 3, m_pos.getY() + m_height);
     tail.update();
