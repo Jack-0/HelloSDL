@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <map>
+#include <random>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -20,12 +21,9 @@ public:
     std::map<std::string, SDL_Texture*> textureMap;
 
     bool load(std::string, std::string, SDL_Renderer*);
-    /// draw animation
-    void draw(std::string, int, int, int, int, SDL_Renderer*, SDL_RendererFlip = SDL_FLIP_NONE);
-    /// draw a single frame
-    void drawFrame(std::string, int, int, int, int, int, int, SDL_Renderer*, SDL_RendererFlip = SDL_FLIP_NONE);
 
-    void updateTexture(std::string id);
+    /// draw a single frame
+    void draw(std::string, int, int, int, int, int, int, SDL_Renderer*, SDL_RendererFlip = SDL_FLIP_NONE);
 
     void clearFromTextureMap(std::string);
 
@@ -46,6 +44,11 @@ public:
 private:
     TextureManager() {};
     static TextureManager* s_pInstance;
+
+    int getRandom(int low, int high);
+    std::random_device dev;
+
+    void recolour(SDL_Surface* pSurface);
 };
 
 typedef TextureManager TheTextureManager;
