@@ -6,10 +6,12 @@
 
 TextureManager* TextureManager::s_pInstance = 0;
 
+
 void TextureManager::clearFromTextureMap(std::string id)
 {
     textureMap.erase(id);
 }
+
 
 bool TextureManager::load(std::string filename, std::string id, SDL_Renderer* renderer)
 {
@@ -31,6 +33,7 @@ bool TextureManager::load(std::string filename, std::string id, SDL_Renderer* re
     }
     return false;
 }
+
 
 bool TextureManager::loadWithNewColour(std::string filename, std::string id, SDL_Renderer *pRenderer, SDL_Color colour)
 {
@@ -73,15 +76,17 @@ void TextureManager::draw(std::string id, int x, int y, int w, int h, int row, i
     SDL_RenderCopyEx(renderer, textureMap[id], &srcRect, &destRect, 0, 0, flip);
 }
 
-void TextureManager::recolour(SDL_Surface* pSurface, SDL_Color colour)
-{
 
+void TextureManager::recolour(SDL_Surface* pSurface, const SDL_Color colour)
+{
     /*
-     * Balloon Head colours:
+     * Balloon Head colours are:
      *  edge #990099
      *  ...  #B300B3
      *  ...  #CC00CC
      *  ...  #E600E6
+     *
+     *      we use recolour to change these shades of pink to any colour we desire
      */
 
     // for each pixel in the surface
@@ -93,71 +98,33 @@ void TextureManager::recolour(SDL_Surface* pSurface, SDL_Color colour)
         Uint32* pixel = (Uint32 *) pSurface->pixels + i;
         // fill r,g,b,a vars with values
         SDL_GetRGBA(*pixel, pSurface->format, &r, &g, &b, &a);
-
-
-        // modify the colour value
-        // TODO: use function calls to clean this code
-        if(r == 0x99 && g == 0x00 && b == 0x99)
-        {
-            if(colour.r != 0)
-                r = colour.r - 20 * 3;
-            else
-                r = colour.r;
-            if(colour.g != 0)
-                g = colour.g - 20 * 3;
-            else
-                g = colour.g;
-            if(colour.b != 0)
-                b = colour.b - 20 * 3;
-            else
-                b = colour.b;
-        }
-        else if(r == 0xB3 && g == 0x00 && b == 0xB3)
-        {
-            if(colour.r != 0)
-                r = colour.r - 20 * 2;
-            else
-                r = colour.r;
-            if(colour.g != 0)
-                g = colour.g - 20 * 2;
-            else
-                g = colour.g;
-            if(colour.b != 0)
-                b = colour.b - 20 * 2;
-            else
-                b = colour.b;
-        }
-        else if(r == 0xCC && g == 0x00 && b == 0xCC)
-        {
-            if(colour.r != 0)
-                r = colour.r - 20 * 1;
-            else
-                r = colour.r;
-            if(colour.g != 0)
-                g = colour.g - 20 * 1;
-            else
-                g = colour.g;
-            if(colour.b != 0)
-                b = colour.b - 20 * 1;
-            else
-                b = colour.b;
-        }
-        else if(r == 0xE6 && g == 0x00 && b == 0xE6)
-        {
-            r = colour.r;
-            g = colour.g;
-            b = colour.b;
-        }
-
+        // recolour a colour in the texture a new colour if it is a certain colour
+        recolourSection(&r, &g, &b, 0x99, 0x00, 0x99, colour, 3);
+        recolourSection(&r, &g, &b, 0xB3, 0x00, 0xB3, colour, 2);
+        recolourSection(&r, &g, &b, 0xCC, 0x00, 0xCC, colour, 1);
+        recolourSection(&r, &g, &b, 0xE6, 0x00, 0xE6, colour, 0);
         // recolour the index pixel
         *pixel = SDL_MapRGBA(pSurface->format, r, g, b, a);
     }
 }
 
-int TextureManager::getRandom(int low, int high)
+
+void TextureManager::recolourSection(Uint8* r, Uint8* g, Uint8* b, Uint8 imgR, Uint8 imgG, Uint8 imgB, const SDL_Color newColour, int depth)
 {
-    std::mt19937 rng(dev());
-    std::uniform_int_distribution<std::mt19937::result_type> rand(low, high);
-    return rand(rng);
+    if(*r == imgR && *g == imgG && *b == imgB)
+    {
+        if(newColour.r != 0)
+            *r = newColour.r - 20 * depth;
+        else
+            *r = newColour.r;
+        if(newColour.g != 0)
+            *g = newColour.g - 20 * depth;
+        else
+            *g = newColour.g;
+        if(newColour.b != 0)
+            *b = newColour.b - 20 * depth;
+        else
+            *b = newColour.b;
+    }
 }
 

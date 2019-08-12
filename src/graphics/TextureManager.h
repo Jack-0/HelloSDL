@@ -7,7 +7,6 @@
 
 #include <iostream>
 #include <map>
-#include <random>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -46,10 +45,9 @@ private:
     TextureManager() {};
     static TextureManager* s_pInstance;
 
-    int getRandom(int low, int high);
-    std::random_device dev;
-
-    void recolour(SDL_Surface* pSurface, SDL_Color colour);
+    // modify original texture colours to a new colour
+    void recolour(SDL_Surface* pSurface, const SDL_Color colour);
+    void recolourSection(Uint8* r, Uint8* g, Uint8* b, Uint8 imgR, Uint8 imgG, Uint8 imgB, const SDL_Color newColour, int depth);
 };
 
 typedef TextureManager TheTextureManager;
