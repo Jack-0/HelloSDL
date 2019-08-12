@@ -6,14 +6,23 @@
 
 TextureManager* TextureManager::s_pInstance = 0;
 
-
+/**
+ * Removes a texture from the texture map
+ * @param id string of the texture to remove
+ */
 void TextureManager::clearFromTextureMap(std::string id)
 {
     textureMap.erase(id);
 }
 
-
-bool TextureManager::load(std::string filename, std::string id, SDL_Renderer* renderer)
+/**
+ * Loads a image file, then creates a texture that is added to TheTextureManager.
+ * @param filename the image file to load
+ * @param id the texture id
+ * @param pRenderer a pointer to the renderer
+ * @return boolean success
+ */
+bool TextureManager::load(std::string filename, std::string id, SDL_Renderer* pRenderer)
 {
     SDL_Surface* pSurface = IMG_Load(filename.c_str());
     
@@ -23,7 +32,7 @@ bool TextureManager::load(std::string filename, std::string id, SDL_Renderer* re
         return false;
     }
 
-    SDL_Texture* pTexture = SDL_CreateTextureFromSurface(renderer, pSurface);
+    SDL_Texture* pTexture = SDL_CreateTextureFromSurface(pRenderer, pSurface);
     SDL_FreeSurface(pSurface);
 
     if(pTexture != 0)
@@ -34,7 +43,15 @@ bool TextureManager::load(std::string filename, std::string id, SDL_Renderer* re
     return false;
 }
 
-
+/**
+ * Loads an image file, then creates a texture that is added to TheTextureManager.
+ * However the texture will also be recoloured with SDL_Color colour.
+ * @param filename the image file to load
+ * @param id the texture id
+ * @param pRenderer a pointer to the renderer
+ * @param colour the colour the texture will be
+ * @return boolean success
+ */
 bool TextureManager::loadWithNewColour(std::string filename, std::string id, SDL_Renderer *pRenderer, SDL_Color colour)
 {
 SDL_Surface* pSurface = IMG_Load(filename.c_str());
@@ -45,8 +62,6 @@ SDL_Surface* pSurface = IMG_Load(filename.c_str());
         return false;
     }
 
-    // recolour certain surfaces
-    //if(id == "head")
     recolour(pSurface, colour);
 
     SDL_Texture* pTexture = SDL_CreateTextureFromSurface(pRenderer, pSurface);
@@ -60,9 +75,19 @@ SDL_Surface* pSurface = IMG_Load(filename.c_str());
     return false;
 }
 
-
-void TextureManager::draw(std::string id, int x, int y, int w, int h, int row, int frame,
-        SDL_Renderer* renderer, SDL_RendererFlip flip)
+/**
+ * Draws a texture to the screen
+ * @param id string of the texture
+ * @param x pos
+ * @param y pos
+ * @param w width
+ * @param h height
+ * @param row in the texture/sprite sheet
+ * @param frame in the texture/sprite sheet
+ * @param pRenderer a pointer to the SDL_Renderer
+ * @param flip SDL_RendererFlip
+ */
+void TextureManager::draw(std::string id, int x, int y, int w, int h, int row, int frame, SDL_Renderer* pRenderer, SDL_RendererFlip flip)
 {
     SDL_Rect srcRect;
     SDL_Rect destRect;
@@ -73,10 +98,15 @@ void TextureManager::draw(std::string id, int x, int y, int w, int h, int row, i
     destRect.x = x;
     destRect.y = y;
 
-    SDL_RenderCopyEx(renderer, textureMap[id], &srcRect, &destRect, 0, 0, flip);
+    SDL_RenderCopyEx(pRenderer, textureMap[id], &srcRect, &destRect, 0, 0, flip);
 }
 
-
+/**
+ * Takes a surface and looks for certain colours.
+ * Those colours are then recoloured with the desired new colour.
+ * @param pSurface pointer to SDL_Surface to be modified
+ * @param colour SDL_Colour to change the original colour to
+ */
 void TextureManager::recolour(SDL_Surface* pSurface, const SDL_Color colour)
 {
     /*
@@ -108,9 +138,21 @@ void TextureManager::recolour(SDL_Surface* pSurface, const SDL_Color colour)
     }
 }
 
-
+/**
+ * Used with TextureManager::recolour(...); This method modifies some r,g,b values to new r,g,b values.
+ * It also applies a depth that is used to shade a texture.. the deeper the depth the darker the colour.
+ * @param r pointer to the red value to modify
+ * @param g pointer to the green value to modify
+ * @param b pointer to the blue value to modify
+ * @param imgR the red value to find and replace with newColour
+ * @param imgG the green value to find and replace with newColour
+ * @param imgB the blue value to find and replace with newColour
+ * @param newColour SDL_Colour value that is used to repaint pointers to r,g,b
+ * @param depth how dark the colour will be the higher the value the darker
+ */
 void TextureManager::recolourSection(Uint8* r, Uint8* g, Uint8* b, Uint8 imgR, Uint8 imgG, Uint8 imgB, const SDL_Color newColour, int depth)
 {
+    // TODO depth needs testing, too high a value may cause weird colouring behaviour
     if(*r == imgR && *g == imgG && *b == imgB)
     {
         if(newColour.r != 0)
