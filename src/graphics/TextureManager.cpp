@@ -111,12 +111,13 @@ void TextureManager::recolour(SDL_Surface* pSurface, const SDL_Color colour)
 {
     /*
      * Balloon Head colours are:
-     *  edge #990099
-     *  ...  #B300B3
-     *  ...  #CC00CC
-     *  ...  #E600E6
+     *  edge #990099    darkest shade
+     *  ...  #B300B3    ...
+     *  ...  #CC00CC    ...
+     *  ...  #E600E6    lightest shade
      *
      *      we use recolour to change these shades of pink to any colour we desire
+     *      todo: note this function currently only changes the colours defined above
      */
 
     // for each pixel in the surface
