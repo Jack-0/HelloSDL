@@ -33,7 +33,7 @@ public:
 
     // draw to the screen
     void draw(std::string id, int x, int y, int w, int h, int row, int frame,
-            SDL_Renderer* pRenderer, SDL_RendererFlip flip);
+            SDL_Renderer* pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
     // remove a texture from the textureMap
     void clearFromTextureMap(std::string id);
