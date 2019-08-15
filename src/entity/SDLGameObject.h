@@ -21,11 +21,6 @@ public:
     virtual void clean();
     virtual void load(const LoaderParams* pParams);
 
-    // animate and draw a certain frame
-    // TODO these need to go we change frame with m_currentFrame
-    //void drawGiven(std::string texID, int frame);
-    //void changeFrame(int frames, int speed);
-
 
     Vector2D& getPosition() {return m_pos;}
     int getWidth() {return m_width;}
@@ -41,7 +36,6 @@ public:
 
     void setXacceleration(float x){m_acceleration.setX(x);}
     void setYacceleration(float y){m_acceleration.setY(y);}
-
 
     bool alive(){ return m_alive; }
     //void setAlive(bool x) {alive = x;}
@@ -61,6 +55,7 @@ protected:
     int m_currentFrame;
 
     bool m_alive = true;
+    bool m_collision = false;
 
     std::string m_texutreID;
 

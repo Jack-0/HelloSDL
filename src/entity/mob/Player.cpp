@@ -3,6 +3,7 @@
 //
 
 #include "Player.h"
+#include "../ProjectileHandler.h"
 
 Player::Player() : SDLGameObject()
 {
@@ -17,6 +18,9 @@ void Player::load(const LoaderParams* pParams)
 
 void Player::update()
 {
+    // update center pos
+    m_center = Vector2D(m_pos.getX() + m_width / 2 - 4, m_pos.getY() + 22);
+
     int speed = 4; // TODO this should be private (doesn't need to be generated on each update)
 
     // Old test code TODO remove this
@@ -36,6 +40,15 @@ void Player::update()
         setXvelocity(-speed);
     if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_D))
         setXvelocity(speed);
+
+    // fire projectile in direction of mouse
+    if(TheInputHandler::Instance()->getMouseButtonStates(LEFT))
+    {
+        Vector2D mousePos = Vector2D(TheInputHandler::Instance()->getMouseX(), TheInputHandler::Instance()->getMouseY());
+        Vector2D direction = (mousePos - m_pos);
+        direction.noramalise();
+        TheProjectileHandler::Instance()->fireProjectile(m_center, direction);
+    }
 
     // update
     SDLGameObject::update();

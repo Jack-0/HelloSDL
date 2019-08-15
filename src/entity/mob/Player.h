@@ -24,6 +24,7 @@ private:
     VanityItem tail = VanityItem();
     VanityItem hat = VanityItem();
 
+    Vector2D m_center = Vector2D(0,0);
 };
 
 class PlayerCreator : public BaseCreator

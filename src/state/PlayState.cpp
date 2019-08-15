@@ -8,6 +8,7 @@
 #include "PauseState.h"
 #include "GameOverState.h"
 #include "StateParser.h"
+#include "../entity/ProjectileHandler.h"
 #include <iostream>
 
 const std::string PlayState::s_playID = "PLAY";
@@ -66,6 +67,7 @@ void PlayState::update()
         m_gameObjects[i]->update();
     }
 
+    TheProjectileHandler::Instance()->update();
     //std::cout << "total objects = " << m_gameObjects.size() << "\n";
 }
 
@@ -75,6 +77,7 @@ void PlayState::render()
     {
         m_gameObjects[i]->draw();
     }
+    TheProjectileHandler::Instance()->draw();
 }
 
 bool PlayState::onEnter()

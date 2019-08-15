@@ -18,6 +18,7 @@
             <texture filename="../res/mob/head.png" ID="head"/>
             <texture filename="../res/mob/tail.png" ID="tail"/>
             <texture filename="../res/mob/hat.png" ID="hat"/>
+            <texture filename="../res/mob/projectile.png" ID="projectile"/>
         </TEXTURES>
 
         <OBJECTS>
