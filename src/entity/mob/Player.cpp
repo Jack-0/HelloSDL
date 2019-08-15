@@ -41,12 +41,13 @@ void Player::update()
     if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_D))
         setXvelocity(speed);
 
-    // fire projectile in direction of mouse
+    // fire projectile in direction of mouse TODO put in function? also improve this
     if(TheInputHandler::Instance()->getMouseButtonStates(LEFT))
     {
         Vector2D mousePos = Vector2D(TheInputHandler::Instance()->getMouseX(), TheInputHandler::Instance()->getMouseY());
         Vector2D direction = (mousePos - m_pos);
         direction.noramalise();
+        direction * 2;
         TheProjectileHandler::Instance()->fireProjectile(m_center, direction);
     }
 

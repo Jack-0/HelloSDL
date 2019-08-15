@@ -15,7 +15,7 @@ public:
     Projectile(const LoaderParams* pParams, Vector2D direction);
     virtual void draw();
     virtual void update();
-    virtual void clean();
+    virtual void clean(); // TODO delete projectile when collision or out of bounds
     virtual void load(const LoaderParams* pParams);
 
 private:
