@@ -121,6 +121,7 @@ bool PlayState::onExit()
         TheTextureManager::Instance()->clearFromTextureMap(m_textureIDs[i]);
     }
 
+    TheProjectileHandler::Instance()->clean();
     std::cout << "Exiting play state\n";
     return true;
 }

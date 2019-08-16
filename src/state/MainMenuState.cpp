@@ -7,6 +7,7 @@
 #include "../Game.h"
 #include "StateParser.h"
 #include "../utilities/SoundManager.h"
+#include "../entity/ProjectileHandler.h"
 #include <iostream>
 
 const std::string MainMenuState::s_menuID = "MENU";
@@ -39,7 +40,8 @@ bool MainMenuState::onEnter()
     // set the callbacks from menu items
     setCallbacks(m_callbacks);
 
-    std::cout << "entering menu state\n";
+    TheProjectileHandler::Instance()->clean();
+    std::cout << "Entering menu state\n";
     return true;
 }
 

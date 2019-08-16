@@ -21,7 +21,7 @@ void Player::update()
     // update center pos
     m_center = Vector2D(m_pos.getX() + m_width / 2 - 4, m_pos.getY() + 22);
 
-    int speed = 4; // TODO this should be private (doesn't need to be generated on each update)
+    int speed = 2; // TODO this should be private (doesn't need to be generated on each update)
 
     // Old test code TODO remove this
     //if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_SPACE))
@@ -47,7 +47,7 @@ void Player::update()
         Vector2D mousePos = Vector2D(TheInputHandler::Instance()->getMouseX(), TheInputHandler::Instance()->getMouseY());
         Vector2D direction = (mousePos - m_pos);
         direction.noramalise();
-        direction * 2;
+        direction *= 3;
         TheProjectileHandler::Instance()->fireProjectile(m_center, direction);
     }
 
@@ -73,5 +73,6 @@ void Player::draw()
 void Player::clean()
 {
     tail.clean();
+    hat.clean();
     SDLGameObject::clean();
 }

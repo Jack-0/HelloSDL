@@ -18,6 +18,7 @@ public:
     virtual void clean(); // TODO delete projectile when collision or out of bounds
     virtual void load(const LoaderParams* pParams);
 
+    Vector2D getPos() { return m_pos; }
 private:
     Vector2D m_vector;
 };
