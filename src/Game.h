@@ -34,23 +34,29 @@ public:
         }
     }
 
-    bool init(const char*, int, int, int, int, int);
+    bool init(const char* title, int x, int y, int width, int height, int flags);
     void render();
     void update();
     void handleEvents();
     void clean();
     bool isRunning() { return running; }
-
-    GameStateMachine* getStateMachine() { return m_pGameStateMachine; }
-
     void quit();
 
+    GameStateMachine* getStateMachine() { return m_pGameStateMachine; }
     SDL_Renderer* getRenderer() const { return renderer; }
+    int getScreenWidth() { return m_screenWidth; }
+    int getScreenHeight() { return m_screenHeight; }
+    Vector2D getScreenCenter() { return m_screenCenter; }
 
 private:
 
     Game() {}
     void draw();
+
+    int m_screenWidth;
+    int m_screenHeight;
+    Vector2D m_screenCenter = Vector2D(0,0);
+
 
     static Game* s_pInstance;
     bool running;
@@ -58,6 +64,7 @@ private:
     SDL_Window* window;
     SDL_Renderer* renderer;
     GameStateMachine* m_pGameStateMachine;
+
 };
 
 typedef Game TheGame;

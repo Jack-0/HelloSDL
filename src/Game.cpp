@@ -11,13 +11,17 @@
 Game* Game::s_pInstance = 0; // singleton
 
 
-bool Game::init(const char* title, int x, int y, int w, int h, int flags)
+bool Game::init(const char* title, int x, int y, int width, int height, int flags)
 {
+    m_screenWidth = width;
+    m_screenHeight = height;
+    m_screenCenter = Vector2D(width / 2, height / 2);
+
     // initialise SDL
     if(SDL_INIT_EVERYTHING >= 0)
     {
         std::cout << "SDL initialisation successful" << std::endl;
-        window = SDL_CreateWindow(title, x, y, w, h, flags);
+        window = SDL_CreateWindow(title, x, y, width, height, flags);
         if(window != 0)
         {
             std::cout << "Window initialisation successful" << std::endl;

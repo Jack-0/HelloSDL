@@ -63,11 +63,14 @@ void fpsCalc()
 const int FPS = 60;
 const int DELAY_TIME = 1000.0f / FPS;
 
+const int SCREEN_WIDTH = 1440;
+const int SCREEN_HEIGHT = 900;
+
 int main()
 {
     Uint32 frame_start, frame_time;
 
-    if(TheGame::Instance()->init("Hello SDL", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1440, 900, 0))
+    if(TheGame::Instance()->init("Hello SDL", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, 0))
     {
         std::cout << "TheGame::Instance()->init = success" << std::endl;
 
