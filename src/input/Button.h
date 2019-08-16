@@ -13,6 +13,7 @@ class Button : public SDLGameObject
 public:
 
     Button();
+    Button(const LoaderParams* pParams);
 
     virtual void draw();
     virtual void update();

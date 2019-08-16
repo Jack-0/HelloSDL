@@ -8,8 +8,8 @@
         </TEXTURES>
 
         <OBJECTS>
-            <object type="MenuButton" x="588" y="225" width="256" height="100" textureID="playButton" numFrames="0" callbackID="1"/>
-            <object type="MenuButton" x="588" y="425" width="256" height="100" textureID="exitButton" numFrames="0" callbackID="2"/>
+            <object type="MenuButton" x="0" y="-100" width="256" height="100" textureID="playButton" numFrames="0" callbackID="1"/>
+            <object type="MenuButton" x="0" y="0" width="256" height="100" textureID="exitButton" numFrames="0" callbackID="2"/>
         </OBJECTS>
     </MENU>
 
@@ -22,7 +22,7 @@
         </TEXTURES>
 
         <OBJECTS>
-            <object type="Player" x="1100" y="332" width="38" height="52" textureID="head" numFrames="1"/>
+            <object type="Player" x="0" y="0" width="38" height="52" textureID="head" numFrames="1"/>
             <!--<object type="Player" x="326" y="332" width="38" height="52" textureID="head" numFrames="1"/>-->
             <!--<object type="Enemy" x="100" y="100" width="38" height="52" textureID="head" numFrames="1"/>-->
         </OBJECTS>
@@ -35,8 +35,8 @@
         </TEXTURES>
 
         <OBJECTS>
-            <object type="MenuButton" x="588" y="225" width="256" height="100" textureID="resumeButton" numFrames="0" callbackID="1"/>
-            <object type="MenuButton" x="588" y="425" width="256" height="100" textureID="menuButton" numFrames="0" callbackID="2"/>
+            <object type="MenuButton" x="0" y="-100" width="256" height="100" textureID="resumeButton" numFrames="0" callbackID="1"/>
+            <object type="MenuButton" x="0" y="0" width="256" height="100" textureID="menuButton" numFrames="0" callbackID="2"/>
         </OBJECTS>
     </PAUSE>
 
@@ -48,9 +48,9 @@
         </TEXTURES>
 
         <OBJECTS>
-            <object type="AnimatedGraphic" x="588" y="125" width="256" height="100" textureID="gameOverText" numFrames="2" animSpeed="2"/>
-            <object type="MenuButton" x="588" y="225" width="256" height="100" textureID="menuButton" numFrames="0" callbackID="1"/>
-            <object type="MenuButton" x="588" y="425" width="256" height="100" textureID="restartButton" numFrames="0" callbackID="2"/>
+            <object type="AnimatedGraphic" x="0" y="-200" width="256" height="100" textureID="gameOverText" numFrames="2" animSpeed="2"/>
+            <object type="MenuButton"      x="0" y="-100" width="256" height="100" textureID="menuButton" numFrames="0" callbackID="1"/>
+            <object type="MenuButton"      x="0" y="0" width="256" height="100" textureID="restartButton" numFrames="0" callbackID="2"/>
         </OBJECTS>
     </GAMEOVER>
 

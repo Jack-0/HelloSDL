@@ -9,12 +9,16 @@ Button::Button() : SDLGameObject()
 {
 }
 
+Button::Button(const LoaderParams* pParams) : SDLGameObject()
+{
+    load(pParams);
+}
+
 void Button::load(const LoaderParams *pParams)
 {
     SDLGameObject::load(pParams);
     m_callbackID = pParams->getCallbackID();
     m_currentFrame = MOUSE_OUT;
-
 }
 
 void Button::draw()

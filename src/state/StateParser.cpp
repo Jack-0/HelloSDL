@@ -83,6 +83,13 @@ void StateParser::parseObjects(TiXmlElement* pStateRoot, std::vector<GameObject*
         e->Attribute("animSpeed", &animSpeed);
         textureID = e->Attribute("textureID");
 
+        // draw x and y from the center of the screen,
+        x = TheGame::Instance()->getScreenCenter().getX() + x;
+        y = TheGame::Instance()->getScreenCenter().getY() + y;
+        // ensure the sprite is centered by negating half it's width and height
+        x = x - (width / 2);
+        y = y - (height / 2);
+
         GameObject* pGameObject = TheGameObjectFactory::Instance()->create(e->Attribute("type"));
         pGameObject->load(new LoaderParams(x, y, width, height, textureID, numFrames, callBackID, animSpeed));
         pObjects->push_back(pGameObject);
