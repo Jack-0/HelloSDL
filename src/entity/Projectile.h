@@ -8,7 +8,7 @@
 
 #include "SDLGameObject.h"
 
-class Projectile : SDLGameObject
+class Projectile : public SDLGameObject
 {
 public:
 

@@ -21,12 +21,13 @@ public:
         return s_pInstance;
     }
 
-    void fireProjectile(Vector2D origin, Vector2D direction);
 
     void draw();
     void update();
     void clean();
 
+    bool collision(SDLGameObject* gameObject);
+    void fireProjectile(Vector2D origin, Vector2D direction);
 
 private:
 

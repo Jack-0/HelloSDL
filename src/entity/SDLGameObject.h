@@ -34,11 +34,14 @@ public:
         m_velocity.setY(y);
     }
 
+    void kill() { m_alive = false; }
     void setXacceleration(float x){m_acceleration.setX(x);}
     void setYacceleration(float y){m_acceleration.setY(y);}
 
     bool alive(){ return m_alive; }
     //void setAlive(bool x) {alive = x;}
+
+    SDL_Rect getRect() { return rect; }
 
 
 protected:
@@ -56,6 +59,8 @@ protected:
 
     bool m_alive = true;
     bool m_collision = false;
+
+    SDL_Rect rect;
 
     std::string m_texutreID;
 

@@ -54,11 +54,20 @@ void PlayState::update()
         // if it is not the player
         if(i != 0)
         {
+            // check for player and enemy collision
             if(checkCollision(dynamic_cast<SDLGameObject*>(m_gameObjects[0]), dynamic_cast<SDLGameObject*>(m_gameObjects[i])))
             {
                 TheGame::Instance()->getStateMachine()->changeState(new GameOverState());
             }
 
+            if(TheProjectileHandler::Instance()->collision(dynamic_cast<SDLGameObject*>(m_gameObjects[i])))
+            {
+                SDLGameObject* p = dynamic_cast<SDLGameObject*>(m_gameObjects[i]);
+                p->kill();
+            }
+
+
+            // check to see if the enemy is alive, if not remove it
             if(!checkAlive(dynamic_cast<SDLGameObject*>(m_gameObjects[i])))
             {
                 m_gameObjects[i]->clean();
