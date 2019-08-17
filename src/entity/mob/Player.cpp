@@ -51,6 +51,11 @@ void Player::update()
         TheProjectileHandler::Instance()->fireProjectile(m_center, direction);
     }
 
+    if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_N))
+    {
+        TheProjectileHandler::Instance()->fireNova(m_center);
+    }
+
     // update
     SDLGameObject::update();
 

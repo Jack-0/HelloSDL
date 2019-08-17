@@ -33,8 +33,8 @@ void PlayState::addEnemy(){
             break;
     }
     // create and add balloon to game objects (balloon type based on the random balloon choice)
-    auto screenWidth = TheGame::Instance()->getScreenWidth();
-    m_gameObjects.push_back(new Enemy(new LoaderParams(-70, getRandom(-100, screenWidth) ,38, 52, head_type, 1)));
+    auto screenHeight = TheGame::Instance()->getScreenHeight();
+    m_gameObjects.push_back(new Enemy(new LoaderParams(-70, getRandom(-10, screenHeight -51) ,38, 52, head_type, 1)));
 }
 
 void PlayState::update()

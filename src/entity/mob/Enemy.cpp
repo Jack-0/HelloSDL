@@ -26,7 +26,7 @@ void Enemy::update()
 {
     SDLGameObject::update();
 
-    if(m_pos.getX() > 900)
+    if(m_pos.getX() > TheGame::Instance()->getScreenWidth())
         m_alive = false;
 
     // update tail position

@@ -15,6 +15,21 @@ void ProjectileHandler::fireProjectile(Vector2D origin, Vector2D direction)
     m_projectiles.push_back(new Projectile(new LoaderParams(origin.getX(), origin.getY(),9,9,"projectile",1), direction));
 }
 
+void ProjectileHandler::fireNova(Vector2D origin)
+{
+    for(float i = -1; i <= 1; i+= 0.2)
+    {
+        Vector2D direction = Vector2D(i,1);
+        m_projectiles.push_back(new Projectile(new LoaderParams(origin.getX(), origin.getY(),9,9,"projectile",1), direction));
+        direction = Vector2D(i,-1);
+        m_projectiles.push_back(new Projectile(new LoaderParams(origin.getX(), origin.getY(),9,9,"projectile",1), direction));
+        direction = Vector2D(1,i);
+        m_projectiles.push_back(new Projectile(new LoaderParams(origin.getX(), origin.getY(),9,9,"projectile",1), direction));
+        direction = Vector2D(-1,i);
+        m_projectiles.push_back(new Projectile(new LoaderParams(origin.getX(), origin.getY(),9,9,"projectile",1), direction));
+    }
+}
+
 bool ProjectileHandler::collision(SDLGameObject *p1)
 {
     for(int i = 0; i < m_projectiles.size(); i++)
@@ -56,7 +71,7 @@ void ProjectileHandler::update()
             m_projectiles.erase(m_projectiles.begin() + i);
         }
     }
-    std::cout << "total projectiles = " << m_projectiles.size() << "\n";
+    //std::cout << "total projectiles = " << m_projectiles.size() << "\n";
 }
 
 void ProjectileHandler::clean()

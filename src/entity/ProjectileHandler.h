@@ -28,13 +28,14 @@ public:
 
     bool collision(SDLGameObject* gameObject);
     void fireProjectile(Vector2D origin, Vector2D direction);
+    void fireNova(Vector2D origin);
 
 private:
 
     ProjectileHandler();
-
     static ProjectileHandler* s_pInstance;
 
+    Uint32 m_firerateDelay = 100.0f;
     std::vector<Projectile*> m_projectiles;
 };
 
