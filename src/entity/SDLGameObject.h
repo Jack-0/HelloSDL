@@ -57,6 +57,8 @@ protected:
     int m_currentRow;
     int m_currentFrame;
 
+    float m_speed = 1.0f;
+
     bool m_alive = true;
     bool m_collision = false;
 

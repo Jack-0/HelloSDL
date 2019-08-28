@@ -27,7 +27,7 @@ public:
     void clean();
 
     bool collision(SDLGameObject* gameObject);
-    void fireProjectile(Vector2D origin, Vector2D direction);
+    void fireProjectile(Vector2D origin, Vector2D direction, float speed=3);
     void fireNova(Vector2D origin);
 
 private:

@@ -17,7 +17,7 @@ void Enemy::load(const LoaderParams *pParams)
 {
     SDLGameObject::load(pParams);
     m_numFrames = pParams->getNumFrames();
-    m_velocity.setX(1);
+    m_velocity.setX(m_speed);
 
     tail.load(new LoaderParams((m_pos.getX() + m_width / 2) - 3, m_pos.getY() + m_height, 6, 51, "tail", 2));
 }

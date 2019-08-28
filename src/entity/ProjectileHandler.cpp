@@ -10,32 +10,32 @@ ProjectileHandler* ProjectileHandler::s_pInstance = 0;
 ProjectileHandler::ProjectileHandler()
 {}
 
-void ProjectileHandler::fireProjectile(Vector2D origin, Vector2D direction)
+void ProjectileHandler::fireProjectile(Vector2D origin, Vector2D direction, float speed)
 {
+    direction.noramalise();
+    direction *= speed;
     m_projectiles.push_back(new Projectile(new LoaderParams(origin.getX(), origin.getY(),9,9,"projectile",1), direction));
 }
 
 void ProjectileHandler::fireNova(Vector2D origin)
 {
     Vector2D direction;
-    for(float i = -1; i < 1; i += 0.2)
+    float spacing = 0.2; // spacing between projectiles in nova blast
+    // fire in all directions
+    for(float i = -1; i < 1; i += spacing)
     {
         // down
         direction = Vector2D(i,1);
-        direction.noramalise();
-        m_projectiles.push_back(new Projectile(new LoaderParams(origin.getX(), origin.getY(),9,9,"projectile",1), direction));
+        fireProjectile(origin, direction);
         // up
         direction = Vector2D(i,-1);
-        direction.noramalise();
-        m_projectiles.push_back(new Projectile(new LoaderParams(origin.getX(), origin.getY(),9,9,"projectile",1), direction));
+        fireProjectile(origin, direction);
         // right
         direction = Vector2D(1,i);
-        direction.noramalise();
-        m_projectiles.push_back(new Projectile(new LoaderParams(origin.getX(), origin.getY(),9,9,"projectile",1), direction));
+        fireProjectile(origin, direction);
         // left
         direction = Vector2D(-1,i);
-        direction.noramalise();
-        m_projectiles.push_back(new Projectile(new LoaderParams(origin.getX(), origin.getY(),9,9,"projectile",1), direction));
+        fireProjectile(origin, direction);
     }
 }
 
