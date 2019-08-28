@@ -17,15 +17,24 @@ void ProjectileHandler::fireProjectile(Vector2D origin, Vector2D direction)
 
 void ProjectileHandler::fireNova(Vector2D origin)
 {
-    for(float i = -1; i <= 1; i+= 0.2)
+    Vector2D direction;
+    for(float i = -1; i < 1; i += 0.2)
     {
-        Vector2D direction = Vector2D(i,1);
+        // down
+        direction = Vector2D(i,1);
+        direction.noramalise();
         m_projectiles.push_back(new Projectile(new LoaderParams(origin.getX(), origin.getY(),9,9,"projectile",1), direction));
+        // up
         direction = Vector2D(i,-1);
+        direction.noramalise();
         m_projectiles.push_back(new Projectile(new LoaderParams(origin.getX(), origin.getY(),9,9,"projectile",1), direction));
+        // right
         direction = Vector2D(1,i);
+        direction.noramalise();
         m_projectiles.push_back(new Projectile(new LoaderParams(origin.getX(), origin.getY(),9,9,"projectile",1), direction));
+        // left
         direction = Vector2D(-1,i);
+        direction.noramalise();
         m_projectiles.push_back(new Projectile(new LoaderParams(origin.getX(), origin.getY(),9,9,"projectile",1), direction));
     }
 }

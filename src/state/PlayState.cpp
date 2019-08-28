@@ -60,12 +60,12 @@ void PlayState::update()
                 TheGame::Instance()->getStateMachine()->changeState(new GameOverState());
             }
 
+            // if an enemy collides with a projectile kill said enemy
             if(TheProjectileHandler::Instance()->collision(dynamic_cast<SDLGameObject*>(m_gameObjects[i])))
             {
                 SDLGameObject* p = dynamic_cast<SDLGameObject*>(m_gameObjects[i]);
                 p->kill();
             }
-
 
             // check to see if the enemy is alive, if not remove it
             if(!checkAlive(dynamic_cast<SDLGameObject*>(m_gameObjects[i])))
@@ -111,6 +111,8 @@ bool PlayState::onEnter()
     TheTextureManager::Instance()->loadWithNewColour("../res/mob/head.png", "head_r", TheGame::Instance()->getRenderer(), red);
     TheTextureManager::Instance()->loadWithNewColour("../res/mob/head.png", "head_g", TheGame::Instance()->getRenderer(), green);
     TheTextureManager::Instance()->loadWithNewColour("../res/mob/head.png", "head_b", TheGame::Instance()->getRenderer(), blue);
+
+    TheTextureManager::Instance()->loadWithNewColour("../res/mob/projectile.png", "blueProjectile", TheGame::Instance()->getRenderer(), blue);
 
     std::cout << "Entering play state\n";
     return true;
