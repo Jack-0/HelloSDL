@@ -12,3 +12,6 @@ Ensure the following libraries are installed on your system
   - SDL2_mixer
   - tinyxml
  
+## Todo
+  - Implement smarter design patterns
+  - Implement concurrency
