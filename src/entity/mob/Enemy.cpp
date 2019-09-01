@@ -4,6 +4,20 @@
 
 #include "Enemy.h"
 
+void Enemy::operator()(LoaderParams *pParams)
+{
+    load(pParams);
+    while(m_alive)
+    {
+        SDL_Delay(10);
+        std::cout << "I'm alive\n";
+        update();
+        draw();
+    }
+    std::cout << "I'm dead\n";
+    clean();
+}
+
 Enemy::Enemy() : SDLGameObject()
 {
 }
@@ -37,7 +51,6 @@ void Enemy::update()
 void Enemy::draw()
 {
     SDLGameObject::draw();
-
     tail.draw();
 }
 

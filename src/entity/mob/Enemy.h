@@ -22,6 +22,8 @@ public:
     Enemy();
     Enemy(const LoaderParams* pParams);
 
+    void operator() (LoaderParams* pParams);
+
     virtual void draw();
     virtual void update();
     virtual void clean();

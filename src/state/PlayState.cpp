@@ -56,16 +56,9 @@ void PlayState::update()
         {
             // check for player and enemy collision
             if(checkCollision(dynamic_cast<SDLGameObject*>(m_gameObjects[0]), dynamic_cast<SDLGameObject*>(m_gameObjects[i])))
-            {
                 TheGame::Instance()->getStateMachine()->changeState(new GameOverState());
-            }
 
-            // if an enemy collides with a projectile kill said enemy
-            if(TheProjectileHandler::Instance()->collision(dynamic_cast<SDLGameObject*>(m_gameObjects[i])))
-            {
-                SDLGameObject* p = dynamic_cast<SDLGameObject*>(m_gameObjects[i]);
-                p->kill();
-            }
+            TheProjectileHandler::Instance()->collision(dynamic_cast<SDLGameObject*>(m_gameObjects[i]));
 
             // check to see if the enemy is alive, if not remove it
             if(!checkAlive(dynamic_cast<SDLGameObject*>(m_gameObjects[i])))
@@ -113,6 +106,18 @@ bool PlayState::onEnter()
     TheTextureManager::Instance()->loadWithNewColour("../res/mob/head.png", "head_b", TheGame::Instance()->getRenderer(), blue);
 
     TheTextureManager::Instance()->loadWithNewColour("../res/mob/projectile.png", "blueProjectile", TheGame::Instance()->getRenderer(), blue);
+
+    // TODO thread testing
+    auto screenHeight = TheGame::Instance()->getScreenHeight();
+    //Enemy e = Enemy(new LoaderParams(-70, getRandom(-10, screenHeight -51) ,38, 52, "head_b", 1));
+    //std::thread t(&Enemy::test, &e);
+    //t.join();
+    //t.detach();
+    LoaderParams params = LoaderParams(-70, getRandom(-10, screenHeight -51) ,38, 52, "head_b", 1);
+    std::thread threadObject (Enemy(), &params);
+    threadObject.detach();
+
+    // TODO END testing
 
     std::cout << "Entering play state\n";
     return true;

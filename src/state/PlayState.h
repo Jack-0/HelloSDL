@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <random>
+#include <thread>
 #include "GameState.h"
 #include "../entity/GameObject.h"
 #include "../entity/SDLGameObject.h"
