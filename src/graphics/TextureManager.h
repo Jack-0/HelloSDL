@@ -10,6 +10,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <mutex>
 
 
 /**
@@ -49,6 +50,10 @@ public:
     }
 
 private:
+
+    // A mutex is used to prevent access to the critical section in draw()
+    //std::mutex mtx;
+
     TextureManager() {};
     // singleton
     static TextureManager* s_pInstance;

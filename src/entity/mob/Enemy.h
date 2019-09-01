@@ -28,6 +28,7 @@ public:
     virtual void update();
     virtual void clean();
     virtual void load(const LoaderParams* pParams);
+    ~Enemy(){std::cout<<"dead";}
 
 private:
     VanityItem tail = VanityItem();

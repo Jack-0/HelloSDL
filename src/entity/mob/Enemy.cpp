@@ -7,12 +7,26 @@
 void Enemy::operator()(LoaderParams *pParams)
 {
     load(pParams);
+
+    Uint32 timeout = SDL_GetTicks() + 10;
+    Uint32 draw_timeout = SDL_GetTicks() + 1;
+
     while(m_alive)
     {
-        SDL_Delay(10);
+        //SDL_Delay(10);
         std::cout << "I'm alive\n";
-        update();
-        draw();
+        // if x ticks have passed update
+        if(SDL_GetTicks() > timeout)
+        {
+            update();
+            timeout = SDL_GetTicks() + 10;
+        }
+
+        if(SDL_GetTicks() > draw_timeout)
+        {
+            draw();
+            draw_timeout = SDL_GetTicks() + 1;
+        }
     }
     std::cout << "I'm dead\n";
     clean();
@@ -57,6 +71,6 @@ void Enemy::draw()
 void Enemy::clean()
 {
     SDLGameObject::clean();
-
     tail.clean();
 }
+

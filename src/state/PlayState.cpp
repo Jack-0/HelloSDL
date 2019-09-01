@@ -107,15 +107,35 @@ bool PlayState::onEnter()
 
     TheTextureManager::Instance()->loadWithNewColour("../res/mob/projectile.png", "blueProjectile", TheGame::Instance()->getRenderer(), blue);
 
+    SDL_Color yellow; yellow.r = 200; yellow.g = 200; yellow.b = 0;
+    m_textureIDs.push_back("head_y");
+    TheTextureManager::Instance()->loadWithNewColour("../res/mob/head.png", "head_y", TheGame::Instance()->getRenderer(), yellow);
     // TODO thread testing
     auto screenHeight = TheGame::Instance()->getScreenHeight();
     //Enemy e = Enemy(new LoaderParams(-70, getRandom(-10, screenHeight -51) ,38, 52, "head_b", 1));
     //std::thread t(&Enemy::test, &e);
     //t.join();
     //t.detach();
-    LoaderParams params = LoaderParams(-70, getRandom(-10, screenHeight -51) ,38, 52, "head_b", 1);
+    LoaderParams params = LoaderParams(-70, getRandom(-10, screenHeight -51) ,38, 52, "head_y", 1);
     std::thread threadObject (Enemy(), &params);
     threadObject.detach();
+    // copies
+    LoaderParams params2 = LoaderParams(-70, getRandom(-10, screenHeight -51) ,38, 52, "head_y", 1);
+    LoaderParams params3 = LoaderParams(-70, getRandom(-10, screenHeight -51) ,38, 52, "head_y", 1);
+    LoaderParams params4 = LoaderParams(-70, getRandom(-10, screenHeight -51) ,38, 52, "head_y", 1);
+    LoaderParams params5 = LoaderParams(-70, getRandom(-10, screenHeight -51) ,38, 52, "head_y", 1);
+    std::thread threadObject2 (Enemy(), &params2);
+    std::thread threadObject3 (Enemy(), &params3);
+    std::thread threadObject4 (Enemy(), &params4);
+    std::thread threadObject5 (Enemy(), &params5);
+    threadObject2.detach();
+    threadObject3.detach();
+    threadObject4.detach();
+    threadObject5.detach();
+
+    // TODO \/\/\/\/
+    // TODO somehow get these into m_gameObjects and draw from render loop
+    // TODO /\/\/\/\
 
     // TODO END testing
 

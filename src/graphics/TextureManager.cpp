@@ -97,8 +97,9 @@ void TextureManager::draw(std::string id, int x, int y, int w, int h, int row, i
     srcRect.h = destRect.h = h;
     destRect.x = x;
     destRect.y = y;
-
+    //mtx.lock(); //
     SDL_RenderCopyEx(pRenderer, textureMap[id], &srcRect, &destRect, 0, 0, flip);
+    //mtx.unlock();
 }
 
 /**
