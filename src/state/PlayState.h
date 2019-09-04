@@ -12,6 +12,7 @@
 #include "../entity/GameObject.h"
 #include "../entity/SDLGameObject.h"
 #include "../entity/ProjectileHandler.h"
+#include "../entity/mob/Player.h"
 
 
 class PlayState : public GameState
@@ -22,6 +23,10 @@ public:
     virtual bool onEnter();
     virtual bool onExit();
 
+    void doSomething(int i){std::cout << "thread works... i is "<< i << "\n";}
+
+    void checkCollisions();
+
     bool checkCollision(SDLGameObject* p1, SDLGameObject* p2);
     bool checkAlive(SDLGameObject* p);
 
@@ -30,10 +35,10 @@ public:
 
     // TODO
 
-    void checkPlayerCollision()
-    {
-        std::cout << "hello i was used\n";
-    } // a thread that checks all game objects for player collisions
+    //void checkPlayerCollision()
+    //{
+    //    std::cout << "hello i was used\n";
+    //} // a thread that checks all game objects for player collisions
     void checkEnemyBulletCollision() {} // a thread that check each bullet for enemy collisions
 
     // we want a projectile manager object not singleton
@@ -43,17 +48,19 @@ public:
 
 private:
 
-    const int MAX_GAMEOBJECTS = 200;
+    const int MAX_GAMEOBJECTS = 2000;
 
     int getRandom(int, int);
     void addEnemy();
 
     std::random_device dev;
     static const std::string s_playID;
+
     std::vector<GameObject*> m_gameObjects;
 
-    ProjectileHandler* pProjectileHandler;
+    GameObject* pPlayer;
 
+    ProjectileHandler* pProjectileHandler;
 };
 
 

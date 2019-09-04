@@ -12,7 +12,6 @@ ProjectileHandler::ProjectileHandler()
 
 void ProjectileHandler::fireProjectile(Vector2D origin, Vector2D direction, float speed)
 {
-    std::cout << "projectile fired\n";
     direction.noramalise();
     direction *= speed;
     m_projectiles.push_back(new Projectile(new LoaderParams(origin.getX(), origin.getY(),9,9,"projectile",1), direction));
@@ -56,6 +55,25 @@ bool ProjectileHandler::collision(SDLGameObject *p1)
         }
     }
     return false;
+}
+
+void ProjectileHandler::checkForCollisions(std::vector<SDLGameObject*> gameObjects)
+{
+    for(int i = 0; i < gameObjects.size(); i++)
+    {
+        for(int j = 0; j < m_projectiles.size(); i++)
+        {
+            SDLGameObject* pProjectile = dynamic_cast<SDLGameObject*>(m_projectiles[j]);
+
+            SDL_Rect r1 = gameObjects[i]->getRect();
+            SDL_Rect r2 = pProjectile->getRect();
+            if(SDL_HasIntersection(&r1, &r2))
+            {
+                gameObjects[i]->kill();
+                pProjectile->kill();
+            }
+        }
+    }
 }
 
 void ProjectileHandler::draw()

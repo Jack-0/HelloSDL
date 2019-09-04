@@ -39,7 +39,6 @@ void PlayState::addEnemy(){
 
 void PlayState::update()
 {
-    pProjectileHandler->update();
     // if escape is pressed enter the pause state
     if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_ESCAPE))
         TheGame::Instance()->getStateMachine()->pushState(new PauseState());
@@ -48,29 +47,34 @@ void PlayState::update()
     if(m_gameObjects.size() < MAX_GAMEOBJECTS)
         addEnemy();
 
+    // update projectile handler
+    pProjectileHandler->update();
+
+    // update player
+    pPlayer->update();
+
     // update all game objects
     for(int i = 0; i < m_gameObjects.size(); i++)
     {
-        // if it is not the player
-        if(i != 0)
+        // check for player and enemy collision
+        /*
+        if(checkCollision(dynamic_cast<SDLGameObject*>(pPlayer), dynamic_cast<SDLGameObject*>(m_gameObjects[i])))
         {
-            // check for player and enemy collision
-            if(checkCollision(dynamic_cast<SDLGameObject*>(m_gameObjects[0]), dynamic_cast<SDLGameObject*>(m_gameObjects[i])))
-                TheGame::Instance()->getStateMachine()->changeState(new GameOverState());
+            TheGame::Instance()->getStateMachine()->changeState(new GameOverState());
+            Player *cast = dynamic_cast<Player*>(pPlayer);
+            cast->kill();
+        }
+        */
 
-            pProjectileHandler->collision(dynamic_cast<SDLGameObject*>(m_gameObjects[i]));
 
-            // check to see if the enemy is alive, if not remove it
-            if(!checkAlive(dynamic_cast<SDLGameObject*>(m_gameObjects[i])))
-            {
-                m_gameObjects[i]->clean();
-                m_gameObjects.erase(m_gameObjects.begin() + i);
-            }
+        // check to see if the enemy is alive, if not remove it
+        if(!checkAlive(dynamic_cast<SDLGameObject*>(m_gameObjects[i])))
+        {
+            m_gameObjects[i]->clean();
+            m_gameObjects.erase(m_gameObjects.begin() + i);
         }
         m_gameObjects[i]->update();
     }
-
-    //std::cout << "total objects = " << m_gameObjects.size() << "\n";
 }
 
 void PlayState::render()
@@ -79,6 +83,7 @@ void PlayState::render()
     {
         m_gameObjects[i]->draw();
     }
+    pPlayer->draw();
     pProjectileHandler->draw();
 }
 
@@ -86,13 +91,28 @@ bool PlayState::onEnter()
 {
 
     // parse the state
-    StateParser stateParser;
-    stateParser.parseState("../res/xml/test.xml", s_playID, &m_gameObjects, &m_textureIDs);
+    //StateParser stateParser;
+    //stateParser.parseState("../res/xml/test.xml", s_playID, &m_gameObjects, &m_textureIDs);
+    TheTextureManager::Instance()->load("../res/mob/head.png", "head", TheGame::Instance()->getRenderer());
+    TheTextureManager::Instance()->load("../res/mob/tail.png", "tail", TheGame::Instance()->getRenderer());
+    TheTextureManager::Instance()->load("../res/mob/hat.png", "hat", TheGame::Instance()->getRenderer());
+    TheTextureManager::Instance()->load("../res/mob/projectile.png", "projectile", TheGame::Instance()->getRenderer());
+    m_textureIDs.push_back("head");
+    m_textureIDs.push_back("tail");
+    m_textureIDs.push_back("hat");
+    m_textureIDs.push_back("projectile");
+
+    pPlayer = new Player();
+    pPlayer->load(new LoaderParams(TheGame::Instance()->getScreenWidth()/2,TheGame::Instance()->getScreenHeight()/2,38,52,"head",1));
 
     // add projectile handler
     pProjectileHandler = new ProjectileHandler();
-    Player* player = dynamic_cast<Player*>(m_gameObjects[0]);
-    player->addProjectileManager(pProjectileHandler);
+    // give the player a pointer to the projectile handler
+    Player *pPlayer_cast = dynamic_cast<Player*>(pPlayer);
+    pPlayer_cast->addProjectileManager(pProjectileHandler);
+
+    //m_gameObjects.push_back(pPlayer);
+
 
     // generate colours for balloons.. note red is not pure red; green is not pure green; etc.
     SDL_Color red;
@@ -120,9 +140,42 @@ bool PlayState::onEnter()
     std::thread threadObject (e, &params);
     threadObject.detach();
     */
+    std::thread t(&PlayState::doSomething, this, 10);
+    t.detach();
 
+    std::thread collisionsThread(&PlayState::checkCollisions, this);
+    collisionsThread.detach();
+
+    // start projectile handler concurrency
+    //std::thread projectileThread();
+    //projectileThread.detach();#
+    // need pointer to enemies
+    // start player collision detection concurrency
+    // need pointer to enemies
     std::cout << "Entering play state\n";
     return true;
+}
+
+void PlayState::checkCollisions()
+{
+    Player *cast = dynamic_cast<Player*>(pPlayer);
+    while(cast->alive())
+    {
+        if(m_gameObjects.size() > 0)
+        {
+            for(int i = 0; i <m_gameObjects.size(); i++)
+            {
+                // check player collisions
+                if(checkCollision(dynamic_cast<SDLGameObject*>(pPlayer), dynamic_cast<SDLGameObject*>(m_gameObjects[i])))
+                {
+                    TheGame::Instance()->getStateMachine()->changeState(new GameOverState());
+                    cast->kill();
+                }
+                // check projectile collisions
+                pProjectileHandler->collision(dynamic_cast<SDLGameObject*>(m_gameObjects[i]));
+            }
+        }
+    }
 }
 
 bool PlayState::onExit()
@@ -140,6 +193,7 @@ bool PlayState::onExit()
     }
 
     pProjectileHandler->clean();
+    pPlayer->clean();
     //TheProjectileHandler::Instance()->clean();
     std::cout << "Exiting play state\n";
     return true;
