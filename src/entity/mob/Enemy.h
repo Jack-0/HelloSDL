@@ -22,13 +22,10 @@ public:
     Enemy();
     Enemy(const LoaderParams* pParams);
 
-    void operator() (LoaderParams* pParams);
-
     virtual void draw();
     virtual void update();
     virtual void clean();
     virtual void load(const LoaderParams* pParams);
-    ~Enemy(){std::cout<<"dead";}
 
 private:
     VanityItem tail = VanityItem();
