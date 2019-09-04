@@ -13,6 +13,8 @@ class ProjectileHandler
 {
 public:
 
+    ProjectileHandler();
+    /*
     static ProjectileHandler* Instance()
     {
         if(s_pInstance == 0)
@@ -20,7 +22,7 @@ public:
 
         return s_pInstance;
     }
-
+    */
 
     void draw();
     void update();
@@ -32,14 +34,14 @@ public:
 
 private:
 
-    ProjectileHandler();
-    static ProjectileHandler* s_pInstance;
+    //ProjectileHandler();
+    //static ProjectileHandler* s_pInstance;
 
     Uint32 m_firerateDelay = 100.0f;
     std::vector<Projectile*> m_projectiles;
 };
 
-typedef ProjectileHandler TheProjectileHandler;
+//typedef ProjectileHandler TheProjectileHandler;
 
 
 #endif //HELLOSDL_PROJECTILEHANDLER_H

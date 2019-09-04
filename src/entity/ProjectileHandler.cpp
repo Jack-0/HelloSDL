@@ -5,13 +5,14 @@
 #include "ProjectileHandler.h"
 #include "../Game.h"
 
-ProjectileHandler* ProjectileHandler::s_pInstance = 0;
+//ProjectileHandler* ProjectileHandler::s_pInstance = 0;
 
 ProjectileHandler::ProjectileHandler()
 {}
 
 void ProjectileHandler::fireProjectile(Vector2D origin, Vector2D direction, float speed)
 {
+    std::cout << "projectile fired\n";
     direction.noramalise();
     direction *= speed;
     m_projectiles.push_back(new Projectile(new LoaderParams(origin.getX(), origin.getY(),9,9,"projectile",1), direction));
