@@ -140,8 +140,8 @@ bool PlayState::onEnter()
     std::thread threadObject (e, &params);
     threadObject.detach();
     */
-    std::thread t(&PlayState::doSomething, this, 10);
-    t.detach();
+    //std::thread t(&PlayState::doSomething, this, 10);
+    //t.detach();
 
     std::thread collisionsThread(&PlayState::checkCollisions, this);
     collisionsThread.detach();
@@ -166,13 +166,13 @@ void PlayState::checkCollisions()
             for(int i = 0; i <m_gameObjects.size(); i++)
             {
                 // check player collisions
-                if(checkCollision(dynamic_cast<SDLGameObject*>(pPlayer), dynamic_cast<SDLGameObject*>(m_gameObjects[i])))
+                if(checkCollision(static_cast<SDLGameObject*>(pPlayer), static_cast<SDLGameObject*>(m_gameObjects[i])))
                 {
                     TheGame::Instance()->getStateMachine()->changeState(new GameOverState());
                     cast->kill();
                 }
                 // check projectile collisions
-                pProjectileHandler->collision(dynamic_cast<SDLGameObject*>(m_gameObjects[i]));
+                pProjectileHandler->collision(static_cast<SDLGameObject*>(m_gameObjects[i]));
             }
         }
     }
