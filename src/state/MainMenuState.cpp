@@ -40,7 +40,7 @@ bool MainMenuState::onEnter()
     // set the callbacks from menu items
     setCallbacks(m_callbacks);
 
-    TheProjectileHandler::Instance()->clean();
+    ///TheProjectileHandler::Instance()->clean();
     std::cout << "Entering menu state\n";
     return true;
 }

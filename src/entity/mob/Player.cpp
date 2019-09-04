@@ -41,13 +41,13 @@ void Player::update()
     {
         Vector2D mousePos = Vector2D(TheInputHandler::Instance()->getMouseX(), TheInputHandler::Instance()->getMouseY());
         Vector2D direction = (mousePos - m_pos);
-        TheProjectileHandler::Instance()->fireProjectile(m_center, direction);
+        pProjectileHandler->fireProjectile(m_center, direction);
     }
 
     // fire a nova blast upon pressing the 'N' key
     if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_N))
     {
-        TheProjectileHandler::Instance()->fireNova(m_center);
+        pProjectileHandler->fireNova(m_center);
     }
 
     // update
