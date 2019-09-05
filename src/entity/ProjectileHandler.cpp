@@ -41,9 +41,12 @@ void ProjectileHandler::fireNova(Vector2D origin)
 
 bool ProjectileHandler::collision(SDLGameObject *p1)
 {
+    if(m_projectiles.empty())
+        return false;
+
     for(int i = 0; i < m_projectiles.size(); i++)
     {
-        SDLGameObject* p2 = dynamic_cast<SDLGameObject*>(m_projectiles[i]);
+        SDLGameObject* p2 = static_cast<SDLGameObject*>(m_projectiles[i]);
 
         SDL_Rect r1 = p1->getRect();
         SDL_Rect r2 = p2->getRect();
