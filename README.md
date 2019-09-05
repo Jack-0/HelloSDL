@@ -7,12 +7,16 @@ A simple game. Created to learn SDL and to practice C++.
 </p>
 
 ## Controls
-    - W = up
-    - A = left
-    - S = down
-    - D = right
-    - N =  fire projectiles (nova)
-    - left click = fire projectile
+
+| Key | Action |
+| :--- | :--- |
+| w | up |
+| a | left |
+| s | down |
+| d | right |
+| n | fire nova |
+| left-click | fire projectile |
+
 
 ## Dependencies
 Ensure the following libraries are installed on your system
