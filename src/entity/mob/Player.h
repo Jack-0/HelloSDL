@@ -16,6 +16,7 @@ class Player : public SDLGameObject
 public:
 
     Player();
+    Player(const LoaderParams* pParams);
 
     void addProjectileManager(ProjectileHandler* pPh) {pProjectileHandler = pPh;}
 

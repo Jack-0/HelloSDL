@@ -3,39 +3,10 @@
 //
 
 #include "PlayState.h"
-#include "../graphics/TextureManager.h"
-#include "../Game.h"
-#include "PauseState.h"
-#include "GameOverState.h"
-#include "StateParser.h"
-#include "../entity/ProjectileHandler.h"
-#include <iostream>
+
 
 const std::string PlayState::s_playID = "PLAY";
 
-/**
- * Creates one enemy and adds it to game objects, note enemies are assigned random colours
- */
-void PlayState::addEnemy(){
-    std::string head_type = "";
-
-    // randomly choose a balloon to spawn
-    switch(getRandom(0,2))
-    {
-        case 0:
-            head_type = "head_r";
-            break;
-        case 1:
-            head_type = "head_g";
-            break;
-        case 2:
-            head_type = "head_b";
-            break;
-    }
-    // create and add balloon to game objects (balloon type based on the random balloon choice)
-    auto SCREEN_HEIGHT = TheGame::Instance()->getScreenHeight();
-    m_gameObjects.push_back(new Enemy(new LoaderParams(-70, getRandom(-10, SCREEN_HEIGHT -51) ,38, 52, head_type, 1)));
-}
 
 void PlayState::update()
 {
@@ -66,6 +37,7 @@ void PlayState::update()
     }
 }
 
+
 void PlayState::render()
 {
     if(!gameOver)
@@ -79,7 +51,32 @@ void PlayState::render()
     }
 }
 
+
 bool PlayState::onEnter()
+{
+    initTextures();
+
+    // create a Player and assign it to the pPlayer (pointer to player)
+    pPlayer = new Player(new LoaderParams(TheGame::Instance()->getScreenWidth()/2,TheGame::Instance()->getScreenHeight()/2,38,52,"head",1));
+
+    // add projectile handler
+    pProjectileHandler = new ProjectileHandler();
+
+    // give the player a pointer to the projectile handler
+    Player *pPlayerCast = dynamic_cast<Player*>(pPlayer); // dynamic due to hierarchies and inheritance
+    pPlayerCast->addProjectileManager(pProjectileHandler);
+
+    // create a thread for collisions (massive performance boost)
+    std::thread collisionsThread(&PlayState::checkCollisions, this);
+    // detach this thread (don't wait for it, let it run parallel)
+    collisionsThread.detach();
+
+    std::cout << "Entering play state\n";
+    return true;
+}
+
+
+void PlayState::initTextures()
 {
     TheTextureManager::Instance()->load("../res/mob/head.png", "head", TheGame::Instance()->getRenderer());
     TheTextureManager::Instance()->load("../res/mob/tail.png", "tail", TheGame::Instance()->getRenderer());
@@ -89,19 +86,6 @@ bool PlayState::onEnter()
     m_textureIDs.push_back("tail");
     m_textureIDs.push_back("hat");
     m_textureIDs.push_back("projectile");
-
-    pPlayer = new Player();
-    pPlayer->load(new LoaderParams(TheGame::Instance()->getScreenWidth()/2,TheGame::Instance()->getScreenHeight()/2,38,52,"head",1));
-
-    // add projectile handler
-    pProjectileHandler = new ProjectileHandler();
-    // give the player a pointer to the projectile handler
-    Player *pPlayer_cast = dynamic_cast<Player*>(pPlayer);
-    pPlayer_cast->addProjectileManager(pProjectileHandler);
-
-    //m_gameObjects.push_back(pPlayer);
-
-
     // generate colours for balloons.. note red is not pure red; green is not pure green; etc.
     SDL_Color red;
     SDL_Color green;
@@ -117,90 +101,71 @@ bool PlayState::onEnter()
     TheTextureManager::Instance()->loadWithNewColour("../res/mob/head.png", "head_r", TheGame::Instance()->getRenderer(), red);
     TheTextureManager::Instance()->loadWithNewColour("../res/mob/head.png", "head_g", TheGame::Instance()->getRenderer(), green);
     TheTextureManager::Instance()->loadWithNewColour("../res/mob/head.png", "head_b", TheGame::Instance()->getRenderer(), blue);
-
-    ///TheTextureManager::Instance()->loadWithNewColour("../res/mob/projectile.png", "blueProjectile", TheGame::Instance()->getRenderer(), blue);
-
-    //std::thread playerColl_t();
-    //std::thread bulletColl_t;
-    /** TODO uneeded multi thread test
-    LoaderParams params = LoaderParams(-70, getRandom(-10, screenHeight -51) ,38, 52, "head_y", 1);
-    Enemy e =  Enemy(&params);
-    std::thread threadObject (e, &params);
-    threadObject.detach();
-    */
-    //std::thread t(&PlayState::doSomething, this, 10);
-    //t.detach();
-
-    std::thread collisionsThread(&PlayState::checkCollisions, this);
-    collisionsThread.detach();
-
-    // start projectile handler concurrency
-    //std::thread projectileThread();
-    //projectileThread.detach();#
-    // need pointer to enemies
-    // start player collision detection concurrency
-    // need pointer to enemies
-    std::cout << "Entering play state\n";
-    return true;
 }
 
+
+/**
+ * PlayState::checkCollisions() is a threaded method.
+ * While the player is alive:
+ *  Checks collisions between the player and enemies
+ *  Checks collisions between enemies and projectiles
+ *
+ * if there is a player collision the game-over state is applied
+ */
 void PlayState::checkCollisions()
 {
-    Player *cast = dynamic_cast<Player*>(pPlayer);
+    Player *pPlayerCast = dynamic_cast<Player*>(pPlayer);
 
     // wait 300 ms for objects to initialise properly. Due to thread checking before full init
     SDL_Delay(300); // TODO could be a better way of checking that objects are initialised
 
-    while(cast->alive())
+    // the player is alive
+    while(pPlayerCast->alive())
     {
         if(!m_gameObjects.empty())
         {
             for(int i = 0; i <m_gameObjects.size(); i++)
             {
-                // check player collisions
+                // check for player collisions with enemies
                 if(checkCollision(static_cast<SDLGameObject*>(pPlayer), static_cast<SDLGameObject*>(m_gameObjects[i])))
                 {
                     gameOver = true;
                     TheGame::Instance()->getStateMachine()->changeState(new GameOverState());
-                    cast->kill();
+                    pPlayerCast->kill(); // set player alive to dead
                 }
-                // check projectile collisions
-                //if(m_gameObjects[i] != NULL)
-                    pProjectileHandler->collision(static_cast<SDLGameObject*>(m_gameObjects[i]));
+
+                // check index game object against all projectiles O(n^2)
+                pProjectileHandler->collision(static_cast<SDLGameObject*>(m_gameObjects[i]));
             }
         }
     }
 }
 
+
 bool PlayState::onExit()
 {
+    // order matters here due to threading, the projectile handler is removed first to prevent it looking at a
+    // gameObject that is currently being cleaned.
     pProjectileHandler->clean();
 
+    // clean all game objects
     for(int i = 0; i < m_gameObjects.size(); i++)
-    {
         m_gameObjects[i]->clean();
-    }
 
+    // remove all game objects from the vector
     m_gameObjects.clear();
 
+    // remove textures for TheTextureManager
     for (int i = 0; i < m_textureIDs.size(); i++)
-    {
         TheTextureManager::Instance()->clearFromTextureMap(m_textureIDs[i]);
-    }
 
+    // clean the player last
     pPlayer->clean();
-    SDL_Delay(100);
-    //TheProjectileHandler::Instance()->clean();
+
     std::cout << "Exiting play state\n";
     return true;
 }
 
-int PlayState::getRandom(int low, int high)
-{
-    std::mt19937 rng(dev());
-    std::uniform_int_distribution<std::mt19937::result_type> rand(low, high);
-    return rand(rng);
-}
 
 bool PlayState::checkCollision(SDLGameObject *p1, SDLGameObject *p2)
 {
@@ -226,7 +191,33 @@ bool PlayState::checkCollision(SDLGameObject *p1, SDLGameObject *p2)
     return true;
 }
 
+
+void PlayState::addEnemy(){
+    // the head_type is the textureID that will be assigned to the balloon
+    std::string head_type = "";
+
+    // randomly assign a head textureID
+    switch(getRandom(0,2))
+    {
+        case 0: head_type = "head_r"; break;
+        case 1: head_type = "head_g"; break;
+        case 2: head_type = "head_b"; break;
+    }
+    // create and add balloon to game objects (balloon type based on the random balloon choice)
+    auto SCREEN_HEIGHT = TheGame::Instance()->getScreenHeight();
+    m_gameObjects.push_back(new Enemy(new LoaderParams(-70, getRandom(-10, SCREEN_HEIGHT -51) ,38, 52, head_type, 1)));
+}
+
+
 bool PlayState::checkAlive(SDLGameObject *p)
 {
     return p->alive();
+}
+
+
+int PlayState::getRandom(int low, int high)
+{
+    std::mt19937 rng(dev());
+    std::uniform_int_distribution<std::mt19937::result_type> rand(low, high);
+    return rand(rng);
 }

@@ -9,6 +9,14 @@ Player::Player() : SDLGameObject()
 {
 }
 
+Player::Player(const LoaderParams *pParams)
+{
+    SDLGameObject::load(pParams);
+    tail.load(new LoaderParams((m_pos.getX() + m_width / 2) - 3, m_pos.getY() + m_height, 6, 51, "tail", 2));
+    hat.load(new LoaderParams((m_pos.getX() + m_width / 2) - 9, m_pos.getY() - 14, 18, 16, "hat", 1));
+    m_speed = 2.0f;
+}
+
 void Player::load(const LoaderParams* pParams)
 {
     SDLGameObject::load(pParams);
