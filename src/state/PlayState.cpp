@@ -56,19 +56,8 @@ void PlayState::update()
     // update all game objects
     for(int i = 0; i < m_gameObjects.size(); i++)
     {
-        // check for player and enemy collision
-        /*
-        if(checkCollision(dynamic_cast<SDLGameObject*>(pPlayer), dynamic_cast<SDLGameObject*>(m_gameObjects[i])))
-        {
-            TheGame::Instance()->getStateMachine()->changeState(new GameOverState());
-            Player *cast = dynamic_cast<Player*>(pPlayer);
-            cast->kill();
-        }
-        */
-
-
         // check to see if the enemy is alive, if not remove it
-        if(!checkAlive(dynamic_cast<SDLGameObject*>(m_gameObjects[i])))
+        if(!checkAlive(static_cast<SDLGameObject*>(m_gameObjects[i])))
         {
             m_gameObjects[i]->clean();
             m_gameObjects.erase(m_gameObjects.begin() + i);
@@ -79,20 +68,19 @@ void PlayState::update()
 
 void PlayState::render()
 {
-    for(int i = 0; i < m_gameObjects.size(); i++)
+    if(!gameOver)
     {
-        m_gameObjects[i]->draw();
+        for(int i = 0; i < m_gameObjects.size(); i++)
+        {
+            m_gameObjects[i]->draw();
+        }
+        pPlayer->draw();
+        pProjectileHandler->draw();
     }
-    pPlayer->draw();
-    pProjectileHandler->draw();
 }
 
 bool PlayState::onEnter()
 {
-
-    // parse the state
-    //StateParser stateParser;
-    //stateParser.parseState("../res/xml/test.xml", s_playID, &m_gameObjects, &m_textureIDs);
     TheTextureManager::Instance()->load("../res/mob/head.png", "head", TheGame::Instance()->getRenderer());
     TheTextureManager::Instance()->load("../res/mob/tail.png", "tail", TheGame::Instance()->getRenderer());
     TheTextureManager::Instance()->load("../res/mob/hat.png", "hat", TheGame::Instance()->getRenderer());
@@ -159,20 +147,26 @@ bool PlayState::onEnter()
 void PlayState::checkCollisions()
 {
     Player *cast = dynamic_cast<Player*>(pPlayer);
+
+    // wait 300 ms for objects to initialise properly. Due to thread checking before full init
+    SDL_Delay(300); // TODO could be a better way of checking that objects are initialised
+
     while(cast->alive())
     {
-        if(m_gameObjects.size() > 0)
+        if(!m_gameObjects.empty())
         {
             for(int i = 0; i <m_gameObjects.size(); i++)
             {
                 // check player collisions
                 if(checkCollision(static_cast<SDLGameObject*>(pPlayer), static_cast<SDLGameObject*>(m_gameObjects[i])))
                 {
+                    gameOver = true;
                     TheGame::Instance()->getStateMachine()->changeState(new GameOverState());
                     cast->kill();
                 }
                 // check projectile collisions
-                pProjectileHandler->collision(static_cast<SDLGameObject*>(m_gameObjects[i]));
+                //if(m_gameObjects[i] != NULL)
+                    pProjectileHandler->collision(static_cast<SDLGameObject*>(m_gameObjects[i]));
             }
         }
     }
@@ -180,6 +174,8 @@ void PlayState::checkCollisions()
 
 bool PlayState::onExit()
 {
+    pProjectileHandler->clean();
+
     for(int i = 0; i < m_gameObjects.size(); i++)
     {
         m_gameObjects[i]->clean();
@@ -192,8 +188,8 @@ bool PlayState::onExit()
         TheTextureManager::Instance()->clearFromTextureMap(m_textureIDs[i]);
     }
 
-    pProjectileHandler->clean();
     pPlayer->clean();
+    SDL_Delay(100);
     //TheProjectileHandler::Instance()->clean();
     std::cout << "Exiting play state\n";
     return true;

@@ -53,6 +53,9 @@ private:
     int getRandom(int, int);
     void addEnemy();
 
+    bool gameOver = false;
+    bool gameStarted = false;
+
     std::random_device dev;
     static const std::string s_playID;
 
