@@ -9,6 +9,14 @@ Player::Player() : SDLGameObject()
 {
 }
 
+Player::Player(const LoaderParams *pParams)
+{
+    SDLGameObject::load(pParams);
+    tail.load(new LoaderParams((m_pos.getX() + m_width / 2) - 3, m_pos.getY() + m_height, 6, 51, "tail", 2));
+    hat.load(new LoaderParams((m_pos.getX() + m_width / 2) - 9, m_pos.getY() - 14, 18, 16, "hat", 1));
+    m_speed = 2.0f;
+}
+
 void Player::load(const LoaderParams* pParams)
 {
     SDLGameObject::load(pParams);
@@ -41,13 +49,13 @@ void Player::update()
     {
         Vector2D mousePos = Vector2D(TheInputHandler::Instance()->getMouseX(), TheInputHandler::Instance()->getMouseY());
         Vector2D direction = (mousePos - m_pos);
-        TheProjectileHandler::Instance()->fireProjectile(m_center, direction);
+        pProjectileHandler->fireProjectile(m_center, direction);
     }
 
     // fire a nova blast upon pressing the 'N' key
     if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_N))
     {
-        TheProjectileHandler::Instance()->fireNova(m_center);
+        pProjectileHandler->fireNova(m_center);
     }
 
     // update

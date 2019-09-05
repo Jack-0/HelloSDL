@@ -37,13 +37,12 @@ void Enemy::update()
 void Enemy::draw()
 {
     SDLGameObject::draw();
-
     tail.draw();
 }
 
 void Enemy::clean()
 {
     SDLGameObject::clean();
-
     tail.clean();
 }
+

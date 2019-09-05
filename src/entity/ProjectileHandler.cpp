@@ -5,7 +5,7 @@
 #include "ProjectileHandler.h"
 #include "../Game.h"
 
-ProjectileHandler* ProjectileHandler::s_pInstance = 0;
+//ProjectileHandler* ProjectileHandler::s_pInstance = 0;
 
 ProjectileHandler::ProjectileHandler()
 {}
@@ -41,9 +41,12 @@ void ProjectileHandler::fireNova(Vector2D origin)
 
 bool ProjectileHandler::collision(SDLGameObject *p1)
 {
+    if(m_projectiles.empty())
+        return false;
+
     for(int i = 0; i < m_projectiles.size(); i++)
     {
-        SDLGameObject* p2 = dynamic_cast<SDLGameObject*>(m_projectiles[i]);
+        SDLGameObject* p2 = static_cast<SDLGameObject*>(m_projectiles[i]);
 
         SDL_Rect r1 = p1->getRect();
         SDL_Rect r2 = p2->getRect();
@@ -55,6 +58,25 @@ bool ProjectileHandler::collision(SDLGameObject *p1)
         }
     }
     return false;
+}
+
+void ProjectileHandler::checkForCollisions(std::vector<SDLGameObject*> gameObjects)
+{
+    for(int i = 0; i < gameObjects.size(); i++)
+    {
+        for(int j = 0; j < m_projectiles.size(); i++)
+        {
+            SDLGameObject* pProjectile = dynamic_cast<SDLGameObject*>(m_projectiles[j]);
+
+            SDL_Rect r1 = gameObjects[i]->getRect();
+            SDL_Rect r2 = pProjectile->getRect();
+            if(SDL_HasIntersection(&r1, &r2))
+            {
+                gameObjects[i]->kill();
+                pProjectile->kill();
+            }
+        }
+    }
 }
 
 void ProjectileHandler::draw()

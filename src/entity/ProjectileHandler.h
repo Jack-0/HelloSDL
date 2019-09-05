@@ -13,6 +13,8 @@ class ProjectileHandler
 {
 public:
 
+    ProjectileHandler();
+    /*
     static ProjectileHandler* Instance()
     {
         if(s_pInstance == 0)
@@ -20,26 +22,28 @@ public:
 
         return s_pInstance;
     }
-
+    */
 
     void draw();
     void update();
     void clean();
 
     bool collision(SDLGameObject* gameObject);
+    void checkForCollisions(std::vector<SDLGameObject*> gameObjects);
+
     void fireProjectile(Vector2D origin, Vector2D direction, float speed=3);
     void fireNova(Vector2D origin);
 
 private:
 
-    ProjectileHandler();
-    static ProjectileHandler* s_pInstance;
+    //ProjectileHandler();
+    //static ProjectileHandler* s_pInstance;
 
     Uint32 m_firerateDelay = 100.0f;
     std::vector<Projectile*> m_projectiles;
 };
 
-typedef ProjectileHandler TheProjectileHandler;
+//typedef ProjectileHandler TheProjectileHandler;
 
 
 #endif //HELLOSDL_PROJECTILEHANDLER_H
