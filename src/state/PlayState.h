@@ -56,6 +56,8 @@ private:
     // game state (shared between main thread and collision thread, to communicate game state to renderer)
     bool gameOver = false;
 
+    bool threadInit = false;
+
     // a vector of enemies
     std::vector<GameObject*> m_gameObjects;
     // pointer to the player

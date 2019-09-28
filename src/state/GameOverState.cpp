@@ -31,7 +31,7 @@ bool GameOverState::onEnter()
     // set the callbacks from menu items
     setCallbacks(m_callbacks);
 
-    std::cout << "entering pause state\n";
+    std::cout << "Entering game-over state\n";
     return true;
 }
 

@@ -63,7 +63,7 @@ void StateParser::parseTextures(TiXmlElement* pStateRoot, std::vector<std::strin
         if(!TheTextureManager::Instance()->load(filenameAttribute, idAttribute, TheGame::Instance()->getRenderer()))
             std::cout << "\tfailed to load texture\n";
         else
-            std::cout << "\tparsed texture at " << filenameAttribute << " successfully\n";
+            std::cout << "\tparsed texture at " << filenameAttribute << "("<< idAttribute << ") successfully\n";
     }
 }
 
