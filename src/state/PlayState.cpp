@@ -162,6 +162,9 @@ bool PlayState::onExit()
     // clean the player last
     pPlayer->clean();
 
+    // TODO something isn't handled properly causing the game overstate menu to fail to load textures sometimes
+    // (pointers to player and projectile handler maybe)
+
     std::cout << "Exiting play state\n";
     return true;
 }
