@@ -10,6 +10,27 @@ const std::string PlayState::s_playID = "PLAY";
 
 void PlayState::update()
 {
+    // init thead
+    if(!threadInit)
+    {
+        // give the player a pointer to the projectile handler
+        Player *pPlayerCast = dynamic_cast<Player*>(pPlayer); // dynamic due to hierarchies and inheritance
+        pPlayerCast->addProjectileManager(pProjectileHandler);
+
+        // create a thread for collisions (massive performance boost)
+        std::thread collisionsThread(&PlayState::checkCollisions, this);
+        // detach this thread (don't wait for it, let it run parallel)
+        collisionsThread.detach();
+        threadInit = true;
+    }
+
+    if(gameOver)
+    {
+        Player *pPlayerCast = dynamic_cast<Player*>(pPlayer);
+        pPlayerCast->kill(); // set player alive to dead
+        TheGame::Instance()->getStateMachine()->changeState(new GameOverState());
+    }
+
     // if escape is pressed enter the pause state
     if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_ESCAPE))
         TheGame::Instance()->getStateMachine()->pushState(new PauseState());
@@ -62,14 +83,7 @@ bool PlayState::onEnter()
     // add projectile handler
     pProjectileHandler = new ProjectileHandler();
 
-    // give the player a pointer to the projectile handler
-    Player *pPlayerCast = dynamic_cast<Player*>(pPlayer); // dynamic due to hierarchies and inheritance
-    pPlayerCast->addProjectileManager(pProjectileHandler);
 
-    // create a thread for collisions (massive performance boost)
-    std::thread collisionsThread(&PlayState::checkCollisions, this);
-    // detach this thread (don't wait for it, let it run parallel)
-    collisionsThread.detach();
 
     std::cout << "Entering play state\n";
     return true;
@@ -130,8 +144,6 @@ void PlayState::checkCollisions()
                 if(checkCollision(static_cast<SDLGameObject*>(pPlayer), static_cast<SDLGameObject*>(m_gameObjects[i])))
                 {
                     gameOver = true;
-                    TheGame::Instance()->getStateMachine()->changeState(new GameOverState());
-                    pPlayerCast->kill(); // set player alive to dead
                 }
 
                 // check index game object against all projectiles O(n^2)
@@ -163,8 +175,7 @@ bool PlayState::onExit()
     pPlayer->clean();
 
     // TODO something isn't handled properly causing the game overstate menu to fail to load textures sometimes
-    // (pointers to player and projectile handler maybe)
-
+    /* (pointers to player and projectile handler maybe)*/
     std::cout << "Exiting play state\n";
     return true;
 }
