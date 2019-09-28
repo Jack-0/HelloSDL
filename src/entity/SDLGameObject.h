@@ -41,7 +41,7 @@ public:
     bool alive(){ return m_alive; }
     //void setAlive(bool x) {alive = x;}
 
-    SDL_Rect getRect() { return rect; }
+    SDL_Rect getRect() { return rect; } // TODO bug with projectile handler
 
 
 protected:

@@ -29,6 +29,7 @@ void PlayState::update()
         Player *pPlayerCast = dynamic_cast<Player*>(pPlayer);
         pPlayerCast->kill(); // set player alive to dead
         TheGame::Instance()->getStateMachine()->changeState(new GameOverState());
+        return;
     }
 
     // if escape is pressed enter the pause state
@@ -131,7 +132,7 @@ void PlayState::checkCollisions()
     Player *pPlayerCast = dynamic_cast<Player*>(pPlayer);
 
     // wait 300 ms for objects to initialise properly. Due to thread checking before full init
-    SDL_Delay(300); // TODO could be a better way of checking that objects are initialised
+    SDL_Delay(500); // TODO could be a better way of checking that objects are initialised
 
     // the player is alive
     while(pPlayerCast->alive())
