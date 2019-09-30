@@ -7,6 +7,7 @@
 Projectile::Projectile(const LoaderParams *pParams, Vector2D direction)
 : m_vector(direction)
 {
+    SDLGameObject();
     load(pParams);
 }
 
