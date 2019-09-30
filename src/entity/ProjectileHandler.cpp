@@ -44,7 +44,7 @@ bool ProjectileHandler::collision(SDLGameObject *p1)
     if(m_projectiles.empty())
         return false;
 
-    if(p1 == NULL)
+    if(p1 == nullptr)
         return false;
 
     // TODO segfault sometimes with SDLGameObject::getRect
@@ -52,10 +52,10 @@ bool ProjectileHandler::collision(SDLGameObject *p1)
     {
         //SDLGameObject* p2 = static_cast<SDLGameObject*>(m_projectiles[i]);
 
-        SDL_Rect r1 = p1->getRect();
-        SDL_Rect r2 = m_projectiles[i]->getRect();
+        SDL_Rect* r1 = p1->getRect();
+        SDL_Rect* r2 = m_projectiles[i]->getRect();
 
-        if(SDL_HasIntersection(&r1, &r2))
+        if(SDL_HasIntersection(r1, r2))
         {
             p1->kill();
             m_projectiles[i]->kill();
@@ -73,9 +73,9 @@ void ProjectileHandler::checkForCollisions(std::vector<SDLGameObject*> gameObjec
         {
             SDLGameObject* pProjectile = static_cast<SDLGameObject*>(m_projectiles[j]);
 
-            SDL_Rect r1 = gameObjects[i]->getRect();
-            SDL_Rect r2 = pProjectile->getRect();
-            if(SDL_HasIntersection(&r1, &r2))
+            SDL_Rect* r1 = gameObjects[i]->getRect();
+            SDL_Rect* r2 = pProjectile->getRect();
+            if(SDL_HasIntersection(r1, r2))
             {
                 gameObjects[i]->kill();
                 pProjectile->kill();
