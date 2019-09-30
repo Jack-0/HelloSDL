@@ -19,6 +19,7 @@
 #include "../entity/ProjectileHandler.h"
 #include "../entity/mob/Player.h"
 #include "../graphics/TextureManager.h"
+#include "../entity/TileMap.h"
 
 
 class PlayState : public GameState
@@ -43,10 +44,6 @@ private:
     const int MAX_GAMEOBJECTS = 2000;
     static const std::string s_playID;
 
-    // returns a random number in the range low - high
-    int getRandom(int low, int high);
-    std::random_device dev;
-
     // adds a new enemy to the game (with a random coloured spite)
     void addEnemy();
 
@@ -64,6 +61,11 @@ private:
     GameObject* pPlayer;
     // pointer to a projectile handler
     ProjectileHandler* pProjectileHandler;
+
+    // isometric tile map
+    TileMap tileMap;
+
+    void createIsoGrid();
 };
 
 
