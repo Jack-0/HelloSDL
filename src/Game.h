@@ -48,6 +48,9 @@ public:
     int getScreenHeight() { return m_screenHeight; }
     Vector2D getScreenCenter() { return m_screenCenter; }
 
+    // returns a random number in the range low - high
+    int getRandom(int low, int high);
+
 private:
 
     Game() {}
@@ -65,6 +68,8 @@ private:
     SDL_Renderer* renderer;
     GameStateMachine* m_pGameStateMachine;
 
+    // used to generate random numbers
+    std::random_device dev;
 };
 
 typedef Game TheGame;

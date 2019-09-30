@@ -77,9 +77,18 @@ void Game::draw()
     }
 }
 
-
-
-
+/**
+ * returns a random number in the range low - high
+ * @param low is the lowest possible int
+ * @param high is the highest possible int
+ * @return random value between low and high
+ */
+int Game::getRandom(int low, int high)
+{
+    std::mt19937 rng(dev());
+    std::uniform_int_distribution<std::mt19937::result_type> rand(low, high);
+    return rand(rng);
+}
 
 void Game::update()
 {
