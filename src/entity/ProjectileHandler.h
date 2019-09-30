@@ -31,6 +31,8 @@ public:
     bool collision(SDLGameObject* gameObject);
     void checkForCollisions(std::vector<SDLGameObject*> gameObjects);
 
+    bool checkCollision(SDLGameObject* p1, SDLGameObject* p2);
+
     void fireProjectile(Vector2D origin, Vector2D direction, float speed=3);
     void fireNova(Vector2D origin);
 

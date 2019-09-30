@@ -22,6 +22,11 @@ public:
     virtual void load(const LoaderParams* pParams);
 
 
+    void changeFrame(int x)
+    {
+        m_currentFrame = x;
+    }
+
     Vector2D& getPosition() {return m_pos;}
     int getWidth() {return m_width;}
     int getHeight() {return m_height;}
@@ -41,9 +46,6 @@ public:
     bool alive(){ return m_alive; }
     //void setAlive(bool x) {alive = x;}
 
-    SDL_Rect getRect() { return rect; } // TODO bug with projectile handler
-
-
 protected:
     Vector2D m_pos = Vector2D(0, 0);
     Vector2D m_velocity = Vector2D(0, 0);
@@ -62,11 +64,7 @@ protected:
     bool m_alive = true;
     bool m_collision = false;
 
-    SDL_Rect rect;
-
     std::string m_texutreID;
-
-
 };
 
 #endif //HELLOSDL_SDLGAMEOBJECT_H

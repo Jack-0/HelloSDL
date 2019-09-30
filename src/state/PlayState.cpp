@@ -57,11 +57,14 @@ void PlayState::update()
         }
         m_gameObjects[i]->update();
     }
+
 }
 
 
 void PlayState::render()
 {
+    tileMap.render();
+
     if(!gameOver)
     {
         for(int i = 0; i < m_gameObjects.size(); i++)
@@ -76,7 +79,8 @@ void PlayState::render()
 
 bool PlayState::onEnter()
 {
-    initTextures();
+    initTextures(); // TODO we don't even free resources from this init
+    createIsoGrid();
 
     // create a Player and assign it to the pPlayer (pointer to player)
     pPlayer = new Player(new LoaderParams(TheGame::Instance()->getScreenWidth()/2,TheGame::Instance()->getScreenHeight()/2,38,52,"head",1));
@@ -84,10 +88,16 @@ bool PlayState::onEnter()
     // add projectile handler
     pProjectileHandler = new ProjectileHandler();
 
+    tileMap = TileMap();
 
 
     std::cout << "Entering play state\n";
     return true;
+}
+
+void PlayState::createIsoGrid()
+{
+
 }
 
 
@@ -212,7 +222,7 @@ void PlayState::addEnemy(){
     std::string head_type = "";
 
     // randomly assign a head textureID
-    switch(getRandom(0,2))
+    switch(TheGame::Instance()->getRandom(0,2))
     {
         case 0: head_type = "head_r"; break;
         case 1: head_type = "head_g"; break;
@@ -220,19 +230,11 @@ void PlayState::addEnemy(){
     }
     // create and add balloon to game objects (balloon type based on the random balloon choice)
     auto SCREEN_HEIGHT = TheGame::Instance()->getScreenHeight();
-    m_gameObjects.push_back(new Enemy(new LoaderParams(-70, getRandom(-10, SCREEN_HEIGHT -51) ,38, 52, head_type, 1)));
+    m_gameObjects.push_back(new Enemy(new LoaderParams(-70, TheGame::Instance()->getRandom(-10, SCREEN_HEIGHT -51) ,38, 52, head_type, 1)));
 }
 
 
 bool PlayState::checkAlive(SDLGameObject *p)
 {
     return p->alive();
-}
-
-
-int PlayState::getRandom(int low, int high)
-{
-    std::mt19937 rng(dev());
-    std::uniform_int_distribution<std::mt19937::result_type> rand(low, high);
-    return rand(rng);
 }

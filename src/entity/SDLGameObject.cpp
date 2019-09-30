@@ -22,11 +22,6 @@ void SDLGameObject::load(const LoaderParams *pParams)
     m_currentRow = 1;
     m_currentFrame = 1;
     m_numFrames = pParams->getNumFrames();
-
-    rect.x = m_pos.getX();
-    rect.y = m_pos.getY();
-    rect.w = m_width;
-    rect.h = m_height;
 }
 
 void SDLGameObject::clean()
@@ -44,7 +39,4 @@ void SDLGameObject::update()
     m_pos += m_velocity;
     // animate the frame
     m_currentFrame = int ((SDL_GetTicks() / m_animSpeed) % m_numFrames);
-
-    rect.x = m_pos.getX();
-    rect.y = m_pos.getY();
 }
