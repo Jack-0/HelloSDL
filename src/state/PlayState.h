@@ -20,6 +20,7 @@
 #include "../entity/mob/Player.h"
 #include "../graphics/TextureManager.h"
 #include "../entity/TileMap.h"
+#include "../entity/Text.h"
 
 
 class PlayState : public GameState
@@ -64,6 +65,11 @@ private:
 
     // isometric tile map
     TileMap tileMap;
+
+    // todo test text
+    Text* pText;
+
+    int score = 0;
 
     void createIsoGrid();
 };

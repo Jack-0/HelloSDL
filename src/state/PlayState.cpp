@@ -58,6 +58,7 @@ void PlayState::update()
         m_gameObjects[i]->update();
     }
 
+    pText->changeText(std::to_string(score));
 }
 
 
@@ -74,6 +75,8 @@ void PlayState::render()
         pPlayer->draw();
         pProjectileHandler->draw();
     }
+
+    pText->draw();
 }
 
 
@@ -90,6 +93,7 @@ bool PlayState::onEnter()
 
     tileMap = TileMap();
 
+    pText = new Text( TheGame::Instance()->getScreenWidth() - 100, 0, "Hello WOrld!!!");
 
     std::cout << "Entering play state\n";
     return true;
@@ -158,7 +162,8 @@ void PlayState::checkCollisions()
                 }
 
                 // check index game object against all projectiles O(n^2)
-                pProjectileHandler->collision(static_cast<SDLGameObject*>(m_gameObjects[i]));
+                if(pProjectileHandler->collision(static_cast<SDLGameObject*>(m_gameObjects[i])))
+                    score+=1;
             }
         }
     }
