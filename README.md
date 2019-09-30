@@ -22,4 +22,6 @@ A simple game. Created to learn SDL and to practice C++.
 Ensure the following libraries are installed on your system
   - SDL2
   - SDL2_mixer
+  - SDL2_image
+  - SDL2_ttf
   - tinyxml
