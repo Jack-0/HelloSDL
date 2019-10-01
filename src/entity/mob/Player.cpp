@@ -36,13 +36,25 @@ void Player::update()
 
     // Detect movement and move the player
     if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_W))
-        setYvelocity(-m_speed);
+        if(m_pos.getY() > 0)
+            setYvelocity(-m_speed);
+        else
+            setYvelocity(0);
     if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_S))
-        setYvelocity(m_speed);
+        if(m_pos.getY() + m_height < TheGame::Instance()->getScreenHeight())
+            setYvelocity(m_speed);
+        else
+            setYvelocity(0);
     if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_A))
-        setXvelocity(-m_speed);
+        if(m_pos.getX() > 0)
+            setXvelocity(-m_speed);
+        else
+            setXvelocity(0);
     if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_D))
-        setXvelocity(m_speed);
+        if(m_pos.getX() + m_width < TheGame::Instance()->getScreenWidth())
+            setXvelocity(m_speed);
+        else
+            setXvelocity(0);
 
     // fire projectile in direction of mouse upon mouse click
     if(TheInputHandler::Instance()->getMouseButtonStates(LEFT))
