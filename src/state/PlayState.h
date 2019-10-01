@@ -19,59 +19,63 @@
 #include "../entity/ProjectileHandler.h"
 #include "../entity/mob/Player.h"
 #include "../graphics/TextureManager.h"
-#include "../entity/TileMap.h"
 #include "../entity/Text.h"
 
-
+/**
+ * This GameState represents the core game.
+ * When this state is active;
+ *  A player is spawned
+ *  Enemies spawn on the left of the screen and float right
+ *  The player can shoot down enemy balloons or die via collision
+ */
 class PlayState : public GameState
 {
 public:
+
     virtual void update();
     virtual void render();
     // init and clean
     virtual bool onEnter();
     virtual bool onExit();
 
-    // checks collisions between projectiles, enemies and the player (threaded for performance)
-    void checkCollisions();
-
-    bool checkCollision(SDLGameObject* p1, SDLGameObject* p2);
-    bool checkAlive(SDLGameObject* p);
-
     virtual std::string getStateID() const {return s_playID;}
 
 private:
 
-    const int MAX_GAMEOBJECTS = 2000;
+    const int MAX_GAMEOBJECTS = 2000; // MAXIMUM allowed game objects
     static const std::string s_playID;
 
-    // adds a new enemy to the game (with a random coloured spite)
-    void addEnemy();
+    // a separate thread that is used to do all collisions checks in parallel with the game loop
+    std::thread m_collisionThread;
+
+    // checks collisions between projectiles, enemies and the player
+    void checkAllCollisions(); // this function is threaded for performance
+    bool checkPlayerEnemyCollision(SDLGameObject *enemy);
+
+    // simple check to see if an SDLGameObject is alive
+    bool checkAlive(SDLGameObject* p);
 
     // initialise textures
     void initTextures();
 
-    // game state (shared between main thread and collision thread, to communicate game state to renderer)
-    bool gameOver = false;
+    // adds a new enemy to the game (with a random coloured spite)
+    void addEnemy();
 
-    bool threadInit = false;
+    // a boolean used to determine game state set to true when the collision thread detects a player to enemy collision
+    bool gameOver = false;
 
     // a vector of enemies
     std::vector<GameObject*> m_gameObjects;
+
     // pointer to the player
     GameObject* pPlayer;
+
     // pointer to a projectile handler
     ProjectileHandler* pProjectileHandler;
 
-    // isometric tile map
-    TileMap tileMap;
-
-    // todo test text
-    Text* pText;
-
+    // render the score as text
+    Text* scoreText;
     int score = 0;
-
-    void createIsoGrid();
 };
 
 

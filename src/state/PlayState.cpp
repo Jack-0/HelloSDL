@@ -10,20 +10,6 @@ const std::string PlayState::s_playID = "PLAY";
 
 void PlayState::update()
 {
-    // init thead
-    if(!threadInit)
-    {
-        // give the player a pointer to the projectile handler
-        Player *pPlayerCast = dynamic_cast<Player*>(pPlayer); // dynamic due to hierarchies and inheritance
-        pPlayerCast->addProjectileManager(pProjectileHandler);
-
-        // create a thread for collisions (massive performance boost)
-        std::thread collisionsThread(&PlayState::checkCollisions, this);
-        // detach this thread (don't wait for it, let it run parallel)
-        collisionsThread.detach();
-        threadInit = true;
-    }
-
     if(gameOver)
     {
         Player *pPlayerCast = dynamic_cast<Player*>(pPlayer);
@@ -58,14 +44,13 @@ void PlayState::update()
         m_gameObjects[i]->update();
     }
 
-    pText->changeText(std::to_string(score));
+    // update the visible score
+    scoreText->changeText(std::to_string(score));
 }
 
 
 void PlayState::render()
 {
-    tileMap.render();
-
     if(!gameOver)
     {
         for(int i = 0; i < m_gameObjects.size(); i++)
@@ -76,14 +61,13 @@ void PlayState::render()
         pProjectileHandler->draw();
     }
 
-    pText->draw();
+    scoreText->draw();
 }
 
 
 bool PlayState::onEnter()
 {
-    initTextures(); // TODO we don't even free resources from this init
-    createIsoGrid();
+    initTextures();
 
     // create a Player and assign it to the pPlayer (pointer to player)
     pPlayer = new Player(new LoaderParams(TheGame::Instance()->getScreenWidth()/2,TheGame::Instance()->getScreenHeight()/2,38,52,"head",1));
@@ -91,22 +75,25 @@ bool PlayState::onEnter()
     // add projectile handler
     pProjectileHandler = new ProjectileHandler();
 
-    tileMap = TileMap();
+    scoreText = new Text( TheGame::Instance()->getScreenWidth() - 100, 0, std::to_string(score));
 
-    pText = new Text( TheGame::Instance()->getScreenWidth() - 100, 0, "Hello WOrld!!!");
+    // Setup a thead for handling collisions
+    // give the player a pointer to the projectile handler
+    Player *pPlayerCast = dynamic_cast<Player*>(pPlayer); // dynamic due to hierarchies and inheritance
+    pPlayerCast->addProjectileManager(pProjectileHandler);
+    // create a thread for collisions (massive performance boost)
+    m_collisionThread = std::thread(&PlayState::checkAllCollisions, this);
+    // detach this thread (don't wait for it, let it run parallel)
+    m_collisionThread.detach();
 
     std::cout << "Entering play state\n";
     return true;
 }
 
-void PlayState::createIsoGrid()
-{
-
-}
-
 
 void PlayState::initTextures()
 {
+    // load needed textures into TheTextureManager
     TheTextureManager::Instance()->load("../res/mob/head.png", "head", TheGame::Instance()->getRenderer());
     TheTextureManager::Instance()->load("../res/mob/tail.png", "tail", TheGame::Instance()->getRenderer());
     TheTextureManager::Instance()->load("../res/mob/hat.png", "hat", TheGame::Instance()->getRenderer());
@@ -115,6 +102,7 @@ void PlayState::initTextures()
     m_textureIDs.push_back("tail");
     m_textureIDs.push_back("hat");
     m_textureIDs.push_back("projectile");
+
     // generate colours for balloons.. note red is not pure red; green is not pure green; etc.
     SDL_Color red;
     SDL_Color green;
@@ -122,7 +110,6 @@ void PlayState::initTextures()
     red.r = 200; red.g = 0; red.b = 120; red.a = 0;
     green.r = 0; green.g = 200; green.b = 120; green.a = 0;
     blue.r = 0; blue.g = 120; blue.b = 200; blue.a = 0;
-
     // Generate red green and blue textures from default pink head image
     m_textureIDs.push_back("head_r");
     m_textureIDs.push_back("head_g");
@@ -141,8 +128,9 @@ void PlayState::initTextures()
  *
  * if there is a player collision the game-over state is applied
  */
-void PlayState::checkCollisions()
+void PlayState::checkAllCollisions()
 {
+    // dynamically cast the pPlayer pointer to a Player to use needed methods
     Player *pPlayerCast = dynamic_cast<Player*>(pPlayer);
 
     // wait 300 ms for objects to initialise properly. Due to thread checking before full init
@@ -156,7 +144,7 @@ void PlayState::checkCollisions()
             for(int i = 0; i <m_gameObjects.size(); i++)
             {
                 // check for player collisions with enemies
-                if(checkCollision(static_cast<SDLGameObject*>(pPlayer), static_cast<SDLGameObject*>(m_gameObjects[i])))
+                if(checkPlayerEnemyCollision(static_cast<SDLGameObject *>(m_gameObjects[i])))
                 {
                     gameOver = true;
                 }
@@ -190,28 +178,27 @@ bool PlayState::onExit()
     // clean the player last
     pPlayer->clean();
 
-    // TODO something isn't handled properly causing the game overstate menu to fail to load textures sometimes
-    /* (pointers to player and projectile handler maybe)*/
     std::cout << "Exiting play state\n";
     return true;
 }
 
 
-bool PlayState::checkCollision(SDLGameObject *p1, SDLGameObject *p2)
+bool PlayState::checkPlayerEnemyCollision(SDLGameObject *enemy)
 {
+    SDLGameObject* player = dynamic_cast<SDLGameObject*>(pPlayer);
+
     int leftA, leftB, rightA, rightB;
     int topA, topB, bottomA, bottomB;
 
-    leftA = p1->getPosition().getX();
-    rightA = p1->getPosition().getX() + p1->getWidth();
-    topA = p1->getPosition().getY();
-    bottomA = p1->getPosition().getY() + p1->getHeight();
+    leftA = player->getPosition().getX();
+    rightA = player->getPosition().getX() + player->getWidth();
+    topA = player->getPosition().getY();
+    bottomA = player->getPosition().getY() + player->getHeight();
 
-    leftB = p2->getPosition().getX();
-    rightB = p2->getPosition().getX() + p2->getWidth();
-    topB = p2->getPosition().getY();
-    bottomB = p2->getPosition().getY() + p2->getHeight();
-
+    leftB = enemy->getPosition().getX();
+    rightB = enemy->getPosition().getX() + enemy->getWidth();
+    topB = enemy->getPosition().getY();
+    bottomB = enemy->getPosition().getY() + enemy->getHeight();
 
     if(bottomA <= topB) {return false;}
     if(topA >= bottomB) {return false;}
