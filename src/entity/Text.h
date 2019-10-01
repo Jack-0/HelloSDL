@@ -10,7 +10,10 @@
 #include "SDLGameObject.h"
 
 
-
+/**
+ * Text is used to render text to the screen.
+ * Currently text is rendered in the font OpenSans-Regular.ttf
+ */
 class Text
 {
 public:
@@ -29,7 +32,7 @@ private:
 
     void generateTexture();
 
-    std::string m_text;
+    std::string m_msg;
     TTF_Font* pFont;
     SDL_Color m_colour;
     SDL_Surface* pSurface;
