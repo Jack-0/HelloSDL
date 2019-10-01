@@ -41,21 +41,18 @@ void ProjectileHandler::fireNova(Vector2D origin)
 
 bool ProjectileHandler::collision(SDLGameObject *p1)
 {
+    // exit if there is nothing to check against
     if(m_projectiles.empty())
         return false;
-
     if(p1 == nullptr)
         return false;
 
-    // TODO segfault sometimes with SDLGameObject::getRect
     for(int i = 0; i < m_projectiles.size(); i++)
     {
-        //SDLGameObject* p2 = static_cast<SDLGameObject*>(m_projectiles[i]);
-
         if(m_projectiles[i] == nullptr || m_projectiles[i] == 0)
             return false;
 
-        if(checkCollision(p1, m_projectiles[i]))
+        if(checkProjectileEnemyCollision(p1, m_projectiles[i]))
         {
             p1->kill();
             m_projectiles[i]->kill();
@@ -65,7 +62,7 @@ bool ProjectileHandler::collision(SDLGameObject *p1)
     return false;
 }
 
-bool ProjectileHandler::checkCollision(SDLGameObject *p1, SDLGameObject *p2)
+bool ProjectileHandler::checkProjectileEnemyCollision(SDLGameObject *p1, SDLGameObject *p2)
 {
     int leftA, leftB, rightA, rightB;
     int topA, topB, bottomA, bottomB;
@@ -79,7 +76,6 @@ bool ProjectileHandler::checkCollision(SDLGameObject *p1, SDLGameObject *p2)
     rightB = p2->getPosition().getX() + p2->getWidth();
     topB = p2->getPosition().getY();
     bottomB = p2->getPosition().getY() + p2->getHeight();
-
 
     if(bottomA <= topB) {return false;}
     if(topA >= bottomB) {return false;}
@@ -112,7 +108,6 @@ void ProjectileHandler::update()
             m_projectiles.erase(m_projectiles.begin() + i);
         }
     }
-    //std::cout << "total projectiles = " << m_projectiles.size() << "\n";
 }
 
 void ProjectileHandler::clean()
@@ -124,7 +119,6 @@ void ProjectileHandler::clean()
     }
 
     m_projectiles.clear();
-
 }
 
 

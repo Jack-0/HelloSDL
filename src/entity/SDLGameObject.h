@@ -21,30 +21,17 @@ public:
     virtual void clean();
     virtual void load(const LoaderParams* pParams);
 
-
-    void changeFrame(int x)
-    {
-        m_currentFrame = x;
-    }
-
     Vector2D& getPosition() {return m_pos;}
     int getWidth() {return m_width;}
     int getHeight() {return m_height;}
 
     // movement
-    void setXvelocity(float x){
-        m_velocity.setX(x);
-    }
-    void setYvelocity(float y){
-        m_velocity.setY(y);
-    }
+    void setXvelocity(float x) { m_velocity.setX(x); }
+    void setYvelocity(float y) { m_velocity.setY(y); }
 
+    // set alive and check alive to see the state of the SDLGameObject
     void kill() { m_alive = false; }
-    void setXacceleration(float x){m_acceleration.setX(x);}
-    void setYacceleration(float y){m_acceleration.setY(y);}
-
     bool alive(){ return m_alive; }
-    //void setAlive(bool x) {alive = x;}
 
 protected:
     Vector2D m_pos = Vector2D(0, 0);
@@ -62,7 +49,6 @@ protected:
     float m_speed = 1.0f;
 
     bool m_alive = true;
-    bool m_collision = false;
 
     std::string m_texutreID;
 };

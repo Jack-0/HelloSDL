@@ -14,34 +14,23 @@ class ProjectileHandler
 public:
 
     ProjectileHandler();
-    /*
-    static ProjectileHandler* Instance()
-    {
-        if(s_pInstance == 0)
-            s_pInstance = new ProjectileHandler();
-
-        return s_pInstance;
-    }
-    */
 
     void draw();
     void update();
     void clean();
 
-    bool collision(SDLGameObject* gameObject);
-    void checkForCollisions(std::vector<SDLGameObject*> gameObjects);
+    bool collision(SDLGameObject* enemy);
+    //void checkForCollisions(std::vector<SDLGameObject*> gameObjects);
 
-    bool checkCollision(SDLGameObject* p1, SDLGameObject* p2);
-
+    // fire a single projectile
     void fireProjectile(Vector2D origin, Vector2D direction, float speed=3);
+    // fire multiple projectiles out in a circular radius from a central position
     void fireNova(Vector2D origin);
 
 private:
 
-    //ProjectileHandler();
-    //static ProjectileHandler* s_pInstance;
+    bool checkProjectileEnemyCollision(SDLGameObject *p1, SDLGameObject *p2);
 
-    Uint32 m_firerateDelay = 100.0f;
     std::vector<Projectile*> m_projectiles;
 };
 
